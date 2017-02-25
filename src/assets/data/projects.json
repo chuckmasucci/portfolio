@@ -1,0 +1,104 @@
+[
+  {
+    "id": 1,
+    "slug": "mdew",
+    "title": "Mountain Dew",
+    "role": "Technical Director",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus maximus ex mi, quis viverra felis aliquam at. Suspendisse potenti. Morbi scelerisque cursus dignissim. Aliquam et lacinia enim. Suspendisse potenti. Proin iaculis eros at nisl egestas fermentum. Vivamus non erat ligula. Duis vitae varius enim, id interdum leo. Sed euismod interdum eros sit amet fermentum. Aenean maximus mollis pellentesque. Nullam viverra volutpat ultrices.\r\n\r\nSuspendisse laoreet mauris a ante feugiat, nec interdum ipsum fringilla. Pellentesque luctus lorem lectus, sed placerat elit luctus vitae. Fusce id risus gravida nulla auctor porta. Etiam non ligula dignissim, semper tortor vel, ultricies purus. Integer risus urna, tincidunt porttitor neque quis, sagittis vehicula magna. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Aliquam sit amet urna tellus. Quisque tincidunt, metus id vestibulum suscipit, purus lorem sodales magna, luctus consectetur nisi mauris nec tortor. Nulla laoreet lacus nec odio mattis, vel pellentesque mauris ultrices. Donec suscipit nisi ut dignissim condimentum. Nam nulla nisi, sodales eget velit vitae, maximus volutpat massa. Integer elit dolor, sodales vel mattis et, facilisis vel velit. Aenean sed imperdiet nisl, nec ornare mauris. Donec malesuada congue suscipit. Sed sit amet tortor viverra, condimentum quam a, dignissim erat.",
+    "technologies": "HTML & CSS (Sass, Compass, Responsive Design)\r\nJavascript (Backbone, Raphael, Require, Three, Google Maps API, TweenMax)\r\nSVG",
+    "images":
+    {
+      "hero": "/chuckmasucci.github.io/src/assets/images/projects/mdew/hero.png",
+      "thumbnail": "/chuckmasucci.github.io/src/assets/images/projects/mdewdotcom_thumb.jpg",
+      "desktop": "#",
+      "mobile1": "#",
+      "mobile2": "#"
+    },
+    "color": "#6584a8"
+  },
+  {
+    "id": 2,
+    "slug": "aflac",
+    "title": "Aflac",
+    "role": "Technical Director",
+    "description": "Lorem ipsum",
+    "technologies": "Lorem ipsum",
+    "images":
+    {
+      "hero": "/chuckmasucci.github.io/src/assets/images/projects/aflac/hero.png",
+      "thumbnail": "/chuckmasucci.github.io/src/assets/images/projects/aflacdotcom_thumb.jpg",
+      "desktop": "#",
+      "mobile1": "#",
+      "mobile2": "#"
+    },
+    "color": "#2db4e3"
+  },
+  {
+    "id": 3,
+    "slug": "disney",
+    "title": "Disney Springs",
+    "role": "Technical Director",
+    "description": "Lorem ipsum",
+    "technologies": "Lorem ipsum",
+    "images":
+    {
+      "hero": "/chuckmasucci.github.io/src/assets/images/projects/mdew/hero.png",
+      "thumbnail": "/chuckmasucci.github.io/src/assets/images/projects/disneysprings_thumb.jpg",
+      "desktop": "#",
+      "mobile1": "#",
+      "mobile2": "#"
+    },
+    "color": "#adba42"
+  },
+  {
+    "id": 4,
+    "slug": "ampenergy",
+    "title": "Amp Energy",
+    "role": "Technical Director",
+    "description": "Lorem ipsum",
+    "technologies": "Lorem ipsum",
+    "images":
+    {
+      "hero": "/chuckmasucci.github.io/src/assets/images/projects/mdew/hero.png",
+      "thumbnail": "/chuckmasucci.github.io/src/assets/images/projects/ampdotcom_thumb.jpg",
+      "desktop": "#",
+      "mobile1": "#",
+      "mobile2": "#"
+    },
+    "color": "#202224"
+  },
+  {
+    "id": 5,
+    "slug": "aquafina",
+    "title": "Aquafina",
+    "role": "Technical Director",
+    "description": "Lorem ipsum",
+    "technologies": "Lorem ipsum",
+    "images":
+    {
+      "hero": "/chuckmasucci.github.io/src/assets/images/projects/mdew/hero.png",
+      "thumbnail": "/chuckmasucci.github.io/src/assets/images/projects/aquafinadotcom_thumb.jpg",
+      "desktop": "#",
+      "mobile1": "#",
+      "mobile2": "#"
+    },
+    "color": "#92c4e9"
+  },
+  {
+    "id": 6,
+    "slug": "keds",
+    "title": "Keds Bravehearts",
+    "role": "Technical Director",
+    "description": "Lorem ipsum",
+    "technologies": "Lorem ipsum",
+    "images":
+    {
+      "hero": "/chuckmasucci.github.io/src/assets/images/projects/mdew/hero.png",
+      "thumbnail": "/chuckmasucci.github.io/src/assets/images/projects/bravehearts_thumb.jpg",
+      "desktop": "#",
+      "mobile1": "#",
+      "mobile2": "#"
+    },
+    "color": "#ffd101"
+  }
+]

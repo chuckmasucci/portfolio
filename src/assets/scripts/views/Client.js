@@ -2,34 +2,35 @@ var m = require("mithril");
 var App = require("../models/App.js");
 var ClientModel = require("../models/ClientModel");
 
-//{Projects.project.images.thumbnail}
-
 const ProjectView = {
     client: '',
     toggles: '',
 
     oninit: function(vnode) {
-        this.data = {state: "initial"};
-        ClientModel.loadProject(vnode.attrs.id);
+
     },
 
     oncreate: function (vnode) {
-        setTimeout(function () {
-            this.toggles = document.getElementsByClassName("client-container__toggle");
-
-            for (var i = 0; i < toggles.length; i++) {
-                toggles[i].classList.add("client-container__toggle--transition-in");
-            }
-        }, 500);
+        // setTimeout(function () {
+        //     this.toggles = document.getElementsByClassName("client-container__toggle");
+        //
+        //     for (var i = 0; i < toggles.length; i++) {
+        //         toggles[i].classList.add("client-container__toggle--transition-in");
+        //     }
+        // }, 500);
     },
 
     onbeforeupdate: function(vnode, old) {
+        ClientModel.setCurrentClient(vnode.attrs.id);
 
-
+        vnode.children[0].client = ClientModel.prevClient;
+        vnode.children[1].client = ClientModel.currentClient;
+        vnode.children[2].client = ClientModel.nextClient;
+        console.log("setting children clients");
     },
 
     onupdate: function (vnode) {
-        console.log("update");
+        console.log("onupdate parent");
     },
 
     onbeforeremove: function (vnode) {
@@ -37,9 +38,9 @@ const ProjectView = {
         App.sendUpdate(new Event("pageState"));
         vnode.dom.classList.add("content-container--transition-out");
 
-        for (var i = 0; i < toggles.length; i++) {
-            toggles[i].classList.add("client-container__toggle--transition-out");
-        }
+        // for (var i = 0; i < toggles.length; i++) {
+        //     toggles[i].classList.add("client-container__toggle--transition-out");
+        // }
 
         return new Promise(function(resolve) {
             setTimeout(resolve, 500);
@@ -47,12 +48,13 @@ const ProjectView = {
     },
 
     view: function (vnode) {
-        console.log(vnode);
         return(
             <section id="content-container" class="client-container content-container content-container--transition-in">
                 {vnode.children[0]}
                 <br/>
                 {vnode.children[1]}
+                <br/>
+                {vnode.children[2]}
                 {/*
                 <a href="#" class="client-container__toggle client-container__toggle-shadow--size-8 client-container__prev">
                     <div class="client-container__toggle__arrow">

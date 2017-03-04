@@ -62,7 +62,7 @@
 	    },
 	    "/client/:id": {
 	        render: function render(vnode) {
-	            return m(Layout, [m(Client, [m(ClientChildView, { name: "Client Child 1" }), m(ClientChildView, { name: "Client Child 2" })]), m(Nav)]);
+	            return m(Layout, [m(Client, vnode.attrs, [m(ClientChildView, { name: "Client Child -1" }), m(ClientChildView, { name: "Client Child 0" }), m(ClientChildView, { name: "Client Child 1" })]), m(Nav)]);
 	        }
 	    }
 	});
@@ -1702,7 +1702,9 @@
 	var ClientModel = __webpack_require__(10);
 
 	var HomeView = {
-	    oninit: ClientModel.getFirstClient,
+	    onbeforeupdate: function onbeforeupdate() {
+	        ClientModel.setClientByIndex(0);
+	    },
 
 	    onbeforeremove: function onbeforeremove(vnode) {
 	        App.sendUpdate(new Event("pageState"));
@@ -1730,10 +1732,10 @@
 	                    { "class": "content-container__title__description content-container__title--text-shadow--size-3" },
 	                    "TECHNICAL DIRECTOR"
 	                ),
-	                m(
+	                Object.keys(ClientModel.currentClient).length > 0 && m(
 	                    "a",
-	                    { "class": "btn btn--green btn--box-shadow", href: "#!/client/" + ClientModel.firstClient },
-	                    ClientModel.firstClient.length > 0 && m(
+	                    { "class": "btn btn--green btn--box-shadow", href: "#!/client/" + ClientModel.currentClient.slug },
+	                    m(
 	                        "span",
 	                        { "class": "btn__copy" },
 	                        "VIEW"
@@ -1912,52 +1914,68 @@
 
 	var m = __webpack_require__(1);
 
-	var Clients = {
+	var ClientsModel = {
 	    list: [],
-	    client: [],
-	    firstClient: '',
-	    currentClient: 0,
-	    nextClient: 0,
-	    prevClient: 0,
+	    currentClient: [],
+	    nextClient: [],
+	    prevClient: [],
 
-	    loadProject: function loadProject(id) {
+	    currentIndex: 0,
+	    prevIndex: 0,
+	    nextIndex: 0,
+
+	    loadList: function loadList(id) {
 	        return m.request({
 	            method: "GET",
 	            url: "/chuckmasucci.github.io/src/assets/data/projects.json"
 	        }).then(function (result) {
-	            Clients.list = result;
-	            for (var i in Clients.list) {
-	                var client = Clients.list[i];
-	                if (client.slug == id) {
-	                    Clients.client = client;
-	                    break;
-	                }
+	            ClientsModel.list = result;
+	            // console.log(ClientsModel.list);
+	        });
+	    },
+
+	    setCurrentClient: function setCurrentClient(id) {
+	        var clientData = this.getClientById(id);
+
+	        this.currentIndex = clientData.index;
+	        this.currentClient = clientData.client;
+	        console.log('current index = ' + clientData.index);
+	        this.setPrevClient();
+	        this.setNextClient();
+	    },
+
+	    setClientByIndex: function setClientByIndex(index) {
+	        this.currentIndex = index;
+	        this.currentClient = this.list[0];
+	        // console.log(this.currentClient);
+	    },
+
+	    setNextClient: function setNextClient() {
+	        this.nextIndex = this.currentIndex == this.list.length - 1 ? 0 : this.currentIndex + 1;
+	        this.nextClient = this.list[this.nextIndex];
+	    },
+
+	    setPrevClient: function setPrevClient() {
+	        this.prevIndex = this.currentIndex == 0 ? this.list.length - 1 : this.currentIndex - 1;
+	        this.prevClient = this.list[this.prevIndex];
+	    },
+
+	    getClientById: function getClientById(id) {
+	        var index = 0;
+	        for (var i in ClientsModel.list) {
+	            var client = ClientsModel.list[i];
+	            if (client.slug == id) {
+	                return { client: client, index: index };
+	                break;
 	            }
-	        });
-	    },
 
-	    loadList: function loadList() {
-	        return m.request({
-	            method: "GET",
-	            url: "/chuckmasucci.github.io/src/assets/data/projects.json"
-	        }).then(function (result) {
-	            Clients.list = result;
-	        });
-	    },
-
-	    getFirstClient: function getFirstClient() {
-	        return m.request({
-	            method: "GET",
-	            url: "/chuckmasucci.github.io/src/assets/data/projects.json"
-	        }).then(function (result) {
-	            Clients.firstClient = result[Clients.currentClient].slug;
-	            Clients.nextClient = result[Clients.currentClient + 1].slug;
-	        });
+	            index++;
+	        }
 	    }
 
 	};
 
-	module.exports = Clients;
+	module.exports = ClientsModel;
 
 /***/ },
 /* 11 */
@@ -1969,31 +1987,33 @@
 	var App = __webpack_require__(7);
 	var ClientModel = __webpack_require__(10);
 
-	//{Projects.project.images.thumbnail}
-
 	var ProjectView = {
 	    client: '',
 	    toggles: '',
 
-	    oninit: function oninit(vnode) {
-	        this.data = { state: "initial" };
-	        ClientModel.loadProject(vnode.attrs.id);
-	    },
+	    oninit: function oninit(vnode) {},
 
 	    oncreate: function oncreate(vnode) {
-	        setTimeout(function () {
-	            this.toggles = document.getElementsByClassName("client-container__toggle");
-
-	            for (var i = 0; i < toggles.length; i++) {
-	                toggles[i].classList.add("client-container__toggle--transition-in");
-	            }
-	        }, 500);
+	        // setTimeout(function () {
+	        //     this.toggles = document.getElementsByClassName("client-container__toggle");
+	        //
+	        //     for (var i = 0; i < toggles.length; i++) {
+	        //         toggles[i].classList.add("client-container__toggle--transition-in");
+	        //     }
+	        // }, 500);
 	    },
 
-	    onbeforeupdate: function onbeforeupdate(vnode, old) {},
+	    onbeforeupdate: function onbeforeupdate(vnode, old) {
+	        ClientModel.setCurrentClient(vnode.attrs.id);
+
+	        vnode.children[0].client = ClientModel.prevClient;
+	        vnode.children[1].client = ClientModel.currentClient;
+	        vnode.children[2].client = ClientModel.nextClient;
+	        console.log("setting children clients");
+	    },
 
 	    onupdate: function onupdate(vnode) {
-	        console.log("update");
+	        console.log("onupdate parent");
 	    },
 
 	    onbeforeremove: function onbeforeremove(vnode) {
@@ -2001,9 +2021,9 @@
 	        App.sendUpdate(new Event("pageState"));
 	        vnode.dom.classList.add("content-container--transition-out");
 
-	        for (var i = 0; i < toggles.length; i++) {
-	            toggles[i].classList.add("client-container__toggle--transition-out");
-	        }
+	        // for (var i = 0; i < toggles.length; i++) {
+	        //     toggles[i].classList.add("client-container__toggle--transition-out");
+	        // }
 
 	        return new Promise(function (resolve) {
 	            setTimeout(resolve, 500);
@@ -2011,13 +2031,14 @@
 	    },
 
 	    view: function view(vnode) {
-	        console.log(vnode);
 	        return m(
 	            "section",
 	            { id: "content-container", "class": "client-container content-container content-container--transition-in" },
 	            vnode.children[0],
 	            m("br", null),
-	            vnode.children[1]
+	            vnode.children[1],
+	            m("br", null),
+	            vnode.children[2]
 	        );
 	    }
 	};
@@ -2033,12 +2054,13 @@
 	var m = __webpack_require__(1);
 	var Nav = __webpack_require__(13);
 	var App = __webpack_require__(7);
+	var ClientModel = __webpack_require__(10);
 
 	var Layout = {
-	    oninit: function oninit() {
+	    oninit: function oninit(vnode) {
 	        var self = this;
 
-	        window.addEventListener('navState', function (e) {
+	        ClientModel.loadList(), window.addEventListener('navState', function (e) {
 	            self.moveForNav(App.navState());
 	        }, false);
 
@@ -2102,8 +2124,6 @@
 	    oninit: function oninit(vnode) {
 	        var self = this;
 
-	        ClientModel.getFirstClient();
-
 	        window.addEventListener('navState', function (e) {
 	            vnode.state.open(App.navState());
 	        }, false);
@@ -2127,15 +2147,6 @@
 	                        "a",
 	                        { href: "#!/" },
 	                        "HOME"
-	                    )
-	                ),
-	                m(
-	                    "li",
-	                    null,
-	                    m(
-	                        "a",
-	                        { href: "#!/client/" + ClientModel.firstClient },
-	                        "PROJECTS"
 	                    )
 	                ),
 	                m(
@@ -2167,6 +2178,12 @@
 	var m = __webpack_require__(1);
 
 	var ClientChildView = {
+	    oninit: function oninit() {},
+
+	    onupdate: function onupdate(vnode) {
+	        console.log('onupdate ' + vnode.attrs.name);
+	        console.log(vnode.client);
+	    },
 
 	    view: function view(vnode) {
 	        return m(

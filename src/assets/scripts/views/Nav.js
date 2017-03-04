@@ -7,8 +7,6 @@ var Nav = {
     oninit: function (vnode) {
         const self = this;
 
-        ClientModel.getFirstClient();
-
         window.addEventListener('navState', function (e) {
             vnode.state.open(App.navState());
         }, false);
@@ -23,7 +21,6 @@ var Nav = {
             <nav id="nav" class="nav">
                 <ul>
                     <li><a href="#!/">HOME</a></li>
-                    <li><a href={"#!/client/" + ClientModel.firstClient}>PROJECTS</a></li>
                     <li><a href="#!/contact">CONTACT</a></li>
                 </ul>
 

@@ -14,7 +14,7 @@ m.route(document.body, "/", {
     },
     "/client/:id": {
         render: function (vnode) {
-            return m(Layout, [m(Client, [m(ClientChildView, {name: "Client Child 1"}), m(ClientChildView, {name: "Client Child 2"})]), m(Nav)]);
+            return m(Layout, [m(Client, vnode.attrs, [m(ClientChildView, {name: "Client Child -1"}), m(ClientChildView, {name: "Client Child 0"}), m(ClientChildView, {name: "Client Child 1"})]), m(Nav)]);
         }
     }
 });

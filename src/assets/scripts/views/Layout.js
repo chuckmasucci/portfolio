@@ -1,10 +1,13 @@
-const m = require("mithril");
-const Nav = require("./Nav.js");
-const App = require("../models/App.js");
+var m = require("mithril");
+var Nav = require("./Nav.js");
+var App = require("../models/App.js");
+var ClientModel = require("../models/ClientModel");
 
-const Layout = {
-    oninit: function () {
+var Layout = {
+    oninit: function (vnode) {
         const self = this;
+
+        ClientModel.loadList(),
 
         window.addEventListener('navState', function (e) {
             self.moveForNav(App.navState());

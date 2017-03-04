@@ -4,7 +4,9 @@ var App = require("../models/App.js");
 var ClientModel = require("../models/ClientModel");
 
 var HomeView = {
-    oninit:  ClientModel.getFirstClient,
+    onbeforeupdate: function () {
+        ClientModel.setClientByIndex(0);
+    },
 
     onbeforeremove: function (vnode) {
         App.sendUpdate(new Event("pageState"));
@@ -21,11 +23,11 @@ var HomeView = {
                 <div class="content-container__title">
                     <h2 class="content-container__title__name content-container__title--text-shadow--size-8">CHUCK MASUCCI</h2>
                     <h3 class="content-container__title__description content-container__title--text-shadow--size-3">TECHNICAL DIRECTOR</h3>
-                    <a class="btn btn--green btn--box-shadow" href={"#!/client/" + ClientModel.firstClient}>
-                        {ClientModel.firstClient.length > 0 &&
-                            <span class="btn__copy">VIEW</span>
-                        }
+                    {Object.keys(ClientModel.currentClient).length > 0 &&
+                    <a class="btn btn--green btn--box-shadow" href={"#!/client/" + ClientModel.currentClient.slug}>
+                        <span class="btn__copy">VIEW</span>
                     </a>
+                    }
                 </div>
             </section>
         )

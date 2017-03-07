@@ -59,12 +59,12 @@ _Server will run on http://localhost:8080/_
  - Edge latest
 - Mobile
  - Chrome latest
- - Safar latest
+ - Safari latest
 
 ## Known Issues
 - Previous button doesn't animate left-to-right
 - Spam clicking back/forward button disrupts transition animation unpleasantly
-- Navigation is incomplete and _not available_ in current build
+- Hamburger navigation is incomplete and _not available_ in current build
 - Only supports latest browsers
 
 ## TODO

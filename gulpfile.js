@@ -6,9 +6,15 @@ const minimist = require('minimist');
 const connect = require('gulp-connect');
 const rename = require('gulp-rename');
 
-gulp.task('copy_index', function () {
+gulp.task('copy-static-files', function () {
     gulp.src('src/index.html')
         .pipe(gulp.dest('dist/'));
+
+    gulp.src('src/assets/data/**/*')
+        .pipe(gulp.dest('dist/assets/data/'));
+
+    gulp.src('src/assets/images/**/*')
+        .pipe(gulp.dest('dist/assets/images/'));
 });
 
 gulp.task('sass-dev', function() {
@@ -43,7 +49,7 @@ gulp.task('build-dev', ['sass-dev', 'webpack-dev'], function () {
     console.log('Building for development');
 });
 
-gulp.task('build-prod', ['copy_index', 'sass-prod', 'webpack-prod'], function () {
+gulp.task('build-prod', ['copy-static-files', 'sass-prod', 'webpack-prod'], function () {
     console.log('Building for production');
 });
 

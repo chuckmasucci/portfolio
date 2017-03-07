@@ -1,4 +1,5 @@
 var m = require("mithril");
+var App = require("../models/App.js");
 
 var ClientsModel = {
     list: [],
@@ -10,30 +11,47 @@ var ClientsModel = {
     prevIndex: 0,
     nextIndex: 0,
 
+    id: '',
+
+    // Load client data JSON file
     loadList: function (id) {
         return m.request({
             method: "GET",
-            url: "/chuckmasucci.github.io/src/assets/data/projects.json",
+            url: "/assets/data/projects.json",
         }).then(function (result) {
             ClientsModel.list = result;
-            // console.log(ClientsModel.list);
+
+            if(id === undefined) {
+                ClientsModel.setClientByIndex(0);
+            }
+            else {
+                ClientsModel.setCurrentClientId(id);
+                ClientsModel.setClientData()
+            }
         });
     },
 
-    setCurrentClient: function (id) {
-        var clientData = this.getClientById(id);
-
-        this.currentIndex = clientData.index;
-        this.currentClient = clientData.client;
-        console.log('current index = ' + clientData.index)
-        this.setPrevClient();
-        this.setNextClient();
+    // Defines the client slug
+    setCurrentClientId: function (id) {
+        this.id = id;
     },
 
+    // Defines previous, current, and next client data into separate objects based on global id
+    setClientData: function () {
+        var clientData = this.getClientById(this.id);
+        this.currentIndex = clientData.index;
+        this.currentClient = clientData.client;
+        this.setPrevClient();
+        this.setNextClient();
+
+    },
+
+    // Defines previous, current, and next client data into separate objects based on @param index
     setClientByIndex: function (index) {
         this.currentIndex = index;
         this.currentClient = this.list[0];
-        // console.log(this.currentClient);
+        this.setPrevClient();
+        this.setNextClient();
     },
 
     setNextClient: function () {
@@ -46,13 +64,13 @@ var ClientsModel = {
         this.prevClient = this.list[this.prevIndex];
     },
 
+    // Returns current client based on client slug @param id
     getClientById: function (id) {
         var index = 0;
         for(var i in ClientsModel.list) {
             var client = ClientsModel.list[i];
             if(client.slug == id) {
                 return {client: client, index: index};
-                break;
             }
 
             index++;

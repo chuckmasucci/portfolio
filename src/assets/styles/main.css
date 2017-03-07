@@ -26,16 +26,18 @@ body {
     overflow-x: hidden;
     width: 100vw;
     height: 100vh; }
-    body .layout a.menu {
+    body .layout button.menu {
       position: fixed;
       top: 30px;
       right: 30px;
-      z-index: 100; }
+      z-index: 100;
+      background: none;
+      border: 0; }
       @media screen and (max-width: 600px) {
-        body .layout a.menu {
+        body .layout button.menu {
           top: 15px;
           right: 15px; } }
-      body .layout a.menu svg:hover .menu__hamburger-line {
+      body .layout button.menu svg:hover .menu__hamburger-line {
         fill: #00a341; }
     body .layout #content-container.content-container--nav-open {
       transform: translate(-300px, 0); }
@@ -45,51 +47,37 @@ body {
       left: 0;
       height: 100vh;
       width: 100vw;
-      transition: all 1s; }
-      body .layout #content-container.content-container.content-container--transition-in {
-        animation: content-container--transition-in 0.5s;
-        animation-fill-mode: forwards; }
-      body .layout #content-container.content-container.content-container--transition-out {
-        animation: content-container--transition-out 0.5s;
-        animation-fill-mode: forwards; }
-      body .layout #content-container.content-container.content-container--transition-before {
-        transform: translate(100vw, 0); }
-
-@keyframes content-container--transition-in {
-  from {
-    transform: translate(100vw, 0); }
-  to {
-    transform: translate(0, 0); } }
-
-@keyframes content-container--transition-out {
-  from {
-    transform: translate(0, 0); }
-  to {
-    transform: translate(-100vw, 0); } }
-      body .layout #content-container.content-container .content-container__title {
+      transition: all 0.5s; }
+      body .layout #content-container.content-container .content-container__home {
         position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%); }
-        body .layout #content-container.content-container .content-container__title .content-container__title__name {
-          font-family: 'Bree Serif', serif;
-          font-size: 72px;
-          font-weight: normal;
-          text-align: center;
-          line-height: 65px;
-          margin: 0 0 15px 0;
-          padding: 0; }
-        body .layout #content-container.content-container .content-container__title .content-container__title__description {
-          font-family: 'Roboto', sans-serif;
-          font-weight: 900;
-          font-size: 18px;
-          text-align: center;
-          margin: 0 0 29px 0;
-          padding: 0; }
-        body .layout #content-container.content-container .content-container__title .content-container__title--text-shadow--size-8 {
-          text-shadow: 0 8px 0 rgba(150, 150, 150, 0.35); }
-        body .layout #content-container.content-container .content-container__title .content-container__title--text-shadow--size-3 {
-          text-shadow: 0 3px 0 rgba(150, 150, 150, 0.35); }
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh; }
+        body .layout #content-container.content-container .content-container__home .content-container__home__title {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%); }
+          body .layout #content-container.content-container .content-container__home .content-container__home__title .content-container__home__title__name {
+            font-family: 'Bree Serif', serif;
+            font-size: 72px;
+            font-weight: normal;
+            text-align: center;
+            line-height: 65px;
+            margin: 0 0 15px 0;
+            padding: 0; }
+          body .layout #content-container.content-container .content-container__home .content-container__home__title .content-container__home__title__description {
+            font-family: 'Roboto', sans-serif;
+            font-weight: 900;
+            font-size: 18px;
+            text-align: center;
+            margin: 0 0 29px 0;
+            padding: 0; }
+          body .layout #content-container.content-container .content-container__home .content-container__home__title .content-container__home__title--text-shadow--size-8 {
+            text-shadow: 0 8px 0 rgba(150, 150, 150, 0.35); }
+          body .layout #content-container.content-container .content-container__home .content-container__home__title .content-container__home__title--text-shadow--size-3 {
+            text-shadow: 0 3px 0 rgba(150, 150, 150, 0.35); }
     body .layout #content-container.home .btn {
       -webkit-border-radius: 10px;
       -moz-border-radius: 10px;
@@ -157,7 +145,7 @@ body {
           overflow: hidden;
           width: 0;
           height: 100%;
-          transition: .5s ease;
+          transition: 0.5s ease;
           opacity: .97; }
           body .layout #content-container.projects .projects__list-container .projects__list-container__grid .projects__list-container__grid__cell .projects__list-container__grid__cell__overlay .projects__list-container__grid__cell__overlay__copy {
             font-family: 'Roboto', serif;
@@ -223,69 +211,73 @@ body {
         top: 50%;
         transform: translateY(-50%);
         line-height: 8px; }
-    body .layout #content-container.client-container .client-container__content {
-      max-width: 80vw;
-      width: 1024px;
-      text-align: center;
+    body .layout #content-container.client-container .client-container__clients {
       position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%); }
-      body .layout #content-container.client-container .client-container__content .client-container__content__hero {
-        display: block;
-        margin: 0 auto;
-        max-height: 60vh;
-        max-width: 100%; }
-        @media screen and (max-width: 600px) {
-          body .layout #content-container.client-container .client-container__content .client-container__content__hero {
-            margin: 0 auto 15px; } }
-      body .layout #content-container.client-container .client-container__content .client-container__content__title {
-        font-family: 'Bree Serif', serif;
-        font-size: 60px;
-        font-weight: normal;
-        text-transform: uppercase;
-        line-height: 60px;
-        margin: 0 0 20px; }
-        @media screen and (max-width: 600px) {
-          body .layout #content-container.client-container .client-container__content .client-container__content__title {
-            font-size: 35px;
-            margin: 0 0 10px;
-            line-height: 33px; } }
-        body .layout #content-container.client-container .client-container__content .client-container__content__title.client-container__content__title--shadow-size-8 {
-          text-shadow: 0 8px 0 rgba(150, 150, 150, 0.35); }
+      width: 100vw;
+      height: 100vh; }
+      body .layout #content-container.client-container .client-container__clients .client-container__clients__content {
+        max-width: 80vw;
+        width: 1024px;
+        text-align: center;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%); }
+        body .layout #content-container.client-container .client-container__clients .client-container__clients__content .client-container__clients__content__hero {
+          display: block;
+          margin: 0 auto;
+          max-height: 60vh;
+          max-width: 100%; }
           @media screen and (max-width: 600px) {
-            body .layout #content-container.client-container .client-container__content .client-container__content__title.client-container__content__title--shadow-size-8 {
-              text-shadow: 0 3px 0 rgba(150, 150, 150, 0.35); } }
-      body .layout #content-container.client-container .client-container__content .client-container__content__role {
-        font-size: 25px;
-        font-family: 'Roboto', serif;
-        font-weight: 700;
-        text-transform: uppercase;
-        color: #00a341;
-        line-height: 10px;
-        margin: 0 0 25px; }
-        @media screen and (max-width: 600px) {
-          body .layout #content-container.client-container .client-container__content .client-container__content__role {
-            font-size: 19px;
-            margin: 0 0 15px; } }
-      body .layout #content-container.client-container .client-container__content .client-container__content__description {
-        white-space: pre-wrap;
-        font-size: 15px;
-        font-family: 'Roboto', serif;
-        line-height: 26px;
-        margin: 0 0 25px; }
-        @media screen and (max-width: 600px) {
-          body .layout #content-container.client-container .client-container__content .client-container__content__description {
-            font-size: 15px; } }
-      body .layout #content-container.client-container .client-container__content .client-container__content__technologies {
-        white-space: pre-wrap;
-        font-size: 15px;
-        font-family: 'Roboto', serif;
-        font-weight: 500;
-        font-style: italic; }
-        @media screen and (max-width: 600px) {
-          body .layout #content-container.client-container .client-container__content .client-container__content__technologies {
-            font-size: 15px; } }
+            body .layout #content-container.client-container .client-container__clients .client-container__clients__content .client-container__clients__content__hero {
+              margin: 0 auto 15px; } }
+        body .layout #content-container.client-container .client-container__clients .client-container__clients__content .client-container__clients__content__title {
+          font-family: 'Bree Serif', serif;
+          font-size: 58px;
+          font-weight: normal;
+          text-transform: uppercase;
+          line-height: 60px;
+          margin: 0 0 20px; }
+          @media screen and (max-width: 600px) {
+            body .layout #content-container.client-container .client-container__clients .client-container__clients__content .client-container__clients__content__title {
+              font-size: 35px;
+              margin: 0 0 10px;
+              line-height: 33px; } }
+          body .layout #content-container.client-container .client-container__clients .client-container__clients__content .client-container__clients__content__title.client-container__clients__content__title--shadow-size-8 {
+            text-shadow: 0 8px 0 rgba(150, 150, 150, 0.35); }
+            @media screen and (max-width: 600px) {
+              body .layout #content-container.client-container .client-container__clients .client-container__clients__content .client-container__clients__content__title.client-container__clients__content__title--shadow-size-8 {
+                text-shadow: 0 3px 0 rgba(150, 150, 150, 0.35); } }
+        body .layout #content-container.client-container .client-container__clients .client-container__clients__content .client-container__clients__content__role {
+          font-size: 25px;
+          font-family: 'Roboto', serif;
+          font-weight: 700;
+          text-transform: uppercase;
+          color: #00a341;
+          line-height: 10px;
+          margin: 0 0 25px; }
+          @media screen and (max-width: 600px) {
+            body .layout #content-container.client-container .client-container__clients .client-container__clients__content .client-container__clients__content__role {
+              font-size: 19px;
+              margin: 0 0 15px; } }
+        body .layout #content-container.client-container .client-container__clients .client-container__clients__content .client-container__clients__content__description {
+          white-space: pre-wrap;
+          font-size: 15px;
+          font-family: 'Roboto', serif;
+          line-height: 26px;
+          margin: 0 0 25px; }
+          @media screen and (max-width: 600px) {
+            body .layout #content-container.client-container .client-container__clients .client-container__clients__content .client-container__clients__content__description {
+              font-size: 15px; } }
+        body .layout #content-container.client-container .client-container__clients .client-container__clients__content .client-container__clients__content__technologies {
+          white-space: pre-wrap;
+          font-size: 15px;
+          font-family: 'Roboto', serif;
+          font-weight: 500;
+          font-style: italic; }
+          @media screen and (max-width: 600px) {
+            body .layout #content-container.client-container .client-container__clients .client-container__clients__content .client-container__clients__content__technologies {
+              font-size: 15px; } }
     body .layout .nav {
       position: fixed;
       top: 0;
@@ -294,9 +286,26 @@ body {
       height: 100%;
       background-color: #1d1e20;
       transition: all 0.3s; }
+  body .content-container--transition-in {
+    animation: content-container--transition-in 0.5s;
+    animation-fill-mode: forwards; }
+  body .content-container--transition-out {
+    animation: content-container--transition-out 0.5s;
+    animation-fill-mode: forwards; }
+  body .content-container--transition-before {
+    transform: translate(100vw, 0); }
 
-html.touch body .layout #content-container.client-container .client-container__toggle {
-  display: none; }
+@keyframes content-container--transition-in {
+  from {
+    transform: translateX(100vw); }
+  to {
+    transform: translateX(0); } }
+
+@keyframes content-container--transition-out {
+  from {
+    transform: translate(0, 0); }
+  to {
+    transform: translate(-100vw, 0); } }
 
 html.touch body .layout #content-container .projects__list-container .projects__list-container__grid .projects__list-container__grid__cell a .projects__list-container__grid__cell__overlay {
   position: absolute;

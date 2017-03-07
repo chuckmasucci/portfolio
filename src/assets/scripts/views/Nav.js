@@ -28,6 +28,8 @@ var Nav = {
         )
     },
 
+    // open the nav
+    // TODO: needs rework
     open: function (navState) {
         navState ? this.el.style.right = "0px" : this.el.style.right = "-300px";
     }

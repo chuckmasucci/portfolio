@@ -54,15 +54,16 @@
 	var Nav = __webpack_require__(13);
 	var ClientChildView = __webpack_require__(14);
 
+	// Site routes: /, /client/"clientslug"
 	m.route(document.body, "/", {
 	    "/": {
-	        render: function render() {
-	            return m(Layout, [m(Home), m(Nav)]);
+	        render: function render(vnode) {
+	            return m(Layout, vnode.attrs, [m(Home), m(Nav)]);
 	        }
 	    },
 	    "/client/:id": {
 	        render: function render(vnode) {
-	            return m(Layout, [m(Client, vnode.attrs, [m(ClientChildView, { name: "Client Child -1" }), m(ClientChildView, { name: "Client Child 0" }), m(ClientChildView, { name: "Client Child 1" })]), m(Nav)]);
+	            return m(Layout, vnode.attrs, [m(Client, vnode.attrs, [m(ClientChildView, { initial: false })]), m(Nav)]);
 	        }
 	    }
 	});
@@ -1702,14 +1703,23 @@
 	var ClientModel = __webpack_require__(10);
 
 	var HomeView = {
-	    onbeforeupdate: function onbeforeupdate() {
-	        ClientModel.setClientByIndex(0);
+	    oncreate: function oncreate(vnode) {
+	        // Wait for transition in animation to complere (.5s) and remove the class
+	        setTimeout(function () {
+	            vnode.dom.classList.remove("content-container--transition-in");
+	        }, 500);
 	    },
 
-	    onbeforeremove: function onbeforeremove(vnode) {
+	    onbeforeremove: function onbeforeremove() {
+	        // Inform the App model the page is being removed - this informs the nav to close
 	        App.sendUpdate(new Event("pageState"));
-	        vnode.dom.classList.add("content-container--transition-out");
 
+	        // Declare the container element that will animate before being removed
+	        var transitionContainer = document.getElementById("content-container__home");
+	        transitionContainer.classList.add("content-container--transition-out");
+
+	        // This hold's the mithril lifecycle until the transition animation completes
+	        // On complete the onremove method is called and this view is destroyed
 	        return new Promise(function (resolve) {
 	            setTimeout(resolve, 500);
 	        });
@@ -1721,24 +1731,28 @@
 	            { id: "content-container", "class": "home content-container content-container--transition-in" },
 	            m(
 	                "div",
-	                { "class": "content-container__title" },
+	                { id: "content-container__home", "class": "content-container__home" },
 	                m(
-	                    "h2",
-	                    { "class": "content-container__title__name content-container__title--text-shadow--size-8" },
-	                    "CHUCK MASUCCI"
-	                ),
-	                m(
-	                    "h3",
-	                    { "class": "content-container__title__description content-container__title--text-shadow--size-3" },
-	                    "TECHNICAL DIRECTOR"
-	                ),
-	                Object.keys(ClientModel.currentClient).length > 0 && m(
-	                    "a",
-	                    { "class": "btn btn--green btn--box-shadow", href: "#!/client/" + ClientModel.currentClient.slug },
+	                    "div",
+	                    { "class": "content-container__home__title" },
 	                    m(
-	                        "span",
-	                        { "class": "btn__copy" },
-	                        "VIEW"
+	                        "h2",
+	                        { "class": "content-container__home__title__name content-container__home__title--text-shadow--size-8" },
+	                        "CHUCK MASUCCI"
+	                    ),
+	                    m(
+	                        "h3",
+	                        { "class": "content-container__home__title__description content-container__home__title--text-shadow--size-3" },
+	                        "TECHNICAL DIRECTOR"
+	                    ),
+	                    Object.keys(ClientModel.currentClient).length > 0 && m(
+	                        "a",
+	                        { "class": "btn btn--green btn--box-shadow", href: "/client/" + ClientModel.currentClient.slug, oncreate: m.route.link },
+	                        m(
+	                            "span",
+	                            { "class": "btn__copy" },
+	                            "VIEW"
+	                        )
 	                    )
 	                )
 	            )
@@ -1754,24 +1768,37 @@
 
 	'use strict';
 
+	// App model for holding app state data and event dispatching
+	// TODO needs some work
+
 	var m = __webpack_require__(1);
 	var stream = __webpack_require__(8);
 
 	var App = {
+	    // State of the navigation (currently not implemented)
 	    navState: stream(false),
 
+	    // Toggles nav state and dispatches event for other classes to react upon
 	    toggleNav: function toggleNav() {
 	        this.navState(!this.navState());
 	        this.sendUpdate(new Event('navState'));
 	    },
 
+	    // Changes nav state based on @param state
 	    updateNav: function updateNav(state) {
 	        this.navState(state);
 	        this.sendUpdate(new Event('navState'));
 	    },
 
+	    // Dispatch event helper
 	    sendUpdate: function sendUpdate(e) {
 	        window.dispatchEvent(e);
+	    },
+
+	    // Holds the main content container for each different view (used for transition animations)
+	    // TODO not sure if this is the best place for this
+	    setContentContainer: function setContentContainer(elem) {
+	        this.contentContainer = elem;
 	    }
 	};
 
@@ -1913,6 +1940,7 @@
 	"use strict";
 
 	var m = __webpack_require__(1);
+	var App = __webpack_require__(7);
 
 	var ClientsModel = {
 	    list: [],
@@ -1924,30 +1952,45 @@
 	    prevIndex: 0,
 	    nextIndex: 0,
 
+	    id: '',
+
+	    // Load client data JSON file
 	    loadList: function loadList(id) {
 	        return m.request({
 	            method: "GET",
-	            url: "/chuckmasucci.github.io/src/assets/data/projects.json"
+	            url: "/assets/data/projects.json"
 	        }).then(function (result) {
 	            ClientsModel.list = result;
-	            // console.log(ClientsModel.list);
+
+	            if (id === undefined) {
+	                ClientsModel.setClientByIndex(0);
+	            } else {
+	                ClientsModel.setCurrentClientId(id);
+	                ClientsModel.setClientData();
+	            }
 	        });
 	    },
 
-	    setCurrentClient: function setCurrentClient(id) {
-	        var clientData = this.getClientById(id);
+	    // Defines the client slug
+	    setCurrentClientId: function setCurrentClientId(id) {
+	        this.id = id;
+	    },
 
+	    // Defines previous, current, and next client data into separate objects based on global id
+	    setClientData: function setClientData() {
+	        var clientData = this.getClientById(this.id);
 	        this.currentIndex = clientData.index;
 	        this.currentClient = clientData.client;
-	        console.log('current index = ' + clientData.index);
 	        this.setPrevClient();
 	        this.setNextClient();
 	    },
 
+	    // Defines previous, current, and next client data into separate objects based on @param index
 	    setClientByIndex: function setClientByIndex(index) {
 	        this.currentIndex = index;
 	        this.currentClient = this.list[0];
-	        // console.log(this.currentClient);
+	        this.setPrevClient();
+	        this.setNextClient();
 	    },
 
 	    setNextClient: function setNextClient() {
@@ -1960,13 +2003,13 @@
 	        this.prevClient = this.list[this.prevIndex];
 	    },
 
+	    // Returns current client based on client slug @param id
 	    getClientById: function getClientById(id) {
 	        var index = 0;
 	        for (var i in ClientsModel.list) {
 	            var client = ClientsModel.list[i];
 	            if (client.slug == id) {
 	                return { client: client, index: index };
-	                break;
 	            }
 
 	            index++;
@@ -1987,43 +2030,44 @@
 	var App = __webpack_require__(7);
 	var ClientModel = __webpack_require__(10);
 
-	var ProjectView = {
+	var ClientView = {
 	    client: '',
 	    toggles: '',
 
-	    oninit: function oninit(vnode) {},
+	    oninit: function oninit(vnode) {
+	        // Inform the client model of the current project based on the url slug
+	        ClientModel.setCurrentClientId(vnode.attrs.id);
+	    },
 
 	    oncreate: function oncreate(vnode) {
-	        // setTimeout(function () {
-	        //     this.toggles = document.getElementsByClassName("client-container__toggle");
-	        //
-	        //     for (var i = 0; i < toggles.length; i++) {
-	        //         toggles[i].classList.add("client-container__toggle--transition-in");
-	        //     }
-	        // }, 500);
+	        // Transition the next and previous button in
+	        setTimeout(function () {
+	            this.toggles = document.getElementsByClassName("client-container__toggle");
+
+	            for (var i = 0; i < toggles.length; i++) {
+	                toggles[i].classList.add("client-container__toggle--transition-in");
+	            }
+	        }, 500);
 	    },
 
 	    onbeforeupdate: function onbeforeupdate(vnode, old) {
-	        ClientModel.setCurrentClient(vnode.attrs.id);
+	        // When url updates we update the client model with the current project based on the url slug
+	        ClientModel.setCurrentClientId(vnode.attrs.id);
 
-	        vnode.children[0].client = ClientModel.prevClient;
-	        vnode.children[1].client = ClientModel.currentClient;
-	        vnode.children[2].client = ClientModel.nextClient;
-	        console.log("setting children clients");
+	        // Update the client with new data based on the new project
+	        ClientModel.setClientData();
 	    },
 
-	    onupdate: function onupdate(vnode) {
-	        console.log("onupdate parent");
-	    },
+	    onupdate: function onupdate(vnode) {},
 
 	    onbeforeremove: function onbeforeremove(vnode) {
-
+	        // Inform the App model the view is about to be removed and transition out
 	        App.sendUpdate(new Event("pageState"));
 	        vnode.dom.classList.add("content-container--transition-out");
 
-	        // for (var i = 0; i < toggles.length; i++) {
-	        //     toggles[i].classList.add("client-container__toggle--transition-out");
-	        // }
+	        for (var i = 0; i < toggles.length; i++) {
+	            toggles[i].classList.add("client-container__toggle--transition-out");
+	        }
 
 	        return new Promise(function (resolve) {
 	            setTimeout(resolve, 500);
@@ -2033,17 +2077,39 @@
 	    view: function view(vnode) {
 	        return m(
 	            "section",
-	            { id: "content-container", "class": "client-container content-container content-container--transition-in" },
-	            vnode.children[0],
-	            m("br", null),
-	            vnode.children[1],
-	            m("br", null),
-	            vnode.children[2]
+	            { id: "content-container", "class": "content-container client-container" },
+	            vnode.children,
+	            m(
+	                "a",
+	                { href: "/client/" + ClientModel.prevClient.slug, oncreate: m.route.link, "class": "client-container__toggle client-container__toggle-shadow--size-8 client-container__prev" },
+	                m(
+	                    "div",
+	                    { "class": "client-container__toggle__arrow" },
+	                    m(
+	                        "svg",
+	                        { xmlns: "http://www.w3.org/2000/svg", width: "21", height: "25", viewBox: "0 0 21 25" },
+	                        m("path", { d: "M13.8 25H21L7.2 12.5 21 0H13.8L0 12.5Z", "stroke-width": "0.3" })
+	                    )
+	                )
+	            ),
+	            m(
+	                "a",
+	                { href: "/client/" + ClientModel.nextClient.slug, oncreate: m.route.link, "class": "client-container__toggle client-container__toggle-shadow--size-8 client-container__next" },
+	                m(
+	                    "div",
+	                    { "class": "client-container__toggle__arrow" },
+	                    m(
+	                        "svg",
+	                        { xmlns: "http://www.w3.org/2000/svg", width: "21", height: "25", viewBox: "0 0 21 25" },
+	                        m("path", { d: "M7.2 0H0L13.8 12.5 0 25H7.2L21 12.5Z", "stroke-width": "0.3" })
+	                    )
+	                )
+	            )
 	        );
 	    }
 	};
 
-	module.exports = ProjectView;
+	module.exports = ClientView;
 
 /***/ },
 /* 12 */
@@ -2060,7 +2126,11 @@
 	    oninit: function oninit(vnode) {
 	        var self = this;
 
-	        ClientModel.loadList(), window.addEventListener('navState', function (e) {
+	        // Load in client data
+	        ClientModel.loadList(vnode.attrs.id);
+
+	        // Add event listeners for the navigation and page state
+	        window.addEventListener('navState', function (e) {
 	            self.moveForNav(App.navState());
 	        }, false);
 
@@ -2069,31 +2139,12 @@
 	        }, false);
 	    },
 
-	    oncreate: function oncreate(vnode) {
-	        this.content_container = document.getElementById("content-container");
-	    },
-
 	    view: function view(vnode) {
-	        self = this;
+	        // var self = this;
+
 	        return m(
 	            "main",
 	            { "class": "layout" },
-	            m(
-	                "a",
-	                { href: "#", onclick: function onclick(e) {
-	                        self.onMenuButtonClick();e.preventDefault();
-	                    }, "class": "menu" },
-	                m(
-	                    "svg",
-	                    { xmlns: "http://www.w3.org/2000/svg", width: "30", height: "23", viewBox: "0 0 95.2 74.6" },
-	                    m("path", { d: "M5.3 74.6C2.4 74.6 0 72.3 0 69.4c0-2.9 2.4-5.2 5.3-5.2 0.1 0 0.1 0 0.2 0v0H89.9v0c0 0 0 0 0.1 0 2.9 0 5.3 2.3 5.3 5.2 0 2.9-2.4 5.2-5.3 5.2 0 0 0 0-0.1 0v0H5.4v0c-0.1 0-0.1 0-0.2 0z", style: "fill-opacity:0.07;stroke-width:0.08" }),
-	                    m("path", { d: "M5.3 12C2.4 12 0 9.7 0 6.8c0-2.9 2.4-5.2 5.3-5.2 0.1 0 0.1 0 0.2 0v0H89.9v0c0 0 0 0 0.1 0 2.9 0 5.3 2.3 5.3 5.2 0 2.9-2.4 5.2-5.3 5.2 0 0 0 0-0.1 0v0H5.4v0c-0.1 0-0.1 0-0.2 0z", style: "fill-opacity:0.07;stroke-width:0.08" }),
-	                    m("path", { d: "M5.3 43.3C2.4 43.3 0 41 0 38.1c0-2.9 2.4-5.2 5.3-5.2 0.1 0 0.1 0 0.2 0v0H89.9v0c0 0 0 0 0.1 0 2.9 0 5.3 2.3 5.3 5.2 0 2.9-2.4 5.2-5.3 5.2 0 0 0 0-0.1 0v0H5.4v0c-0.1 0-0.1 0-0.2 0z", style: "fill-opacity:0.07;stroke-width:0.08" }),
-	                    m("path", { "class": "menu__hamburger-line", d: "M5.3 73C2.4 73 0 70.7 0 67.8c0-2.9 2.4-5.2 5.3-5.2 0.1 0 0.1 0 0.2 0v0H89.9v0c0 0 0 0 0.1 0 2.9 0 5.3 2.3 5.3 5.2 0 2.9-2.4 5.2-5.3 5.2 0 0 0 0-0.1 0v0H5.4v0c-0.1 0-0.1 0-0.2 0z", "stroke-width": "0.08" }),
-	                    m("path", { "class": "menu__hamburger-line", d: "M5.3 10.4C2.4 10.4 0 8.1 0 5.2c0-2.9 2.4-5.2 5.3-5.2 0.1 0 0.1 0 0.2 0v0H89.9v0c0 0 0 0 0.1 0 2.9 0 5.3 2.3 5.3 5.2 0 2.9-2.4 5.2-5.3 5.2 0 0 0 0-0.1 0v0H5.4v0c-0.1 0-0.1 0-0.2 0z", "stroke-width": "0.08" }),
-	                    m("path", { "class": "menu__hamburger-line", d: "M5.3 41.7C2.4 41.7 0 39.4 0 36.5c0-2.9 2.4-5.2 5.3-5.2 0.1 0 0.1 0 0.2 0v0H89.9v0c0 0 0 0 0.1 0 2.9 0 5.3 2.3 5.3 5.2 0 2.9-2.4 5.2-5.3 5.2 0 0 0 0-0.1 0v0H5.4v0c-0.1 0-0.1 0-0.2 0z", "stroke-width": "0.08" })
-	                )
-	            ),
 	            vnode.children
 	        );
 	    },
@@ -2103,7 +2154,9 @@
 	    },
 
 	    moveForNav: function moveForNav(navState) {
-	        navState ? this.content_container.classList.add('content-container--nav-open') : this.content_container.classList.remove('content-container--nav-open');
+	        // Move the content container to position based on state of nav
+	        App.setContentContainer(document.getElementById("content-container"));
+	        navState ? App.contentContainer.classList.add('content-container--nav-open') : App.contentContainer.classList.remove('content-container--nav-open');
 	    }
 	};
 
@@ -2162,6 +2215,8 @@
 	        );
 	    },
 
+	    // open the nav
+	    // TODO: needs rework
 	    open: function open(navState) {
 	        navState ? this.el.style.right = "0px" : this.el.style.right = "-300px";
 	    }
@@ -2176,24 +2231,88 @@
 	"use strict";
 
 	var m = __webpack_require__(1);
+	var ClientModel = __webpack_require__(10);
+	var App = __webpack_require__(7);
 
 	var ClientChildView = {
-	    oninit: function oninit() {},
+	    navHold: false,
+	    oninit: function oninit(vnode) {
+	        // Get the initial state of the child view
+	        this.initial = vnode.attrs.initial;
+
+	        // TODO Refactor when nav functionality is rebuilt
+	        var self = this;
+	        window.addEventListener('navState', function (e) {
+	            self.navHold = true;
+	        }, false);
+	    },
+
+	    oncreate: function oncreate(vnode) {
+	        // Transition in
+	        vnode.dom.classList.remove('content-container--transition-out');
+	        vnode.dom.classList.add('content-container--transition-in');
+	    },
+
+	    onbeforeupdate: function onbeforeupdate(vnode, old) {
+	        //TODO Make this better
+
+	        // TODO Refactor when nav functionality is rebuilt
+	        if (this.navHold) {
+	            this.navHold = false;
+	            return false;
+	        }
+
+	        // Checks initial boolean to determine if we are holding or transitioning out
+	        if (this.initial) {
+	            this.initial = false;
+	        } else {
+	            this.transitionOut(vnode);
+	            return false;
+	        }
+	    },
 
 	    onupdate: function onupdate(vnode) {
-	        console.log('onupdate ' + vnode.attrs.name);
-	        console.log(vnode.client);
+	        // Transition in content
+	        vnode.dom.classList.remove('content-container--transition-out');
+	        vnode.dom.classList.add('content-container--transition-in');
+	    },
+
+	    transitionOut: function transitionOut() {
+	        // Transition out content
+	        document.getElementById('client-container__clients').classList.remove('content-container--transition-in');
+	        document.getElementById('client-container__clients').classList.add('content-container--transition-out');
+	        this.initial = true;
+
+	        // We hold for .5s here in order to allow the content to transition out before we redraw the dom and transition in new client content
+	        setTimeout(m.redraw, 500);
 	    },
 
 	    view: function view(vnode) {
 	        return m(
 	            "div",
-	            null,
-	            vnode.attrs.name
+	            { id: "client-container__clients", "class": "client-container__clients" },
+	            'title' in ClientModel.currentClient && m(
+	                "div",
+	                { "class": "client-container__clients__content" },
+	                m(
+	                    "span",
+	                    null,
+	                    m("img", { src: ClientModel.currentClient.images.hero, "class": "client-container__clients__content__hero" }),
+	                    m(
+	                        "div",
+	                        { "class": "client-container__clients__content__title client-container__clients__content__title--shadow-size-8" },
+	                        ClientModel.currentClient.title
+	                    ),
+	                    m(
+	                        "div",
+	                        { "class": "client-container__clients__content__role" },
+	                        ClientModel.currentClient.role
+	                    )
+	                )
+	            )
 	        );
 	    }
 	};
-
 	module.exports = ClientChildView;
 
 /***/ }

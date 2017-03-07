@@ -8,8 +8,8 @@
     "technologies": "HTML & CSS (Sass, Compass, Responsive Design)\r\nJavascript (Backbone, Raphael, Require, Three, Google Maps API, TweenMax)\r\nSVG",
     "images":
     {
-      "hero": "/chuckmasucci.github.io/src/assets/images/projects/mdew/hero.png",
-      "thumbnail": "/chuckmasucci.github.io/src/assets/images/projects/mdewdotcom_thumb.jpg",
+      "hero": "/assets/images/projects/mdew/hero.png",
+      "thumbnail": "/assets/images/projects/mdewdotcom_thumb.jpg",
       "desktop": "#",
       "mobile1": "#",
       "mobile2": "#"
@@ -25,8 +25,8 @@
     "technologies": "Lorem ipsum",
     "images":
     {
-      "hero": "/chuckmasucci.github.io/src/assets/images/projects/aflac/hero.png",
-      "thumbnail": "/chuckmasucci.github.io/src/assets/images/projects/aflacdotcom_thumb.jpg",
+      "hero": "/assets/images/projects/aflac/hero.png",
+      "thumbnail": "/assets/images/projects/aflacdotcom_thumb.jpg",
       "desktop": "#",
       "mobile1": "#",
       "mobile2": "#"
@@ -42,8 +42,8 @@
     "technologies": "Lorem ipsum",
     "images":
     {
-      "hero": "/chuckmasucci.github.io/src/assets/images/projects/mdew/hero.png",
-      "thumbnail": "/chuckmasucci.github.io/src/assets/images/projects/disneysprings_thumb.jpg",
+      "hero": "/assets/images/projects/disney/hero.png",
+      "thumbnail": "/assets/images/projects/disneysprings_thumb.jpg",
       "desktop": "#",
       "mobile1": "#",
       "mobile2": "#"
@@ -59,8 +59,8 @@
     "technologies": "Lorem ipsum",
     "images":
     {
-      "hero": "/chuckmasucci.github.io/src/assets/images/projects/mdew/hero.png",
-      "thumbnail": "/chuckmasucci.github.io/src/assets/images/projects/ampdotcom_thumb.jpg",
+      "hero": "/assets/images/projects/ampenergy/hero.png",
+      "thumbnail": "/assets/images/projects/ampdotcom_thumb.jpg",
       "desktop": "#",
       "mobile1": "#",
       "mobile2": "#"
@@ -76,8 +76,8 @@
     "technologies": "Lorem ipsum",
     "images":
     {
-      "hero": "/chuckmasucci.github.io/src/assets/images/projects/mdew/hero.png",
-      "thumbnail": "/chuckmasucci.github.io/src/assets/images/projects/aquafinadotcom_thumb.jpg",
+      "hero": "/assets/images/projects/aquafina/hero.png",
+      "thumbnail": "/assets/images/projects/aquafinadotcom_thumb.jpg",
       "desktop": "#",
       "mobile1": "#",
       "mobile2": "#"
@@ -93,8 +93,8 @@
     "technologies": "Lorem ipsum",
     "images":
     {
-      "hero": "/chuckmasucci.github.io/src/assets/images/projects/mdew/hero.png",
-      "thumbnail": "/chuckmasucci.github.io/src/assets/images/projects/bravehearts_thumb.jpg",
+      "hero": "/assets/images/projects/keds/hero.png",
+      "thumbnail": "/assets/images/projects/bravehearts_thumb.jpg",
       "desktop": "#",
       "mobile1": "#",
       "mobile2": "#"

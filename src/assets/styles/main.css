@@ -4,7 +4,7 @@ body {
   background: -moz-linear-gradient(top, #999999 0%, #dcdcdc 48%);
   background: -webkit-linear-gradient(top, #999999 0%, #dcdcdc 48%);
   background: linear-gradient(to bottom, #999999 0%, #dcdcdc 48%);
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#999999', endColorstr='#dcdcdc',GradientType=0 );
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr= '#999999', endColorstr='#dcdcdc',GradientType=0 );
   background-attachment: fixed; }
   body nav ul {
     margin: 85px 0 0 68px;
@@ -65,14 +65,14 @@ body {
             font-weight: normal;
             text-align: center;
             line-height: 65px;
-            margin: 0 0 15px 0;
+            margin: 0 0 15px;
             padding: 0; }
           body .layout #content-container.content-container .content-container__home .content-container__home__title .content-container__home__title__description {
             font-family: 'Roboto', sans-serif;
             font-weight: 900;
             font-size: 18px;
             text-align: center;
-            margin: 0 0 29px 0;
+            margin: 0 0 29px;
             padding: 0; }
           body .layout #content-container.content-container .content-container__home .content-container__home__title .content-container__home__title--text-shadow--size-8 {
             text-shadow: 0 8px 0 rgba(150, 150, 150, 0.35); }
@@ -111,7 +111,7 @@ body {
         top: 3px; }
     body .layout #content-container.projects .projects__title {
       position: relative;
-      margin: 50px 0 0 0; }
+      margin: 50px 0 0; }
     body .layout #content-container.projects .projects__title--text-shadow--size-8 {
       text-shadow: 0 8px 0 rgba(150, 150, 150, 0.35); }
     body .layout #content-container.projects .projects__title__name {
@@ -120,7 +120,7 @@ body {
       font-weight: normal;
       text-align: center;
       line-height: 65px;
-      margin: 0 0 75px 0;
+      margin: 0 0 75px;
       padding: 0; }
     body .layout #content-container.projects .projects__list-container {
       margin: 0 auto;
@@ -146,7 +146,7 @@ body {
           width: 0;
           height: 100%;
           transition: 0.5s ease;
-          opacity: .97; }
+          opacity: 0.97; }
           body .layout #content-container.projects .projects__list-container .projects__list-container__grid .projects__list-container__grid__cell .projects__list-container__grid__cell__overlay .projects__list-container__grid__cell__overlay__copy {
             font-family: 'Roboto', serif;
             font-weight: 100;
@@ -278,7 +278,7 @@ body {
           @media screen and (max-width: 600px) {
             body .layout #content-container.client-container .client-container__clients .client-container__clients__content .client-container__clients__content__technologies {
               font-size: 15px; } }
-    body .layout .nav {
+    body .layout .layout__nav {
       position: fixed;
       top: 0;
       right: -300px;
@@ -286,6 +286,8 @@ body {
       height: 100%;
       background-color: #1d1e20;
       transition: all 0.3s; }
+      body .layout .layout__nav.layout__nav--open {
+        right: 0; }
   body .content-container--transition-in {
     animation: content-container--transition-in 0.5s;
     animation-fill-mode: forwards; }
@@ -315,6 +317,6 @@ html.touch body .layout #content-container .projects__list-container .projects__
   overflow: hidden;
   width: 100%;
   height: calc(2.5rem * 1.1);
-  opacity: .97; }
+  opacity: 0.97; }
   html.touch body .layout #content-container .projects__list-container .projects__list-container__grid .projects__list-container__grid__cell a .projects__list-container__grid__cell__overlay .projects__list-container__grid__cell__overlay__copy {
     font-size: 1.15rem; }

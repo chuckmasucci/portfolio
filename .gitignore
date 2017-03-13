@@ -3,3 +3,5 @@ node_modules
 dist
 designs
 .jshintrc
+index.js
+main.css

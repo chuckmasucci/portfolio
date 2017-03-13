@@ -9,7 +9,7 @@ import ClientChildView from './views/ClientChildView'
 m.route(document.body, "/", {
     "/": {
         render: vnode => {
-            return m(Layout, vnode.attrs, [m(Home, vnode.attrs), m(Nav)])
+            return m(Layout, vnode.attrs, [m(Home, vnode.attrs), m(Nav, vnode.attrs)])
         }
     },
     "/client/:id": {

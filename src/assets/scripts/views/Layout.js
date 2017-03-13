@@ -1,19 +1,16 @@
 import m from 'mithril'
-import Nav from '../views/Nav'
-import App from '../models/App'
 import ClientModel from '../models/ClientModel'
 
-const Layout = {
-    navOpen: false,
-
-    oninit(vnode) {
-        // Load in client data
+class Layout {
+    static oninit(vnode) {
+        // Load client data
         ClientModel.loadList(vnode.attrs.id)
-    },
+    }
 
-    view(vnode) {
+    static view(vnode) {
+        // Set navOpen attributes to bubble down to children
         vnode.attrs.navOpen = this.navOpen;
-        
+
         return (
             <main class="layout">
                 {<button class="menu" onclick={ () => { this.navOpen = !this.navOpen } }>
@@ -29,9 +26,7 @@ const Layout = {
                 { vnode.children }
             </main>
         )
-
-        return m('section', vnode.children)
     }
-};
+}
 
 module.exports = Layout;

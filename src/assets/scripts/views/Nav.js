@@ -1,38 +1,21 @@
-// Nav
-var m = require("mithril");
-var App = require("../models/App.js");
-var ClientModel = require("../models/ClientModel");
+import m from 'mithril'
 
-var Nav = {
-    oninit: function (vnode) {
-        const self = this;
+class Nav {
+    static onupdate(vnode) {
+        // Open or close nav
+        vnode.attrs.navOpen ? vnode.dom.classList.add('layout__nav--open') : vnode.dom.classList.remove('layout__nav--open')
+    }
 
-        window.addEventListener('navState', function (e) {
-            vnode.state.open(App.navState());
-        }, false);
-    },
-
-    oncreate: function (vnode) {
-        this.el = vnode.dom;
-    },
-
-    view: function () {
+    static view(vnode) {
         return (
-            <nav id="nav" class="nav">
+            <nav id="nav" class="layout__nav">
                 <ul>
-                    <li><a href="#!/">HOME</a></li>
-                    <li><a href="#!/contact">CONTACT</a></li>
+                    <li><a href="/" oncreate={m.route.link}>HOME</a></li>
+                    <li><a href="/contact" oncreate={m.route.link}>CONTACT</a></li>
                 </ul>
-
             </nav>
         )
-    },
-
-    // open the nav
-    // TODO: needs rework
-    open: function (navState) {
-        navState ? this.el.style.right = "0px" : this.el.style.right = "-300px";
     }
-};
+}
 
-module.exports = Nav;
+module.exports = Nav

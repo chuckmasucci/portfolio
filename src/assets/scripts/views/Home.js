@@ -1,36 +1,38 @@
 import m from 'mithril'
 import App from '../models/App'
-import ClientModel from '../models/ClientModel';
+import ClientModel from '../models/ClientModel'
 
 
-const HomeView = {
-    oncreate(vnode) {
+class HomeView {
+    static oncreate(vnode) {
         // Wait for transition in animation to complere (.5s) and remove the class
         setTimeout(function () {
-            vnode.dom.classList.remove("content-container--transition-in");
+            vnode.dom.classList.remove("content-container--transition-in")
         }, 500);
-    },
+    }
 
-    onbeforeremove: function () {
+    static onbeforeremove() {
         // Inform the App model the page is being removed - this informs the nav to close
-        App.sendUpdate(new Event("pageState"));
+        App.sendUpdate(new Event("pageState"))
 
         // Declare the container element that will animate before being removed
-        var transitionContainer = document.getElementById("content-container__home");
-        transitionContainer.classList.add("content-container--transition-out");
+        var transitionContainer = document.getElementById("content-container__home")
+        transitionContainer.classList.add("content-container--transition-out")
 
         // This hold's the mithril lifecycle until the transition animation completes
         // On complete the onremove method is called and this view is destroyed
         return new Promise(function(resolve) {
-            setTimeout(resolve, 500);
+            setTimeout(resolve, 500)
         });
-    },
+    }
 
-    onupdate(vnode) {
+    static onupdate(vnode) {
+        // Move content container element when nav is open or closed
+        // Using vnode.attrs.navOpen attribute from parent Layout
         vnode.attrs.navOpen ? vnode.dom.classList.add('content-container--nav-open') : vnode.dom.classList.remove('content-container--nav-open')
-    },
+    }
 
-    view: function(vnode) {
+    static view() {
         return(
             <section id="content-container" class="home content-container content-container--transition-in">
                 <div id="content-container__home" class="content-container__home">
@@ -47,7 +49,7 @@ const HomeView = {
             </section>
         )
     }
-};
+}
 
 
-module.exports = HomeView;
+module.exports = HomeView

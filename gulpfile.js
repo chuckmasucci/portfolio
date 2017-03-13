@@ -56,41 +56,14 @@ gulp.task('build-prod', ['copy-static-files', 'sass-prod', 'webpack-prod'], func
 gulp.task('connect', function() {
     connect.server({
         root: 'src/',
-        livereload: true
+        livereload: true,
+        debug: true
     })
 });
 
 gulp.task('watch', function() {
-    gulp.watch('src/assets/sass/*.scss', ['sass-dev']);
+    gulp.watch('src/assets/sass/**/*.scss', ['sass-dev']);
     gulp.watch(['src/assets/scripts/**/*.js', '!src/assets/scripts/index.js'], ['webpack-dev']);
 });
 
 gulp.task('default', ['connect', 'watch']);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

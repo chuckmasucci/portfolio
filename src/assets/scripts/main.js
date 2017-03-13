@@ -1,21 +1,20 @@
 // index.js
-var m = require("mithril");
-var Home = require("./views/Home.js");
-var Client = require("./views/Client.js");
-var Layout = require("./views/Layout.js");
-var Nav = require("./views/Nav.js");
-var ClientChildView = require("./views/ClientChildView.js");
+import m from 'mithril'
+import Layout from './views/Layout'
+import Nav from './views/Nav'
+import Home from './views/Home'
+import Client from './views/Client'
+import ClientChildView from './views/ClientChildView'
 
-// Site routes: /, /client/"clientslug"
 m.route(document.body, "/", {
     "/": {
-        render: function (vnode) {
-            return m(Layout, vnode.attrs, [m(Home), m(Nav)]);
+        render: vnode => {
+            return m(Layout, vnode.attrs, [m(Home, vnode.attrs), m(Nav)])
         }
     },
     "/client/:id": {
-        render: function (vnode) {
-            return m(Layout, vnode.attrs, [m(Client, vnode.attrs, [m(ClientChildView, {initial: false})]), m(Nav)]);
+        render: vnode => {
+            return m(Layout, vnode.attrs, [m(Client, vnode.attrs, [m(ClientChildView, {initial: false})]), m(Nav)])
         }
     }
 });

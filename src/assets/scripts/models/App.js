@@ -9,7 +9,7 @@ var App = {
     navState: stream(false),
 
     // Toggles nav state and dispatches event for other classes to react upon
-    toggleNav: function () {
+    toggleNav: function() {
         this.navState(!this.navState());
         this.sendUpdate(new Event('navState'));
     },
@@ -21,13 +21,13 @@ var App = {
     },
 
     // Dispatch event helper
-    sendUpdate: function (e) {
+    sendUpdate: function(e) {
         window.dispatchEvent(e);
     },
 
     // Holds the main content container for each different view (used for transition animations)
     // TODO not sure if this is the best place for this
-    setContentContainer: function (elem) {
+    setContentContainer: function(elem) {
         this.contentContainer = elem;
     }
 };

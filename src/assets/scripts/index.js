@@ -44,26 +44,44 @@
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
+
+	var _mithril = __webpack_require__(1);
+
+	var _mithril2 = _interopRequireDefault(_mithril);
+
+	var _Layout = __webpack_require__(6);
+
+	var _Layout2 = _interopRequireDefault(_Layout);
+
+	var _Nav = __webpack_require__(7);
+
+	var _Nav2 = _interopRequireDefault(_Nav);
+
+	var _Home = __webpack_require__(12);
+
+	var _Home2 = _interopRequireDefault(_Home);
+
+	var _Client = __webpack_require__(13);
+
+	var _Client2 = _interopRequireDefault(_Client);
+
+	var _ClientChildView = __webpack_require__(14);
+
+	var _ClientChildView2 = _interopRequireDefault(_ClientChildView);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	// index.js
-	var m = __webpack_require__(1);
-	var Home = __webpack_require__(6);
-	var Client = __webpack_require__(11);
-	var Layout = __webpack_require__(12);
-	var Nav = __webpack_require__(13);
-	var ClientChildView = __webpack_require__(14);
-
-	// Site routes: /, /client/"clientslug"
-	m.route(document.body, "/", {
+	_mithril2.default.route(document.body, "/", {
 	    "/": {
 	        render: function render(vnode) {
-	            return m(Layout, vnode.attrs, [m(Home), m(Nav)]);
+	            return (0, _mithril2.default)(_Layout2.default, vnode.attrs, [(0, _mithril2.default)(_Home2.default, vnode.attrs), (0, _mithril2.default)(_Nav2.default)]);
 	        }
 	    },
 	    "/client/:id": {
 	        render: function render(vnode) {
-	            return m(Layout, vnode.attrs, [m(Client, vnode.attrs, [m(ClientChildView, { initial: false })]), m(Nav)]);
+	            return (0, _mithril2.default)(_Layout2.default, vnode.attrs, [(0, _mithril2.default)(_Client2.default, vnode.attrs, [(0, _mithril2.default)(_ClientChildView2.default, { initial: false })]), (0, _mithril2.default)(_Nav2.default)]);
 	        }
 	    }
 	});
@@ -1695,75 +1713,130 @@
 /* 6 */
 /***/ function(module, exports, __webpack_require__) {
 
+	'use strict';
+
+	var _mithril = __webpack_require__(1);
+
+	var _mithril2 = _interopRequireDefault(_mithril);
+
+	var _Nav = __webpack_require__(7);
+
+	var _Nav2 = _interopRequireDefault(_Nav);
+
+	var _App = __webpack_require__(8);
+
+	var _App2 = _interopRequireDefault(_App);
+
+	var _ClientModel = __webpack_require__(11);
+
+	var _ClientModel2 = _interopRequireDefault(_ClientModel);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var Layout = {
+	    navOpen: false,
+
+	    oninit: function oninit(vnode) {
+	        // Load in client data
+	        _ClientModel2.default.loadList(vnode.attrs.id);
+	    },
+	    view: function view(vnode) {
+	        var _this = this;
+
+	        vnode.attrs.navOpen = this.navOpen;
+
+	        return (0, _mithril2.default)(
+	            'main',
+	            { 'class': 'layout' },
+	            (0, _mithril2.default)(
+	                'button',
+	                { 'class': 'menu', onclick: function onclick() {
+	                        _this.navOpen = !_this.navOpen;
+	                    } },
+	                (0, _mithril2.default)(
+	                    'svg',
+	                    { xmlns: 'http://www.w3.org/2000/svg', width: '30', height: '23', viewBox: '0 0 95.2 74.6' },
+	                    (0, _mithril2.default)('path', { d: 'M5.3 74.6C2.4 74.6 0 72.3 0 69.4c0-2.9 2.4-5.2 5.3-5.2 0.1 0 0.1 0 0.2 0v0H89.9v0c0 0 0 0 0.1 0 2.9 0 5.3 2.3 5.3 5.2 0 2.9-2.4 5.2-5.3 5.2 0 0 0 0-0.1 0v0H5.4v0c-0.1 0-0.1 0-0.2 0z', style: 'fill-opacity:0.07;stroke-width:0.08' }),
+	                    (0, _mithril2.default)('path', { d: 'M5.3 12C2.4 12 0 9.7 0 6.8c0-2.9 2.4-5.2 5.3-5.2 0.1 0 0.1 0 0.2 0v0H89.9v0c0 0 0 0 0.1 0 2.9 0 5.3 2.3 5.3 5.2 0 2.9-2.4 5.2-5.3 5.2 0 0 0 0-0.1 0v0H5.4v0c-0.1 0-0.1 0-0.2 0z', style: 'fill-opacity:0.07;stroke-width:0.08' }),
+	                    (0, _mithril2.default)('path', { d: 'M5.3 43.3C2.4 43.3 0 41 0 38.1c0-2.9 2.4-5.2 5.3-5.2 0.1 0 0.1 0 0.2 0v0H89.9v0c0 0 0 0 0.1 0 2.9 0 5.3 2.3 5.3 5.2 0 2.9-2.4 5.2-5.3 5.2 0 0 0 0-0.1 0v0H5.4v0c-0.1 0-0.1 0-0.2 0z', style: 'fill-opacity:0.07;stroke-width:0.08' }),
+	                    (0, _mithril2.default)('path', { 'class': 'menu__hamburger-line', d: 'M5.3 73C2.4 73 0 70.7 0 67.8c0-2.9 2.4-5.2 5.3-5.2 0.1 0 0.1 0 0.2 0v0H89.9v0c0 0 0 0 0.1 0 2.9 0 5.3 2.3 5.3 5.2 0 2.9-2.4 5.2-5.3 5.2 0 0 0 0-0.1 0v0H5.4v0c-0.1 0-0.1 0-0.2 0z', 'stroke-width': '0.08' }),
+	                    (0, _mithril2.default)('path', { 'class': 'menu__hamburger-line', d: 'M5.3 10.4C2.4 10.4 0 8.1 0 5.2c0-2.9 2.4-5.2 5.3-5.2 0.1 0 0.1 0 0.2 0v0H89.9v0c0 0 0 0 0.1 0 2.9 0 5.3 2.3 5.3 5.2 0 2.9-2.4 5.2-5.3 5.2 0 0 0 0-0.1 0v0H5.4v0c-0.1 0-0.1 0-0.2 0z', 'stroke-width': '0.08' }),
+	                    (0, _mithril2.default)('path', { 'class': 'menu__hamburger-line', d: 'M5.3 41.7C2.4 41.7 0 39.4 0 36.5c0-2.9 2.4-5.2 5.3-5.2 0.1 0 0.1 0 0.2 0v0H89.9v0c0 0 0 0 0.1 0 2.9 0 5.3 2.3 5.3 5.2 0 2.9-2.4 5.2-5.3 5.2 0 0 0 0-0.1 0v0H5.4v0c-0.1 0-0.1 0-0.2 0z', 'stroke-width': '0.08' })
+	                )
+	            ),
+	            vnode.children
+	        );
+
+	        return (0, _mithril2.default)('section', vnode.children);
+	    }
+	};
+
+	module.exports = Layout;
+
+/***/ },
+/* 7 */
+/***/ function(module, exports, __webpack_require__) {
+
 	"use strict";
 
-	// Home
+	// Nav
 	var m = __webpack_require__(1);
-	var App = __webpack_require__(7);
-	var ClientModel = __webpack_require__(10);
+	var App = __webpack_require__(8);
+	var ClientModel = __webpack_require__(11);
 
-	var HomeView = {
-	    oncreate: function oncreate(vnode) {
-	        // Wait for transition in animation to complere (.5s) and remove the class
-	        setTimeout(function () {
-	            vnode.dom.classList.remove("content-container--transition-in");
-	        }, 500);
+	var Nav = {
+	    oninit: function oninit(vnode) {
+	        var self = this;
+
+	        window.addEventListener('navState', function (e) {
+	            vnode.state.open(App.navState());
+	        }, false);
 	    },
 
-	    onbeforeremove: function onbeforeremove() {
-	        // Inform the App model the page is being removed - this informs the nav to close
-	        App.sendUpdate(new Event("pageState"));
-
-	        // Declare the container element that will animate before being removed
-	        var transitionContainer = document.getElementById("content-container__home");
-	        transitionContainer.classList.add("content-container--transition-out");
-
-	        // This hold's the mithril lifecycle until the transition animation completes
-	        // On complete the onremove method is called and this view is destroyed
-	        return new Promise(function (resolve) {
-	            setTimeout(resolve, 500);
-	        });
+	    oncreate: function oncreate(vnode) {
+	        this.el = vnode.dom;
 	    },
 
 	    view: function view() {
 	        return m(
-	            "section",
-	            { id: "content-container", "class": "home content-container content-container--transition-in" },
+	            "nav",
+	            { id: "nav", "class": "nav" },
 	            m(
-	                "div",
-	                { id: "content-container__home", "class": "content-container__home" },
+	                "ul",
+	                null,
 	                m(
-	                    "div",
-	                    { "class": "content-container__home__title" },
+	                    "li",
+	                    null,
 	                    m(
-	                        "h2",
-	                        { "class": "content-container__home__title__name content-container__home__title--text-shadow--size-8" },
-	                        "CHUCK MASUCCI"
-	                    ),
-	                    m(
-	                        "h3",
-	                        { "class": "content-container__home__title__description content-container__home__title--text-shadow--size-3" },
-	                        "TECHNICAL DIRECTOR"
-	                    ),
-	                    Object.keys(ClientModel.currentClient).length > 0 && m(
 	                        "a",
-	                        { "class": "btn btn--green btn--box-shadow", href: "/client/" + ClientModel.currentClient.slug, oncreate: m.route.link },
-	                        m(
-	                            "span",
-	                            { "class": "btn__copy" },
-	                            "VIEW"
-	                        )
+	                        { href: "#!/" },
+	                        "HOME"
+	                    )
+	                ),
+	                m(
+	                    "li",
+	                    null,
+	                    m(
+	                        "a",
+	                        { href: "#!/contact" },
+	                        "CONTACT"
 	                    )
 	                )
 	            )
 	        );
+	    },
+
+	    // open the nav
+	    // TODO: needs rework
+	    open: function open(navState) {
+	        navState ? this.el.style.right = "0px" : this.el.style.right = "-300px";
 	    }
 	};
 
-	module.exports = HomeView;
+	module.exports = Nav;
 
 /***/ },
-/* 7 */
+/* 8 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1772,7 +1845,7 @@
 	// TODO needs some work
 
 	var m = __webpack_require__(1);
-	var stream = __webpack_require__(8);
+	var stream = __webpack_require__(9);
 
 	var App = {
 	    // State of the navigation (currently not implemented)
@@ -1805,13 +1878,13 @@
 	module.exports = App;
 
 /***/ },
-/* 8 */
+/* 9 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(9)
+	module.exports = __webpack_require__(10)
 
 /***/ },
-/* 9 */
+/* 10 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module) {"use strict"
@@ -1934,13 +2007,13 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5)(module)))
 
 /***/ },
-/* 10 */
+/* 11 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
 	var m = __webpack_require__(1);
-	var App = __webpack_require__(7);
+	var App = __webpack_require__(8);
 
 	var ClientsModel = {
 	    list: [],
@@ -2021,14 +2094,100 @@
 	module.exports = ClientsModel;
 
 /***/ },
-/* 11 */
+/* 12 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _mithril = __webpack_require__(1);
+
+	var _mithril2 = _interopRequireDefault(_mithril);
+
+	var _App = __webpack_require__(8);
+
+	var _App2 = _interopRequireDefault(_App);
+
+	var _ClientModel = __webpack_require__(11);
+
+	var _ClientModel2 = _interopRequireDefault(_ClientModel);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var HomeView = {
+	    oncreate: function oncreate(vnode) {
+	        // Wait for transition in animation to complere (.5s) and remove the class
+	        setTimeout(function () {
+	            vnode.dom.classList.remove("content-container--transition-in");
+	        }, 500);
+	    },
+
+
+	    onbeforeremove: function onbeforeremove() {
+	        // Inform the App model the page is being removed - this informs the nav to close
+	        _App2.default.sendUpdate(new Event("pageState"));
+
+	        // Declare the container element that will animate before being removed
+	        var transitionContainer = document.getElementById("content-container__home");
+	        transitionContainer.classList.add("content-container--transition-out");
+
+	        // This hold's the mithril lifecycle until the transition animation completes
+	        // On complete the onremove method is called and this view is destroyed
+	        return new Promise(function (resolve) {
+	            setTimeout(resolve, 500);
+	        });
+	    },
+
+	    onupdate: function onupdate(vnode) {
+	        vnode.attrs.navOpen ? vnode.dom.classList.add('content-container--nav-open') : vnode.dom.classList.remove('content-container--nav-open');
+	    },
+
+
+	    view: function view(vnode) {
+	        return (0, _mithril2.default)(
+	            'section',
+	            { id: 'content-container', 'class': 'home content-container content-container--transition-in' },
+	            (0, _mithril2.default)(
+	                'div',
+	                { id: 'content-container__home', 'class': 'content-container__home' },
+	                (0, _mithril2.default)(
+	                    'div',
+	                    { 'class': 'content-container__home__title' },
+	                    (0, _mithril2.default)(
+	                        'h2',
+	                        { 'class': 'content-container__home__title__name content-container__home__title--text-shadow--size-8' },
+	                        'CHUCK MASUCCI'
+	                    ),
+	                    (0, _mithril2.default)(
+	                        'h3',
+	                        { 'class': 'content-container__home__title__description content-container__home__title--text-shadow--size-3' },
+	                        'TECHNICAL DIRECTOR'
+	                    ),
+	                    Object.keys(_ClientModel2.default.currentClient).length > 0 && (0, _mithril2.default)(
+	                        'a',
+	                        { 'class': 'btn btn--green btn--box-shadow', href: "/client/" + _ClientModel2.default.currentClient.slug, oncreate: _mithril2.default.route.link },
+	                        (0, _mithril2.default)(
+	                            'span',
+	                            { 'class': 'btn__copy' },
+	                            'VIEW'
+	                        )
+	                    )
+	                )
+	            )
+	        );
+	    }
+	};
+
+	module.exports = HomeView;
+
+/***/ },
+/* 13 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
 	var m = __webpack_require__(1);
-	var App = __webpack_require__(7);
-	var ClientModel = __webpack_require__(10);
+	var App = __webpack_require__(8);
+	var ClientModel = __webpack_require__(11);
 
 	var ClientView = {
 	    client: '',
@@ -2112,127 +2271,14 @@
 	module.exports = ClientView;
 
 /***/ },
-/* 12 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	var m = __webpack_require__(1);
-	var Nav = __webpack_require__(13);
-	var App = __webpack_require__(7);
-	var ClientModel = __webpack_require__(10);
-
-	var Layout = {
-	    oninit: function oninit(vnode) {
-	        var self = this;
-
-	        // Load in client data
-	        ClientModel.loadList(vnode.attrs.id);
-
-	        // Add event listeners for the navigation and page state
-	        window.addEventListener('navState', function (e) {
-	            self.moveForNav(App.navState());
-	        }, false);
-
-	        window.addEventListener('pageState', function (e) {
-	            App.updateNav(false);
-	        }, false);
-	    },
-
-	    view: function view(vnode) {
-	        // var self = this;
-
-	        return m(
-	            "main",
-	            { "class": "layout" },
-	            vnode.children
-	        );
-	    },
-
-	    onMenuButtonClick: function onMenuButtonClick() {
-	        App.toggleNav();
-	    },
-
-	    moveForNav: function moveForNav(navState) {
-	        // Move the content container to position based on state of nav
-	        App.setContentContainer(document.getElementById("content-container"));
-	        navState ? App.contentContainer.classList.add('content-container--nav-open') : App.contentContainer.classList.remove('content-container--nav-open');
-	    }
-	};
-
-	module.exports = Layout;
-
-/***/ },
-/* 13 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	// Nav
-	var m = __webpack_require__(1);
-	var App = __webpack_require__(7);
-	var ClientModel = __webpack_require__(10);
-
-	var Nav = {
-	    oninit: function oninit(vnode) {
-	        var self = this;
-
-	        window.addEventListener('navState', function (e) {
-	            vnode.state.open(App.navState());
-	        }, false);
-	    },
-
-	    oncreate: function oncreate(vnode) {
-	        this.el = vnode.dom;
-	    },
-
-	    view: function view() {
-	        return m(
-	            "nav",
-	            { id: "nav", "class": "nav" },
-	            m(
-	                "ul",
-	                null,
-	                m(
-	                    "li",
-	                    null,
-	                    m(
-	                        "a",
-	                        { href: "#!/" },
-	                        "HOME"
-	                    )
-	                ),
-	                m(
-	                    "li",
-	                    null,
-	                    m(
-	                        "a",
-	                        { href: "#!/contact" },
-	                        "CONTACT"
-	                    )
-	                )
-	            )
-	        );
-	    },
-
-	    // open the nav
-	    // TODO: needs rework
-	    open: function open(navState) {
-	        navState ? this.el.style.right = "0px" : this.el.style.right = "-300px";
-	    }
-	};
-
-	module.exports = Nav;
-
-/***/ },
 /* 14 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
 	var m = __webpack_require__(1);
-	var ClientModel = __webpack_require__(10);
-	var App = __webpack_require__(7);
+	var ClientModel = __webpack_require__(11);
+	var App = __webpack_require__(8);
 
 	var ClientChildView = {
 	    navHold: false,

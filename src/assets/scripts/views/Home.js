@@ -1,10 +1,10 @@
-// Home
-var m = require("mithril");
-var App = require("../models/App.js");
-var ClientModel = require("../models/ClientModel");
+import m from 'mithril'
+import App from '../models/App'
+import ClientModel from '../models/ClientModel';
 
-var HomeView = {
-    oncreate: function (vnode) {
+
+const HomeView = {
+    oncreate(vnode) {
         // Wait for transition in animation to complere (.5s) and remove the class
         setTimeout(function () {
             vnode.dom.classList.remove("content-container--transition-in");
@@ -26,7 +26,11 @@ var HomeView = {
         });
     },
 
-    view: function() {
+    onupdate(vnode) {
+        vnode.attrs.navOpen ? vnode.dom.classList.add('content-container--nav-open') : vnode.dom.classList.remove('content-container--nav-open')
+    },
+
+    view: function(vnode) {
         return(
             <section id="content-container" class="home content-container content-container--transition-in">
                 <div id="content-container__home" class="content-container__home">

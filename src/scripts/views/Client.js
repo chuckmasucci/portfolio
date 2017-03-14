@@ -1,53 +1,47 @@
-var m = require("mithril");
-var App = require("../models/App.js");
-var ClientModel = require("../models/ClientModel");
+import m from 'mithril'
+import App from '../models/App'
+import ClientModel from '../models/ClientModel'
 
-var ClientView = {
-    client: '',
-    toggles: '',
-
-    oninit: function(vnode) {
+class ClientView {
+    static oninit(vnode) {
         // Inform the client model of the current project based on the url slug
-        ClientModel.setCurrentClientId(vnode.attrs.id);
-    },
+        ClientModel.setCurrentClientId(vnode.attrs.id)
+    }
 
-    oncreate: function (vnode) {
+    static oncreate () {
         // Transition the next and previous button in
         setTimeout(function () {
-            this.toggles = document.getElementsByClassName("client-container__toggle");
+            this.toggles = document.getElementsByClassName("client-container__toggle")
 
             for (var i = 0; i < toggles.length; i++) {
-                toggles[i].classList.add("client-container__toggle--transition-in");
+                toggles[i].classList.add("client-container__toggle--transition-in")
             }
-        }, 500);
-    },
+        }, 500)
+    }
 
-    onbeforeupdate: function(vnode, old) {
+    static onbeforeupdate(vnode) {
         // When url updates we update the client model with the current project based on the url slug
-        ClientModel.setCurrentClientId(vnode.attrs.id);
+        ClientModel.setCurrentClientId(vnode.attrs.id)
 
         // Update the client with new data based on the new project
-        ClientModel.setClientData();
-    },
+        ClientModel.setClientData()
+    }
 
-    onupdate: function (vnode) {
-    },
-
-    onbeforeremove: function (vnode) {
+    static onbeforeremove (vnode) {
         // Inform the App model the view is about to be removed and transition out
-        App.sendUpdate(new Event("pageState"));
-        vnode.dom.classList.add("content-container--transition-out");
+        App.sendUpdate(new Event("pageState"))
+        vnode.dom.classList.add("content-container--transition-out")
 
-        for (var i = 0; i < toggles.length; i++) {
-            toggles[i].classList.add("client-container__toggle--transition-out");
+        for (let i = 0; i < toggles.length; i++) {
+            toggles[i].classList.add("client-container__toggle--transition-out")
         }
 
         return new Promise(function(resolve) {
-            setTimeout(resolve, 500);
+            setTimeout(resolve, 500)
         })
-    },
+    }
 
-    view: function (vnode) {
+    static view (vnode) {
         return(
             <section id="content-container" class="content-container client-container">
                 { vnode.children }
@@ -69,6 +63,6 @@ var ClientView = {
             </section>
         )
     }
-};
+}
 
-module.exports = ClientView;
+module.exports = ClientView

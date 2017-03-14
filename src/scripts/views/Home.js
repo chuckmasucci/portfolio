@@ -2,7 +2,6 @@ import m from 'mithril'
 import App from '../models/App'
 import ClientModel from '../models/ClientModel'
 
-
 class HomeView {
     static oncreate(vnode) {
         // Wait for transition in animation to complere (.5s) and remove the class
@@ -28,8 +27,14 @@ class HomeView {
 
     static onupdate(vnode) {
         // Move content container element when nav is open or closed
-        // Using vnode.attrs.navOpen attribute from parent Layout
-        vnode.attrs.navOpen ? vnode.dom.classList.add('content-container--nav-open') : vnode.dom.classList.remove('content-container--nav-open')
+        // Using vnode.attrs.nav attribute from parent Layout
+
+        if(vnode.attrs.nav == 'opening') {
+            vnode.dom.classList.add('content-container--nav-open')
+        }
+        else if(vnode.attrs.nav == 'closing') {
+            vnode.dom.classList.remove('content-container--nav-open')
+        }
     }
 
     static view() {

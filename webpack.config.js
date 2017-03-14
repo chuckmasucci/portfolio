@@ -1,5 +1,5 @@
 module.exports = {
-    entry: './src/assets/scripts/main.js',
+    entry: './src/scripts/main.js',
     output: {
         filename: 'index.js'
     },

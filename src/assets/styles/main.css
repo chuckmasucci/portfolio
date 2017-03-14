@@ -6,6 +6,8 @@ body {
   background: linear-gradient(to bottom, #999999 0%, #dcdcdc 48%);
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr= '#999999', endColorstr='#dcdcdc',GradientType=0 );
   background-attachment: fixed; }
+  body div {
+    background-color: inherit; }
   body nav ul {
     margin: 85px 0 0 68px;
     padding: 0; }

@@ -5,6 +5,9 @@ import Nav from './views/Nav'
 import Home from './views/Home'
 import Client from './views/Client'
 import ClientChildView from './views/ClientChildView'
+import ClientButtonView from './views/ClientButton'
+
+// m.route.prefix("#!")
 
 m.route(document.body, "/", {
     "/": {
@@ -14,7 +17,7 @@ m.route(document.body, "/", {
     },
     "/client/:id": {
         render: vnode => {
-            return m(Layout, vnode.attrs, [m(Client, vnode.attrs, m(ClientChildView, vnode.attrs)), m(Nav, vnode.attrs)])
+            return m(Layout, vnode.attrs, [m(Client, vnode.attrs, [m(ClientButtonView, Object.assign({}, vnode.attrs, {direction: 'prev'})), m(ClientButtonView, Object.assign({}, vnode.attrs, {direction: 'next'})), m(ClientChildView, vnode.attrs)]), m(Nav, vnode.attrs)])
         }
     }
 });

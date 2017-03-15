@@ -12,11 +12,14 @@ class ClientChildView {
         // Transition in
         vnode.dom.classList.remove('content-container--transition-out')
         vnode.dom.classList.add('content-container--transition-in')
+
+        m.redraw()
     }
 
     static onbeforeupdate(vnode) {
         // Checks to see if the client has finish transitioning in and is ready to be transitioned out
         if(this.clientSet && vnode.attrs.nav == 'closed') {
+            // TODO Add transitions from both sides
             this.container.classList.remove('content-container--transition-in')
             this.container.classList.add('content-container--transition-out')
 
@@ -36,6 +39,7 @@ class ClientChildView {
 
     static onupdate(vnode) {
         // Transition in content
+        // TODO Add transitions from both sides
         vnode.dom.classList.remove('content-container--transition-out')
         vnode.dom.classList.add('content-container--transition-in')
 

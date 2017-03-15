@@ -27,8 +27,6 @@ class HomeView {
 
     static onupdate(vnode) {
         // Move content container element when nav is open or closed
-        // Using vnode.attrs.nav attribute from parent Layout
-
         if(vnode.attrs.nav == 'opening') {
             vnode.dom.classList.add('content-container--nav-open')
         }

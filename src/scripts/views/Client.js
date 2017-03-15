@@ -6,7 +6,7 @@ class ClientView {
     static oninit(vnode) {
         // Inform the client model of the current project based on the url slug
         ClientModel.setCurrentClientId(vnode.attrs.id)
-    }
+}
 
     static oncreate () {
         // Transition the next and previous button in
@@ -41,25 +41,18 @@ class ClientView {
         })
     }
 
+    static onupdate(vnode) {
+        // Move content container element when nav is open or closed
+        if (vnode.attrs.nav == 'opening')
+            vnode.dom.classList.add('content-container--nav-open')
+        else if(vnode.attrs.nav == 'closing')
+            vnode.dom.classList.remove('content-container--nav-open')
+    }
+
     static view (vnode) {
         return(
             <section id="content-container" class="content-container client-container">
                 { vnode.children }
-                <a href={"/client/" + ClientModel.prevClient.slug} oncreate={m.route.link} class="client-container__toggle client-container__toggle-shadow--size-8 client-container__prev">
-                    <div class="client-container__toggle__arrow">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="21" height="25" viewBox="0 0 21 25">
-                            <path d="M13.8 25H21L7.2 12.5 21 0H13.8L0 12.5Z" stroke-width="0.3"/>
-                        </svg>
-                    </div>
-                </a>
-
-                <a href={"/client/" + ClientModel.nextClient.slug} oncreate={m.route.link} class="client-container__toggle client-container__toggle-shadow--size-8 client-container__next">
-                    <div class="client-container__toggle__arrow">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="21" height="25" viewBox="0 0 21 25">
-                            <path d="M7.2 0H0L13.8 12.5 0 25H7.2L21 12.5Z" stroke-width="0.3"/>
-                        </svg>
-                    </div>
-                </a>
             </section>
         )
     }

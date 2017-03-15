@@ -185,7 +185,8 @@ body {
       width: 60px;
       height: 60px;
       text-align: center;
-      display: none; }
+      display: none;
+      z-index: 10; }
       @media screen and (max-width: 768px) {
         body .layout #content-container.client-container .client-container__toggle {
           width: 30px; } }

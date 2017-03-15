@@ -70,9 +70,15 @@
 
 	var _ClientChildView2 = _interopRequireDefault(_ClientChildView);
 
+	var _ClientButton = __webpack_require__(13);
+
+	var _ClientButton2 = _interopRequireDefault(_ClientButton);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	// index.js
+	_mithril2.default.route.prefix("#!"); // index.js
+
+
 	_mithril2.default.route(document.body, "/", {
 	    "/": {
 	        render: function render(vnode) {
@@ -81,7 +87,7 @@
 	    },
 	    "/client/:id": {
 	        render: function render(vnode) {
-	            return (0, _mithril2.default)(_Layout2.default, vnode.attrs, [(0, _mithril2.default)(_Client2.default, vnode.attrs, (0, _mithril2.default)(_ClientChildView2.default, vnode.attrs)), (0, _mithril2.default)(_Nav2.default, vnode.attrs)]);
+	            return (0, _mithril2.default)(_Layout2.default, vnode.attrs, [(0, _mithril2.default)(_Client2.default, vnode.attrs, [(0, _mithril2.default)(_ClientButton2.default, Object.assign({}, vnode.attrs, { direction: 'prev' })), (0, _mithril2.default)(_ClientButton2.default, Object.assign({}, vnode.attrs, { direction: 'next' })), (0, _mithril2.default)(_ClientChildView2.default, vnode.attrs)]), (0, _mithril2.default)(_Nav2.default, vnode.attrs)]);
 	        }
 	    }
 	});
@@ -2033,8 +2039,6 @@
 	        key: 'onupdate',
 	        value: function onupdate(vnode) {
 	            // Move content container element when nav is open or closed
-	            // Using vnode.attrs.nav attribute from parent Layout
-
 	            if (vnode.attrs.nav == 'opening') {
 	                vnode.dom.classList.add('content-container--nav-open');
 	            } else if (vnode.attrs.nav == 'closing') {
@@ -2184,38 +2188,18 @@
 	            });
 	        }
 	    }, {
+	        key: 'onupdate',
+	        value: function onupdate(vnode) {
+	            // Move content container element when nav is open or closed
+	            if (vnode.attrs.nav == 'opening') vnode.dom.classList.add('content-container--nav-open');else if (vnode.attrs.nav == 'closing') vnode.dom.classList.remove('content-container--nav-open');
+	        }
+	    }, {
 	        key: 'view',
 	        value: function view(vnode) {
 	            return (0, _mithril2.default)(
 	                'section',
 	                { id: 'content-container', 'class': 'content-container client-container' },
-	                vnode.children,
-	                (0, _mithril2.default)(
-	                    'a',
-	                    { href: "/client/" + _ClientModel2.default.prevClient.slug, oncreate: _mithril2.default.route.link, 'class': 'client-container__toggle client-container__toggle-shadow--size-8 client-container__prev' },
-	                    (0, _mithril2.default)(
-	                        'div',
-	                        { 'class': 'client-container__toggle__arrow' },
-	                        (0, _mithril2.default)(
-	                            'svg',
-	                            { xmlns: 'http://www.w3.org/2000/svg', width: '21', height: '25', viewBox: '0 0 21 25' },
-	                            (0, _mithril2.default)('path', { d: 'M13.8 25H21L7.2 12.5 21 0H13.8L0 12.5Z', 'stroke-width': '0.3' })
-	                        )
-	                    )
-	                ),
-	                (0, _mithril2.default)(
-	                    'a',
-	                    { href: "/client/" + _ClientModel2.default.nextClient.slug, oncreate: _mithril2.default.route.link, 'class': 'client-container__toggle client-container__toggle-shadow--size-8 client-container__next' },
-	                    (0, _mithril2.default)(
-	                        'div',
-	                        { 'class': 'client-container__toggle__arrow' },
-	                        (0, _mithril2.default)(
-	                            'svg',
-	                            { xmlns: 'http://www.w3.org/2000/svg', width: '21', height: '25', viewBox: '0 0 21 25' },
-	                            (0, _mithril2.default)('path', { d: 'M7.2 0H0L13.8 12.5 0 25H7.2L21 12.5Z', 'stroke-width': '0.3' })
-	                        )
-	                    )
-	                )
+	                vnode.children
 	            );
 	        }
 	    }]);
@@ -2266,12 +2250,15 @@
 	            // Transition in
 	            vnode.dom.classList.remove('content-container--transition-out');
 	            vnode.dom.classList.add('content-container--transition-in');
+
+	            _mithril2.default.redraw();
 	        }
 	    }, {
 	        key: 'onbeforeupdate',
 	        value: function onbeforeupdate(vnode) {
 	            // Checks to see if the client has finish transitioning in and is ready to be transitioned out
 	            if (this.clientSet && vnode.attrs.nav == 'closed') {
+	                // TODO Add transitions from both sides
 	                this.container.classList.remove('content-container--transition-in');
 	                this.container.classList.add('content-container--transition-out');
 
@@ -2291,6 +2278,7 @@
 	        key: 'onupdate',
 	        value: function onupdate(vnode) {
 	            // Transition in content
+	            // TODO Add transitions from both sides
 	            vnode.dom.classList.remove('content-container--transition-out');
 	            vnode.dom.classList.add('content-container--transition-in');
 
@@ -2334,6 +2322,60 @@
 	}();
 
 	module.exports = ClientChildView;
+
+/***/ },
+/* 13 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _mithril = __webpack_require__(1);
+
+	var _mithril2 = _interopRequireDefault(_mithril);
+
+	var _ClientModel = __webpack_require__(7);
+
+	var _ClientModel2 = _interopRequireDefault(_ClientModel);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	var ClientButtonView = function () {
+	    function ClientButtonView() {
+	        _classCallCheck(this, ClientButtonView);
+	    }
+
+	    _createClass(ClientButtonView, null, [{
+	        key: 'oncreate',
+	        value: function oncreate(vnode) {
+	            vnode.state.direction = vnode.attrs.direction;
+	        }
+	    }, {
+	        key: 'view',
+	        value: function view(vnode) {
+	            return (0, _mithril2.default)(
+	                'a',
+	                { href: vnode.state.direction == 'prev' && "/client/" + _ClientModel2.default.prevClient.slug + '?d=0' || vnode.state.direction == 'next' && '/client/' + _ClientModel2.default.nextClient.slug + '?d=1', oncreate: _mithril2.default.route.link, 'class': "client-container__toggle client-container__toggle-shadow--size-8 client-container__" + vnode.attrs.direction },
+	                (0, _mithril2.default)(
+	                    'div',
+	                    { 'class': 'client-container__toggle__arrow' },
+	                    (0, _mithril2.default)(
+	                        'svg',
+	                        { xmlns: 'http://www.w3.org/2000/svg', width: '21', height: '25', viewBox: '0 0 21 25', transform: vnode.state.direction == 'next' && 'rotate(180)' },
+	                        (0, _mithril2.default)('path', { d: 'M13.8 25H21L7.2 12.5 21 0H13.8L0 12.5Z', 'stroke-width': '0.3' })
+	                    )
+	                )
+	            );
+	        }
+	    }]);
+
+	    return ClientButtonView;
+	}();
+
+	module.exports = ClientButtonView;
 
 /***/ }
 /******/ ]);

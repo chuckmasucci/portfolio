@@ -1,104 +1,112 @@
 [
-  {
-    "id": 1,
-    "slug": "mdew",
-    "title": "Mountain Dew",
-    "role": "Technical Director",
-    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus maximus ex mi, quis viverra felis aliquam at. Suspendisse potenti. Morbi scelerisque cursus dignissim. Aliquam et lacinia enim. Suspendisse potenti. Proin iaculis eros at nisl egestas fermentum. Vivamus non erat ligula. Duis vitae varius enim, id interdum leo. Sed euismod interdum eros sit amet fermentum. Aenean maximus mollis pellentesque. Nullam viverra volutpat ultrices.\r\n\r\nSuspendisse laoreet mauris a ante feugiat, nec interdum ipsum fringilla. Pellentesque luctus lorem lectus, sed placerat elit luctus vitae. Fusce id risus gravida nulla auctor porta. Etiam non ligula dignissim, semper tortor vel, ultricies purus. Integer risus urna, tincidunt porttitor neque quis, sagittis vehicula magna. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Aliquam sit amet urna tellus. Quisque tincidunt, metus id vestibulum suscipit, purus lorem sodales magna, luctus consectetur nisi mauris nec tortor. Nulla laoreet lacus nec odio mattis, vel pellentesque mauris ultrices. Donec suscipit nisi ut dignissim condimentum. Nam nulla nisi, sodales eget velit vitae, maximus volutpat massa. Integer elit dolor, sodales vel mattis et, facilisis vel velit. Aenean sed imperdiet nisl, nec ornare mauris. Donec malesuada congue suscipit. Sed sit amet tortor viverra, condimentum quam a, dignissim erat.",
-    "technologies": "HTML & CSS (Sass, Compass, Responsive Design)\r\nJavascript (Backbone, Raphael, Require, Three, Google Maps API, TweenMax)\r\nSVG",
-    "images":
     {
-      "hero": "/assets/images/projects/mdew/hero.png",
-      "thumbnail": "/assets/images/projects/mdewdotcom_thumb.jpg",
-      "desktop": "#",
-      "mobile1": "#",
-      "mobile2": "#"
+      "slug": "supercell",
+      "title": "Supercell Shop",
+      "role": "Technical Director",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus maximus ex mi, quis viverra felis aliquam at. Suspendisse potenti. Morbi scelerisque cursus dignissim. Aliquam et lacinia enim. Suspendisse potenti. Proin iaculis eros at nisl egestas fermentum. Vivamus non erat ligula. Duis vitae varius enim, id interdum leo. Sed euismod interdum eros sit amet fermentum. Aenean maximus mollis pellentesque. Nullam viverra volutpat ultrices.\r\n\r\nSuspendisse laoreet mauris a ante feugiat, nec interdum ipsum fringilla. Pellentesque luctus lorem lectus, sed placerat elit luctus vitae. Fusce id risus gravida nulla auctor porta. Etiam non ligula dignissim, semper tortor vel, ultricies purus. Integer risus urna, tincidunt porttitor neque quis, sagittis vehicula magna. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Aliquam sit amet urna tellus. Quisque tincidunt, metus id vestibulum suscipit, purus lorem sodales magna, luctus consectetur nisi mauris nec tortor. Nulla laoreet lacus nec odio mattis, vel pellentesque mauris ultrices. Donec suscipit nisi ut dignissim condimentum. Nam nulla nisi, sodales eget velit vitae, maximus volutpat massa. Integer elit dolor, sodales vel mattis et, facilisis vel velit. Aenean sed imperdiet nisl, nec ornare mauris. Donec malesuada congue suscipit. Sed sit amet tortor viverra, condimentum quam a, dignissim erat.",
+      "technologies": "HTML & CSS (Sass, Compass, Responsive Design)\r\nJavascript (Backbone, Raphael, Require, Three, Google Maps API, TweenMax)\r\nSVG",
+      "images":
+      {
+        "hero": "/assets/images/projects/supercell/hero.png"
+      },
+      "color": "#6584a8"
     },
-    "color": "#6584a8"
-  },
-  {
-    "id": 2,
-    "slug": "aflac",
-    "title": "Aflac",
-    "role": "Technical Director",
-    "description": "Lorem ipsum",
-    "technologies": "Lorem ipsum",
-    "images":
     {
-      "hero": "/assets/images/projects/aflac/hero.png",
-      "thumbnail": "/assets/images/projects/aflacdotcom_thumb.jpg",
-      "desktop": "#",
-      "mobile1": "#",
-      "mobile2": "#"
+        "slug": "mdew",
+        "title": "Mountain Dew",
+        "role": "Technical Director",
+        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus maximus ex mi, quis viverra felis aliquam at. Suspendisse potenti. Morbi scelerisque cursus dignissim. Aliquam et lacinia enim. Suspendisse potenti. Proin iaculis eros at nisl egestas fermentum. Vivamus non erat ligula. Duis vitae varius enim, id interdum leo. Sed euismod interdum eros sit amet fermentum. Aenean maximus mollis pellentesque. Nullam viverra volutpat ultrices.\r\n\r\nSuspendisse laoreet mauris a ante feugiat, nec interdum ipsum fringilla. Pellentesque luctus lorem lectus, sed placerat elit luctus vitae. Fusce id risus gravida nulla auctor porta. Etiam non ligula dignissim, semper tortor vel, ultricies purus. Integer risus urna, tincidunt porttitor neque quis, sagittis vehicula magna. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Aliquam sit amet urna tellus. Quisque tincidunt, metus id vestibulum suscipit, purus lorem sodales magna, luctus consectetur nisi mauris nec tortor. Nulla laoreet lacus nec odio mattis, vel pellentesque mauris ultrices. Donec suscipit nisi ut dignissim condimentum. Nam nulla nisi, sodales eget velit vitae, maximus volutpat massa. Integer elit dolor, sodales vel mattis et, facilisis vel velit. Aenean sed imperdiet nisl, nec ornare mauris. Donec malesuada congue suscipit. Sed sit amet tortor viverra, condimentum quam a, dignissim erat.",
+        "technologies": "HTML & CSS (Sass, Compass, Responsive Design)\r\nJavascript (Backbone, Raphael, Require, Three, Google Maps API, TweenMax)\r\nSVG",
+        "images": {
+            "hero": "/assets/images/projects/mdew/hero.png"
+        },
+        "color": "#6584a8"
     },
-    "color": "#2db4e3"
-  },
-  {
-    "id": 3,
-    "slug": "disney",
-    "title": "Disney Springs",
-    "role": "Technical Director",
-    "description": "Lorem ipsum",
-    "technologies": "Lorem ipsum",
-    "images":
     {
-      "hero": "/assets/images/projects/disney/hero.png",
-      "thumbnail": "/assets/images/projects/disneysprings_thumb.jpg",
-      "desktop": "#",
-      "mobile1": "#",
-      "mobile2": "#"
+        "slug": "aflac",
+        "title": "Aflac",
+        "role": "Technical Director",
+        "description": "Lorem ipsum",
+        "technologies": "Lorem ipsum",
+        "images": {
+            "hero": "/assets/images/projects/aflac/hero.png"
+        },
+        "color": "#2db4e3"
     },
-    "color": "#adba42"
-  },
-  {
-    "id": 4,
-    "slug": "ampenergy",
-    "title": "Amp Energy",
-    "role": "Technical Director",
-    "description": "Lorem ipsum",
-    "technologies": "Lorem ipsum",
-    "images":
     {
-      "hero": "/assets/images/projects/ampenergy/hero.png",
-      "thumbnail": "/assets/images/projects/ampdotcom_thumb.jpg",
-      "desktop": "#",
-      "mobile1": "#",
-      "mobile2": "#"
+        "slug": "disney",
+        "title": "Disney Springs",
+        "role": "Technical Director",
+        "description": "Lorem ipsum",
+        "technologies": "Lorem ipsum",
+        "images": {
+            "hero": "/assets/images/projects/disney/hero.png"
+        },
+        "color": "#adba42"
     },
-    "color": "#202224"
-  },
-  {
-    "id": 5,
-    "slug": "aquafina",
-    "title": "Aquafina",
-    "role": "Technical Director",
-    "description": "Lorem ipsum",
-    "technologies": "Lorem ipsum",
-    "images":
     {
-      "hero": "/assets/images/projects/aquafina/hero.png",
-      "thumbnail": "/assets/images/projects/aquafinadotcom_thumb.jpg",
-      "desktop": "#",
-      "mobile1": "#",
-      "mobile2": "#"
+        "slug": "ampenergy",
+        "title": "Amp Energy",
+        "role": "Technical Director",
+        "description": "Lorem ipsum",
+        "technologies": "Lorem ipsum",
+        "images": {
+            "hero": "/assets/images/projects/ampenergy/hero.png"
+        },
+        "color": "#202224"
     },
-    "color": "#92c4e9"
-  },
-  {
-    "id": 6,
-    "slug": "keds",
-    "title": "Keds Bravehearts",
-    "role": "Technical Director",
-    "description": "Lorem ipsum",
-    "technologies": "Lorem ipsum",
-    "images":
     {
-      "hero": "/assets/images/projects/keds/hero.png",
-      "thumbnail": "/assets/images/projects/bravehearts_thumb.jpg",
-      "desktop": "#",
-      "mobile1": "#",
-      "mobile2": "#"
+        "slug": "patron",
+        "title": "Patron",
+        "role": "Technical Director",
+        "description": "Lorem ipsum",
+        "technologies": "Lorem ipsum",
+        "images": {
+            "hero": "/assets/images/projects/patron/hero.png"
+        },
+        "color": "#92c4e9"
+    },{
+        "slug": "twc",
+        "title": "Time Warner Cable",
+        "role": "Technical Director",
+        "description": "Lorem ipsum",
+        "technologies": "Lorem ipsum",
+        "images": {
+            "hero": "/assets/images/projects/twc/hero.png"
+        },
+        "color": "#92c4e9"
     },
-    "color": "#ffd101"
-  }
+    {
+        "slug": "aquafina",
+        "title": "Aquafina",
+        "role": "Technical Director",
+        "description": "Lorem ipsum",
+        "technologies": "Lorem ipsum",
+        "images": {
+            "hero": "/assets/images/projects/aquafina/hero.png"
+        },
+        "color": "#92c4e9"
+    },
+    {
+        "slug": "rolex",
+        "title": "Rolex",
+        "role": "Technical Director",
+        "description": "Lorem ipsum",
+        "technologies": "Lorem ipsum",
+        "images": {
+            "hero": "/assets/images/projects/rolex/hero.png"
+        },
+        "color": "#92c4e9"
+    },
+    {
+        "slug": "keds",
+        "title": "Keds Bravehearts",
+        "role": "Technical Director",
+        "description": "Lorem ipsum",
+        "technologies": "Lorem ipsum",
+        "images": {
+            "hero": "/assets/images/projects/keds/hero.png"
+        },
+        "color": "#ffd101"
+    }
 ]

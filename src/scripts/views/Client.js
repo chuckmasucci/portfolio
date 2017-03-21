@@ -1,22 +1,31 @@
 import m from 'mithril'
 import App from '../models/App'
 import ClientModel from '../models/ClientModel'
+import ClientButtonView from './ClientButton'
+import SwipeOverlay from './SwipeOverlay'
+import stream from 'mithril/stream';
 
 class ClientView {
     static oninit(vnode) {
         // Inform the client model of the current project based on the url slug
         ClientModel.setCurrentClientId(vnode.attrs.id)
-}
 
-    static oncreate () {
-        // Transition the next and previous button in
-        setTimeout(function () {
-            this.toggles = document.getElementsByClassName("client-container__toggle")
+        this.direction = stream('next')
+    }
 
-            for (var i = 0; i < toggles.length; i++) {
-                toggles[i].classList.add("client-container__toggle--transition-in")
+    static onupdate(vnode) {
+        // Initialize Hammer for touch events
+        this.clientTouch = new Hammer(vnode.dom);
+        this.clientTouch.on("swipe", (ev) => {
+            if(ev.direction == Hammer.DIRECTION_LEFT) {
+                this.direction('next')
+                this.changeClient('next')
             }
-        }, 500)
+            else if(ev.direction == Hammer.DIRECTION_RIGHT) {
+                this.direction('prev')
+                this.changeClient('prev')
+            }
+        });
     }
 
     static onbeforeupdate(vnode) {
@@ -25,36 +34,38 @@ class ClientView {
 
         // Update the client with new data based on the new project
         ClientModel.setClientData()
+
+        // Sets the direction in attrs object so ClientChildView recieves the direction
+        vnode.attrs.navDirection = this.direction()
     }
 
-    static onbeforeremove (vnode) {
+    static onbeforeremove(vnode) {
         // Inform the App model the view is about to be removed and transition out
-        App.sendUpdate(new Event("pageState"))
-        vnode.dom.classList.add("content-container--transition-out")
-
-        for (let i = 0; i < toggles.length; i++) {
-            toggles[i].classList.add("client-container__toggle--transition-out")
-        }
+        vnode.dom.classList.add("content-container--transition-out--next")
 
         return new Promise(function(resolve) {
             setTimeout(resolve, 500)
         })
     }
 
-    static onupdate(vnode) {
-        // Move content container element when nav is open or closed
-        if (vnode.attrs.nav == 'opening')
-            vnode.dom.classList.add('content-container--nav-open')
-        else if(vnode.attrs.nav == 'closing')
-            vnode.dom.classList.remove('content-container--nav-open')
-    }
-
     static view (vnode) {
         return(
             <section id="content-container" class="content-container client-container">
+                <SwipeOverlay copy="SWIPE TO NAVIGATE" />
+                <ClientButtonView direction="prev" setdirection={ this.direction } changeClient = { this.changeClient } />
+                <ClientButtonView direction="next" setdirection={ this.direction } changeClient = { this.changeClient } />
                 { vnode.children }
             </section>
         )
+    }
+
+    static changeClient(direction) {
+        if(direction == 'prev')
+            m.route.set('/client/' + ClientModel.prevClient.slug)
+        else if(direction == 'next')
+            m.route.set('/client/' + ClientModel.nextClient.slug)
+
+        return false
     }
 }
 

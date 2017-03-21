@@ -58,39 +58,39 @@
 
 	var _Nav2 = _interopRequireDefault(_Nav);
 
-	var _Home = __webpack_require__(9);
+	var _Home = __webpack_require__(12);
 
 	var _Home2 = _interopRequireDefault(_Home);
 
-	var _Client = __webpack_require__(11);
+	var _Client = __webpack_require__(13);
 
 	var _Client2 = _interopRequireDefault(_Client);
 
-	var _ClientChildView = __webpack_require__(12);
+	var _ClientChildView = __webpack_require__(18);
 
 	var _ClientChildView2 = _interopRequireDefault(_ClientChildView);
 
-	var _ClientButton = __webpack_require__(13);
+	var _ClientButton = __webpack_require__(14);
 
 	var _ClientButton2 = _interopRequireDefault(_ClientButton);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	_mithril2.default.route.prefix("#!"); // index.js
-
+	// m.route.prefix("#!")
 
 	_mithril2.default.route(document.body, "/", {
 	    "/": {
 	        render: function render(vnode) {
-	            return (0, _mithril2.default)(_Layout2.default, vnode.attrs, [(0, _mithril2.default)(_Home2.default, vnode.attrs), (0, _mithril2.default)(_Nav2.default, vnode.attrs)]);
+	            return [(0, _mithril2.default)(_Layout2.default, vnode.attrs, (0, _mithril2.default)(_Home2.default, vnode.attrs)), (0, _mithril2.default)(_Nav2.default, vnode.attrs)];
 	        }
 	    },
 	    "/client/:id": {
 	        render: function render(vnode) {
-	            return (0, _mithril2.default)(_Layout2.default, vnode.attrs, [(0, _mithril2.default)(_Client2.default, vnode.attrs, [(0, _mithril2.default)(_ClientButton2.default, Object.assign({}, vnode.attrs, { direction: 'prev' })), (0, _mithril2.default)(_ClientButton2.default, Object.assign({}, vnode.attrs, { direction: 'next' })), (0, _mithril2.default)(_ClientChildView2.default, vnode.attrs)]), (0, _mithril2.default)(_Nav2.default, vnode.attrs)]);
+	            // return [m(Layout, vnode.attrs, [m(Client, vnode.attrs, [m(ClientButtonView, Object.assign({}, vnode.attrs, {direction: 'prev'})), m(ClientButtonView, Object.assign({}, vnode.attrs, {direction: 'next'})), m(ClientChildView, vnode.attrs)])]), m(Nav, vnode.attrs)]
+	            return [(0, _mithril2.default)(_Layout2.default, vnode.attrs, [(0, _mithril2.default)(_Client2.default, vnode.attrs, (0, _mithril2.default)(_ClientChildView2.default, vnode.attrs))]), (0, _mithril2.default)(_Nav2.default, vnode.attrs)];
 	        }
 	    }
-	});
+	}); // index.js
 
 /***/ },
 /* 1 */
@@ -1743,61 +1743,53 @@
 	    _createClass(Layout, null, [{
 	        key: 'oninit',
 	        value: function oninit(vnode) {
-	            // Set nav default state
-	            vnode.state.nav = 'closed';
+	            var _this = this;
 
 	            // Load client data
 	            _ClientModel2.default.loadList(vnode.attrs.id);
+
+	            window.addEventListener("navopen", function () {
+	                _this.onnavopen(vnode);
+	            });
+
+	            window.addEventListener("navclose", function () {
+	                _this.onnavclose(vnode);
+	            });
+	        }
+	    }, {
+	        key: 'onnavopen',
+	        value: function onnavopen(vnode) {
+	            vnode.dom.classList.add('layout--nav-open');
+	            vnode.dom.classList.remove('layout--nav-closed');
+
+	            // vnode.dom.querySelector(".layout__overlay").classList.add('layout__overlay--open')
+	        }
+	    }, {
+	        key: 'onnavclose',
+	        value: function onnavclose(vnode) {
+	            vnode.dom.classList.add('layout--nav-closed');
+	            vnode.dom.classList.remove('layout--nav-open');
+
+	            // vnode.dom.querySelector(".layout__overlay").classList.remove('layout__overlay--open')
 	        }
 	    }, {
 	        key: 'view',
 	        value: function view(vnode) {
-	            var _this = this;
-
 	            // Set nav attributes to bubble down to children
-	            vnode.attrs.nav = vnode.state.nav;
-
+	            // vnode.attrs.nav = vnode.state.nav
 	            return (0, _mithril2.default)(
 	                'main',
-	                { 'class': 'layout' },
-	                (0, _mithril2.default)(
-	                    'button',
-	                    { 'class': 'menu', onclick: function onclick() {
-	                            _this.navToggle(vnode);
-	                        } },
-	                    (0, _mithril2.default)(
-	                        'svg',
-	                        { xmlns: 'http://www.w3.org/2000/svg', width: '30', height: '23', viewBox: '0 0 95.2 74.6' },
-	                        (0, _mithril2.default)('path', { d: 'M5.3 74.6C2.4 74.6 0 72.3 0 69.4c0-2.9 2.4-5.2 5.3-5.2 0.1 0 0.1 0 0.2 0v0H89.9v0c0 0 0 0 0.1 0 2.9 0 5.3 2.3 5.3 5.2 0 2.9-2.4 5.2-5.3 5.2 0 0 0 0-0.1 0v0H5.4v0c-0.1 0-0.1 0-0.2 0z', style: 'fill-opacity:0.07;stroke-width:0.08' }),
-	                        (0, _mithril2.default)('path', { d: 'M5.3 12C2.4 12 0 9.7 0 6.8c0-2.9 2.4-5.2 5.3-5.2 0.1 0 0.1 0 0.2 0v0H89.9v0c0 0 0 0 0.1 0 2.9 0 5.3 2.3 5.3 5.2 0 2.9-2.4 5.2-5.3 5.2 0 0 0 0-0.1 0v0H5.4v0c-0.1 0-0.1 0-0.2 0z', style: 'fill-opacity:0.07;stroke-width:0.08' }),
-	                        (0, _mithril2.default)('path', { d: 'M5.3 43.3C2.4 43.3 0 41 0 38.1c0-2.9 2.4-5.2 5.3-5.2 0.1 0 0.1 0 0.2 0v0H89.9v0c0 0 0 0 0.1 0 2.9 0 5.3 2.3 5.3 5.2 0 2.9-2.4 5.2-5.3 5.2 0 0 0 0-0.1 0v0H5.4v0c-0.1 0-0.1 0-0.2 0z', style: 'fill-opacity:0.07;stroke-width:0.08' }),
-	                        (0, _mithril2.default)('path', { 'class': 'menu__hamburger-line', d: 'M5.3 73C2.4 73 0 70.7 0 67.8c0-2.9 2.4-5.2 5.3-5.2 0.1 0 0.1 0 0.2 0v0H89.9v0c0 0 0 0 0.1 0 2.9 0 5.3 2.3 5.3 5.2 0 2.9-2.4 5.2-5.3 5.2 0 0 0 0-0.1 0v0H5.4v0c-0.1 0-0.1 0-0.2 0z', 'stroke-width': '0.08' }),
-	                        (0, _mithril2.default)('path', { 'class': 'menu__hamburger-line', d: 'M5.3 10.4C2.4 10.4 0 8.1 0 5.2c0-2.9 2.4-5.2 5.3-5.2 0.1 0 0.1 0 0.2 0v0H89.9v0c0 0 0 0 0.1 0 2.9 0 5.3 2.3 5.3 5.2 0 2.9-2.4 5.2-5.3 5.2 0 0 0 0-0.1 0v0H5.4v0c-0.1 0-0.1 0-0.2 0z', 'stroke-width': '0.08' }),
-	                        (0, _mithril2.default)('path', { 'class': 'menu__hamburger-line', d: 'M5.3 41.7C2.4 41.7 0 39.4 0 36.5c0-2.9 2.4-5.2 5.3-5.2 0.1 0 0.1 0 0.2 0v0H89.9v0c0 0 0 0 0.1 0 2.9 0 5.3 2.3 5.3 5.2 0 2.9-2.4 5.2-5.3 5.2 0 0 0 0-0.1 0v0H5.4v0c-0.1 0-0.1 0-0.2 0z', 'stroke-width': '0.08' })
-	                    )
-	                ),
+	                { id: 'Layout', 'class': 'layout' },
+	                (0, _mithril2.default)('div', { 'class': 'layout__overlay' }),
 	                vnode.children
 	            );
-	        }
-	    }, {
-	        key: 'navToggle',
-	        value: function navToggle(vnode) {
-	            if (vnode.state.nav == 'closed') {
-	                vnode.state.nav = 'opening';
-	                setTimeout(function () {
-	                    vnode.state.nav = 'open';
-	                }, 500);
-	            } else if (vnode.state.nav == 'open') {
-	                vnode.state.nav = 'closing';
-	                setTimeout(function () {
-	                    vnode.state.nav = 'closed';
-	                }, 500);
-	            }
 	        }
 	    }]);
 
 	    return Layout;
 	}();
+
+	// <footer>&copy; 2017 Charles Masucci | Made with <a href="http://mithril.js.org/" target="_blank">Mithril</a></footer>
 
 	module.exports = Layout;
 
@@ -1925,6 +1917,22 @@
 
 	var _mithril2 = _interopRequireDefault(_mithril);
 
+	var _App = __webpack_require__(9);
+
+	var _App2 = _interopRequireDefault(_App);
+
+	var _ClientModel = __webpack_require__(7);
+
+	var _ClientModel2 = _interopRequireDefault(_ClientModel);
+
+	var _ClientListView = __webpack_require__(10);
+
+	var _ClientListView2 = _interopRequireDefault(_ClientListView);
+
+	var _NavItem = __webpack_require__(11);
+
+	var _NavItem2 = _interopRequireDefault(_NavItem);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -1935,45 +1943,54 @@
 	    }
 
 	    _createClass(Nav, null, [{
+	        key: 'oninit',
+	        value: function oninit(vnode) {
+	            vnode.state.nav = false;
+	        }
+	    }, {
 	        key: 'onupdate',
 	        value: function onupdate(vnode) {
 	            // Open or close nav
-	            if (vnode.attrs.nav == 'opening') {
-	                vnode.dom.classList.add('layout__nav--open');
-	            } else if (vnode.attrs.nav == 'closing') {
-	                vnode.dom.classList.remove('layout__nav--open');
-	            }
+	            if (vnode.state.nav) this.navToggle(vnode);
 	        }
 	    }, {
 	        key: 'view',
 	        value: function view(vnode) {
-	            // TODO Add client list
+	            var _this = this;
+
 	            return (0, _mithril2.default)(
 	                'nav',
-	                { id: 'nav', 'class': 'layout__nav' },
+	                { id: 'nav', 'class': 'nav layout__nav' },
+	                (0, _mithril2.default)(
+	                    'button',
+	                    { 'class': 'menu', onclick: function onclick(e) {
+	                            e.redraw = false;_this.navToggle(vnode);
+	                        } },
+	                    (0, _mithril2.default)('i', { 'class': 'fa fa-chevron-circle-down' })
+	                ),
 	                (0, _mithril2.default)(
 	                    'ul',
-	                    null,
-	                    (0, _mithril2.default)(
-	                        'li',
-	                        null,
-	                        (0, _mithril2.default)(
-	                            'a',
-	                            { href: '/', oncreate: _mithril2.default.route.link },
-	                            'HOME'
-	                        )
-	                    ),
-	                    (0, _mithril2.default)(
-	                        'li',
-	                        null,
-	                        (0, _mithril2.default)(
-	                            'a',
-	                            { href: '/contact', oncreate: _mithril2.default.route.link },
-	                            'CONTACT'
-	                        )
-	                    )
+	                    { 'class': 'nav__list-main' },
+	                    (0, _mithril2.default)(_NavItem2.default, { type: 'link', route: '/', icon: 'fa-home', title: 'Home' }),
+	                    (0, _mithril2.default)(_NavItem2.default, { type: 'spacer', 'spacer-type': 'bullet' }),
+	                    (0, _mithril2.default)(_NavItem2.default, { type: 'link', route: '/client/' + _ClientModel2.default.currentClient.slug, icon: 'fa-home', title: 'Projects' }),
+	                    (0, _mithril2.default)(_NavItem2.default, { type: 'spacer', 'spacer-type': 'bullet' }),
+	                    (0, _mithril2.default)(_NavItem2.default, { type: 'link', route: '/contact/', icon: 'fa-address-card', title: 'Contact' })
 	                )
 	            );
+	        }
+	    }, {
+	        key: 'navToggle',
+	        value: function navToggle(vnode) {
+	            if (!vnode.state.nav) {
+	                vnode.dom.classList.add('nav--open');
+	                vnode.state.nav = true;
+	                _App2.default.sendUpdate(new Event('navopen'));
+	            } else {
+	                vnode.dom.classList.remove('nav--open');
+	                vnode.state.nav = false;
+	                _App2.default.sendUpdate(new Event('navclose'));
+	            }
 	        }
 	    }]);
 
@@ -1984,111 +2001,6 @@
 
 /***/ },
 /* 9 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _mithril = __webpack_require__(1);
-
-	var _mithril2 = _interopRequireDefault(_mithril);
-
-	var _App = __webpack_require__(10);
-
-	var _App2 = _interopRequireDefault(_App);
-
-	var _ClientModel = __webpack_require__(7);
-
-	var _ClientModel2 = _interopRequireDefault(_ClientModel);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	var HomeView = function () {
-	    function HomeView() {
-	        _classCallCheck(this, HomeView);
-	    }
-
-	    _createClass(HomeView, null, [{
-	        key: 'oncreate',
-	        value: function oncreate(vnode) {
-	            // Wait for transition in animation to complere (.5s) and remove the class
-	            setTimeout(function () {
-	                vnode.dom.classList.remove("content-container--transition-in");
-	            }, 500);
-	        }
-	    }, {
-	        key: 'onbeforeremove',
-	        value: function onbeforeremove() {
-	            // Inform the App model the page is being removed - this informs the nav to close
-	            _App2.default.sendUpdate(new Event("pageState"));
-
-	            // Declare the container element that will animate before being removed
-	            var transitionContainer = document.getElementById("content-container__home");
-	            transitionContainer.classList.add("content-container--transition-out");
-
-	            // This hold's the mithril lifecycle until the transition animation completes
-	            // On complete the onremove method is called and this view is destroyed
-	            return new Promise(function (resolve) {
-	                setTimeout(resolve, 500);
-	            });
-	        }
-	    }, {
-	        key: 'onupdate',
-	        value: function onupdate(vnode) {
-	            // Move content container element when nav is open or closed
-	            if (vnode.attrs.nav == 'opening') {
-	                vnode.dom.classList.add('content-container--nav-open');
-	            } else if (vnode.attrs.nav == 'closing') {
-	                vnode.dom.classList.remove('content-container--nav-open');
-	            }
-	        }
-	    }, {
-	        key: 'view',
-	        value: function view() {
-	            return (0, _mithril2.default)(
-	                'section',
-	                { id: 'content-container', 'class': 'home content-container content-container--transition-in' },
-	                (0, _mithril2.default)(
-	                    'div',
-	                    { id: 'content-container__home', 'class': 'content-container__home' },
-	                    (0, _mithril2.default)(
-	                        'div',
-	                        { 'class': 'content-container__home__title' },
-	                        (0, _mithril2.default)(
-	                            'h2',
-	                            { 'class': 'content-container__home__title__name content-container__home__title--text-shadow--size-8' },
-	                            'CHUCK MASUCCI'
-	                        ),
-	                        (0, _mithril2.default)(
-	                            'h3',
-	                            { 'class': 'content-container__home__title__description content-container__home__title--text-shadow--size-3' },
-	                            'TECHNICAL DIRECTOR'
-	                        ),
-	                        Object.keys(_ClientModel2.default.currentClient).length > 0 && (0, _mithril2.default)(
-	                            'a',
-	                            { 'class': 'btn btn--green btn--box-shadow', href: "/client/" + _ClientModel2.default.currentClient.slug, oncreate: _mithril2.default.route.link },
-	                            (0, _mithril2.default)(
-	                                'span',
-	                                { 'class': 'btn__copy' },
-	                                'VIEW'
-	                            )
-	                        )
-	                    )
-	                )
-	            );
-	        }
-	    }]);
-
-	    return HomeView;
-	}();
-
-	module.exports = HomeView;
-
-/***/ },
-/* 10 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -2117,7 +2029,103 @@
 	module.exports = App;
 
 /***/ },
+/* 10 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	var _mithril = __webpack_require__(1);
+
+	var _mithril2 = _interopRequireDefault(_mithril);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var ClientList = {
+	    oninit: function oninit(vnode) {
+	        vnode.state.subNav = false;
+	    },
+	    view: function view(vnode) {
+	        var _this = this;
+
+	        ClientList.vnode = vnode;
+	        return (0, _mithril2.default)(
+	            "ul",
+	            { "class": "nav__list-sub nav__list-sub--closed", onclick: function onclick(e) {
+	                    _this.subNavClick(vnode);
+	                } },
+	            vnode.attrs.clients.length > 0 && vnode.attrs.clients.map(function (client, i) {
+	                return (0, _mithril2.default)(
+	                    "li",
+	                    null,
+	                    (0, _mithril2.default)(
+	                        "a",
+	                        { href: "/client/" + client.slug, oncreate: _mithril2.default.route.link },
+	                        client.title
+	                    )
+	                );
+	            })
+	        );
+	    },
+	    subNavClick: function subNavClick(vnode) {
+	        vnode.state.subNav = !vnode.state.subNav;
+	        if (!vnode.state.subNav) {
+	            vnode.dom.classList.add('nav__list-sub--closed');
+	        } else {
+	            vnode.dom.classList.remove('nav__list-sub--closed');
+	        }
+	    }
+	};
+
+	module.exports = ClientList;
+
+/***/ },
 /* 11 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _mithril = __webpack_require__(1);
+
+	var _mithril2 = _interopRequireDefault(_mithril);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var NavItem = {
+	    onupdate: function onupdate(vnode) {
+
+	        if (vnode.attrs.type == 'link') {
+	            vnode.dom.classList.add('nav__list-main__list-item');
+
+	            if (_mithril2.default.route.get() == vnode.attrs.route) vnode.dom.classList.add('nav__list-main__list-item-active');else vnode.dom.classList.remove('nav__list-main__list-item-active');
+	        } else if (vnode.attrs.type == 'spacer') {
+	            vnode.dom.classList.add('nav__list-main__bullet');
+	        }
+	    },
+	    view: function view(_ref) {
+	        var attrs = _ref.attrs;
+
+	        return (0, _mithril2.default)(
+	            'li',
+	            null,
+	            attrs.type == 'link' && (0, _mithril2.default)(
+	                'a',
+	                { href: attrs.route, oncreate: _mithril2.default.route.link },
+	                (0, _mithril2.default)('i', { 'class': "fa " + attrs.icon + " fa-5x", 'aria-hidden': 'true' }),
+	                attrs.title
+	            ),
+	            attrs.type == 'spacer' && (0, _mithril2.default)(
+	                'span',
+	                null,
+	                '\u2022'
+	            )
+	        );
+	    }
+	};
+
+	module.exports = NavItem;
+
+/***/ },
+/* 12 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2128,13 +2136,117 @@
 
 	var _mithril2 = _interopRequireDefault(_mithril);
 
-	var _App = __webpack_require__(10);
+	var _App = __webpack_require__(9);
 
 	var _App2 = _interopRequireDefault(_App);
 
 	var _ClientModel = __webpack_require__(7);
 
 	var _ClientModel2 = _interopRequireDefault(_ClientModel);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	var HomeView = function () {
+	    function HomeView() {
+	        _classCallCheck(this, HomeView);
+	    }
+
+	    _createClass(HomeView, null, [{
+	        key: 'oncreate',
+	        value: function oncreate(vnode) {
+	            // Wait for transition in animation to complere (.5s) and remove the class
+	            setTimeout(function () {
+	                vnode.dom.classList.remove("content-container--transition-in--next");
+	            }, 500);
+	        }
+	    }, {
+	        key: 'onbeforeremove',
+	        value: function onbeforeremove() {
+	            // Declare the container element that will animate before being removed
+	            var transitionContainer = document.getElementById("content-container__home");
+	            transitionContainer.classList.add("content-container--transition-out--next");
+
+	            // This hold's the mithril lifecycle until the transition animation complextes
+	            // On complete the onremove method is called and this view is destroyed
+	            return new Promise(function (resolve) {
+	                setTimeout(resolve, 500);
+	            });
+	        }
+	    }, {
+	        key: 'view',
+	        value: function view(vnode) {
+	            return (0, _mithril2.default)(
+	                'section',
+	                { id: 'content-container', 'class': 'home content-container content-container--transition-in--next' },
+	                (0, _mithril2.default)(
+	                    'div',
+	                    { id: 'content-container__home', 'class': 'content-container__home' },
+	                    (0, _mithril2.default)(
+	                        'div',
+	                        { 'class': 'content-container__home__title' },
+	                        (0, _mithril2.default)(
+	                            'h2',
+	                            { 'class': 'content-container__home__title__name content-container__home__title--text-shadow--size-8' },
+	                            'CHUCK MASUCCI'
+	                        ),
+	                        (0, _mithril2.default)(
+	                            'h3',
+	                            { 'class': 'content-container__home__title__description content-container__home__title--text-shadow--size-3' },
+	                            'TECHNICAL DIRECTOR'
+	                        ),
+	                        Object.keys(_ClientModel2.default.currentClient).length > 0 && (0, _mithril2.default)(
+	                            'a',
+	                            { 'class': 'btn btn--green btn--box-shadow', href: "/client/" + _ClientModel2.default.currentClient.slug, oncreate: _mithril2.default.route.link },
+	                            (0, _mithril2.default)(
+	                                'span',
+	                                { 'class': 'btn__copy' },
+	                                'VIEW WORK'
+	                            )
+	                        )
+	                    )
+	                )
+	            );
+	        }
+	    }]);
+
+	    return HomeView;
+	}();
+
+	module.exports = HomeView;
+
+/***/ },
+/* 13 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _mithril = __webpack_require__(1);
+
+	var _mithril2 = _interopRequireDefault(_mithril);
+
+	var _App = __webpack_require__(9);
+
+	var _App2 = _interopRequireDefault(_App);
+
+	var _ClientModel = __webpack_require__(7);
+
+	var _ClientModel2 = _interopRequireDefault(_ClientModel);
+
+	var _ClientButton = __webpack_require__(14);
+
+	var _ClientButton2 = _interopRequireDefault(_ClientButton);
+
+	var _SwipeOverlay = __webpack_require__(15);
+
+	var _SwipeOverlay2 = _interopRequireDefault(_SwipeOverlay);
+
+	var _stream = __webpack_require__(16);
+
+	var _stream2 = _interopRequireDefault(_stream);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -2150,18 +2262,25 @@
 	        value: function oninit(vnode) {
 	            // Inform the client model of the current project based on the url slug
 	            _ClientModel2.default.setCurrentClientId(vnode.attrs.id);
+
+	            this.direction = (0, _stream2.default)('next');
 	        }
 	    }, {
-	        key: 'oncreate',
-	        value: function oncreate() {
-	            // Transition the next and previous button in
-	            setTimeout(function () {
-	                this.toggles = document.getElementsByClassName("client-container__toggle");
+	        key: 'onupdate',
+	        value: function onupdate(vnode) {
+	            var _this = this;
 
-	                for (var i = 0; i < toggles.length; i++) {
-	                    toggles[i].classList.add("client-container__toggle--transition-in");
+	            // Initialize Hammer for touch events
+	            this.clientTouch = new Hammer(vnode.dom);
+	            this.clientTouch.on("swipe", function (ev) {
+	                if (ev.direction == Hammer.DIRECTION_LEFT) {
+	                    _this.direction('next');
+	                    _this.changeClient('next');
+	                } else if (ev.direction == Hammer.DIRECTION_RIGHT) {
+	                    _this.direction('prev');
+	                    _this.changeClient('prev');
 	                }
-	            }, 500);
+	            });
 	        }
 	    }, {
 	        key: 'onbeforeupdate',
@@ -2171,27 +2290,19 @@
 
 	            // Update the client with new data based on the new project
 	            _ClientModel2.default.setClientData();
+
+	            // Sets the direction in attrs object so ClientChildView recieves the direction
+	            vnode.attrs.navDirection = this.direction();
 	        }
 	    }, {
 	        key: 'onbeforeremove',
 	        value: function onbeforeremove(vnode) {
 	            // Inform the App model the view is about to be removed and transition out
-	            _App2.default.sendUpdate(new Event("pageState"));
-	            vnode.dom.classList.add("content-container--transition-out");
-
-	            for (var i = 0; i < toggles.length; i++) {
-	                toggles[i].classList.add("client-container__toggle--transition-out");
-	            }
+	            vnode.dom.classList.add("content-container--transition-out--next");
 
 	            return new Promise(function (resolve) {
 	                setTimeout(resolve, 500);
 	            });
-	        }
-	    }, {
-	        key: 'onupdate',
-	        value: function onupdate(vnode) {
-	            // Move content container element when nav is open or closed
-	            if (vnode.attrs.nav == 'opening') vnode.dom.classList.add('content-container--nav-open');else if (vnode.attrs.nav == 'closing') vnode.dom.classList.remove('content-container--nav-open');
 	        }
 	    }, {
 	        key: 'view',
@@ -2199,8 +2310,18 @@
 	            return (0, _mithril2.default)(
 	                'section',
 	                { id: 'content-container', 'class': 'content-container client-container' },
+	                (0, _mithril2.default)(_SwipeOverlay2.default, { copy: 'SWIPE TO NAVIGATE' }),
+	                (0, _mithril2.default)(_ClientButton2.default, { direction: 'prev', setdirection: this.direction, changeClient: this.changeClient }),
+	                (0, _mithril2.default)(_ClientButton2.default, { direction: 'next', setdirection: this.direction, changeClient: this.changeClient }),
 	                vnode.children
 	            );
+	        }
+	    }, {
+	        key: 'changeClient',
+	        value: function changeClient(direction) {
+	            if (direction == 'prev') _mithril2.default.route.set('/client/' + _ClientModel2.default.prevClient.slug);else if (direction == 'next') _mithril2.default.route.set('/client/' + _ClientModel2.default.nextClient.slug);
+
+	            return false;
 	        }
 	    }]);
 
@@ -2210,7 +2331,224 @@
 	module.exports = ClientView;
 
 /***/ },
-/* 12 */
+/* 14 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _mithril = __webpack_require__(1);
+
+	var _mithril2 = _interopRequireDefault(_mithril);
+
+	var _ClientModel = __webpack_require__(7);
+
+	var _ClientModel2 = _interopRequireDefault(_ClientModel);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var ClientButtonView = {
+	    oncreate: function oncreate(vnode) {
+	        setTimeout(function () {
+	            vnode.dom.classList.add('client-container__toggle--transition-in');
+	        }, 500);
+	    },
+	    view: function view(vnode) {
+	        var _this = this;
+
+	        return (0, _mithril2.default)(
+	            'a',
+	            { onclick: function onclick(e) {
+	                    return _this.changeClient(e, vnode.attrs.changeClient, vnode.attrs.setdirection, vnode.attrs.direction);
+	                }, href: vnode.attrs.direction == 'prev' && "/client/" + _ClientModel2.default.prevClient.slug + '?d=0' || vnode.attrs.direction == 'next' && '/client/' + _ClientModel2.default.nextClient.slug + '?d=1', oncreate: _mithril2.default.route.link, 'class': "client-container__toggle client-container__toggle-shadow--size-8 client-container__" + vnode.attrs.direction },
+	            (0, _mithril2.default)(
+	                'div',
+	                { 'class': 'client-container__toggle__arrow' },
+	                (0, _mithril2.default)(
+	                    'svg',
+	                    { xmlns: 'http://www.w3.org/2000/svg', width: '21', height: '25', viewBox: '0 0 21 25', transform: vnode.attrs.direction == 'next' && 'rotate(180)' },
+	                    (0, _mithril2.default)('path', { d: 'M13.8 25H21L7.2 12.5 21 0H13.8L0 12.5Z', 'stroke-width': '0.3' })
+	                )
+	            )
+	        );
+	    },
+	    changeClient: function changeClient(e, setdirection, _changeClient, direction) {
+	        // TODO Get back/prev browser buttons to work with prev direction
+	        // TODO Clicking fast issues
+
+	        e.redraw = false;
+	        e.preventDefault = true;
+
+	        setdirection(direction);
+	        _changeClient(direction);
+
+	        // Prevents href from firing
+	        return false;
+	    }
+	};
+	//<a onclick={ (e) => this.testClick(e, vnode.attrs.setdirection, vnode.attrs.direction) }>
+	module.exports = ClientButtonView;
+
+/***/ },
+/* 15 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	var _mithril = __webpack_require__(1);
+
+	var _mithril2 = _interopRequireDefault(_mithril);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var SwipeOverlay = {
+	    view: function view(_ref) {
+	        var attrs = _ref.attrs;
+
+	        return (0, _mithril2.default)(
+	            "div",
+	            { "class": "client-container__overlay-swipe" },
+	            (0, _mithril2.default)(
+	                "span",
+	                null,
+	                attrs.copy
+	            )
+	        );
+	    }
+	};
+
+	module.exports = SwipeOverlay;
+
+/***/ },
+/* 16 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__(17)
+
+/***/ },
+/* 17 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {"use strict"
+
+	var guid = 0, HALT = {}
+	function createStream() {
+		function stream() {
+			if (arguments.length > 0 && arguments[0] !== HALT) updateStream(stream, arguments[0])
+			return stream._state.value
+		}
+		initStream(stream)
+
+		if (arguments.length > 0 && arguments[0] !== HALT) updateStream(stream, arguments[0])
+
+		return stream
+	}
+	function initStream(stream) {
+		stream.constructor = createStream
+		stream._state = {id: guid++, value: undefined, state: 0, derive: undefined, recover: undefined, deps: {}, parents: [], endStream: undefined}
+		stream.map = stream["fantasy-land/map"] = map, stream["fantasy-land/ap"] = ap, stream["fantasy-land/of"] = createStream
+		stream.valueOf = valueOf, stream.toJSON = toJSON, stream.toString = valueOf
+
+		Object.defineProperties(stream, {
+			end: {get: function() {
+				if (!stream._state.endStream) {
+					var endStream = createStream()
+					endStream.map(function(value) {
+						if (value === true) unregisterStream(stream), unregisterStream(endStream)
+						return value
+					})
+					stream._state.endStream = endStream
+				}
+				return stream._state.endStream
+			}}
+		})
+	}
+	function updateStream(stream, value) {
+		updateState(stream, value)
+		for (var id in stream._state.deps) updateDependency(stream._state.deps[id], false)
+		finalize(stream)
+	}
+	function updateState(stream, value) {
+		stream._state.value = value
+		stream._state.changed = true
+		if (stream._state.state !== 2) stream._state.state = 1
+	}
+	function updateDependency(stream, mustSync) {
+		var state = stream._state, parents = state.parents
+		if (parents.length > 0 && parents.every(active) && (mustSync || parents.some(changed))) {
+			var value = stream._state.derive()
+			if (value === HALT) return false
+			updateState(stream, value)
+		}
+	}
+	function finalize(stream) {
+		stream._state.changed = false
+		for (var id in stream._state.deps) stream._state.deps[id]._state.changed = false
+	}
+
+	function combine(fn, streams) {
+		if (!streams.every(valid)) throw new Error("Ensure that each item passed to m.prop.combine/m.prop.merge is a stream")
+		return initDependency(createStream(), streams, function() {
+			return fn.apply(this, streams.concat([streams.filter(changed)]))
+		})
+	}
+
+	function initDependency(dep, streams, derive) {
+		var state = dep._state
+		state.derive = derive
+		state.parents = streams.filter(notEnded)
+
+		registerDependency(dep, state.parents)
+		updateDependency(dep, true)
+
+		return dep
+	}
+	function registerDependency(stream, parents) {
+		for (var i = 0; i < parents.length; i++) {
+			parents[i]._state.deps[stream._state.id] = stream
+			registerDependency(stream, parents[i]._state.parents)
+		}
+	}
+	function unregisterStream(stream) {
+		for (var i = 0; i < stream._state.parents.length; i++) {
+			var parent = stream._state.parents[i]
+			delete parent._state.deps[stream._state.id]
+		}
+		for (var id in stream._state.deps) {
+			var dependent = stream._state.deps[id]
+			var index = dependent._state.parents.indexOf(stream)
+			if (index > -1) dependent._state.parents.splice(index, 1)
+		}
+		stream._state.state = 2 //ended
+		stream._state.deps = {}
+	}
+
+	function map(fn) {return combine(function(stream) {return fn(stream())}, [this])}
+	function ap(stream) {return combine(function(s1, s2) {return s1()(s2())}, [stream, this])}
+	function valueOf() {return this._state.value}
+	function toJSON() {return this._state.value != null && typeof this._state.value.toJSON === "function" ? this._state.value.toJSON() : this._state.value}
+
+	function valid(stream) {return stream._state }
+	function active(stream) {return stream._state.state === 1}
+	function changed(stream) {return stream._state.changed}
+	function notEnded(stream) {return stream._state.state !== 2}
+
+	function merge(streams) {
+		return combine(function() {
+			return streams.map(function(s) {return s()})
+		}, streams)
+	}
+	createStream["fantasy-land/of"] = createStream
+	createStream.merge = merge
+	createStream.combine = combine
+	createStream.HALT = HALT
+
+	if (true) module["exports"] = createStream
+	else window.stream = createStream
+
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5)(module)))
+
+/***/ },
+/* 18 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2221,7 +2559,7 @@
 
 	var _mithril2 = _interopRequireDefault(_mithril);
 
-	var _App = __webpack_require__(10);
+	var _App = __webpack_require__(9);
 
 	var _App2 = _interopRequireDefault(_App);
 
@@ -2248,19 +2586,28 @@
 	        key: 'oncreate',
 	        value: function oncreate(vnode) {
 	            // Transition in
-	            vnode.dom.classList.remove('content-container--transition-out');
-	            vnode.dom.classList.add('content-container--transition-in');
+	            if (vnode.attrs.navDirection == 'next') {
+	                vnode.dom.classList.remove('content-container--transition-out--next');
+	                vnode.dom.classList.add('content-container--transition-in--next');
+	            }
 
 	            _mithril2.default.redraw();
 	        }
 	    }, {
 	        key: 'onbeforeupdate',
 	        value: function onbeforeupdate(vnode) {
-	            // Checks to see if the client has finish transitioning in and is ready to be transitioned out
-	            if (this.clientSet && vnode.attrs.nav == 'closed') {
-	                // TODO Add transitions from both sides
-	                this.container.classList.remove('content-container--transition-in');
-	                this.container.classList.add('content-container--transition-out');
+	            // Set navDirection to component state
+	            this.navDirection = vnode.attrs.navDirection;
+
+	            // Checks to see if the client has finished transitioning in and is ready to be transitioned out
+	            if (this.clientSet) {
+	                if (this.navDirection == 'next') {
+	                    this.container.classList.add('content-container--transition-out--next');
+	                    this.container.classList.remove('content-container--transition-in--next');
+	                } else if (this.navDirection == 'prev') {
+	                    this.container.classList.add('content-container--transition-out--prev');
+	                    this.container.classList.remove('content-container--transition-in--prev');
+	                }
 
 	                // Pauses the redraw for .5s to allow the transitions to finish
 	                setTimeout(_mithril2.default.redraw, 500);
@@ -2270,17 +2617,24 @@
 
 	                // This stops onupdate from being fired allowing the timeout to complete
 	                return false;
-	            } else if (vnode.attrs.nav == 'opening' || vnode.attrs.nav == 'closing') {
-	                return false;
 	            }
 	        }
 	    }, {
 	        key: 'onupdate',
 	        value: function onupdate(vnode) {
 	            // Transition in content
-	            // TODO Add transitions from both sides
-	            vnode.dom.classList.remove('content-container--transition-out');
-	            vnode.dom.classList.add('content-container--transition-in');
+	            if (this.navDirection == 'next') {
+	                vnode.dom.classList.add('content-container--transition-in--next');
+	                vnode.dom.classList.remove('content-container--transition-out--next');
+	            } else if (this.navDirection == 'prev') {
+	                vnode.dom.classList.add('content-container--transition-in--prev');
+	                vnode.dom.classList.remove('content-container--transition-out--prev');
+	            }
+
+	            setTimeout(function () {
+	                vnode.dom.classList.remove('content-container--transition-in--next');
+	                vnode.dom.classList.remove('content-container--transition-in--prev');
+	            }, 500);
 
 	            // Get the container dom element
 	            // it will be used during transition out since onbeforeupdate's vnode does not contain a dom
@@ -2322,60 +2676,6 @@
 	}();
 
 	module.exports = ClientChildView;
-
-/***/ },
-/* 13 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _mithril = __webpack_require__(1);
-
-	var _mithril2 = _interopRequireDefault(_mithril);
-
-	var _ClientModel = __webpack_require__(7);
-
-	var _ClientModel2 = _interopRequireDefault(_ClientModel);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	var ClientButtonView = function () {
-	    function ClientButtonView() {
-	        _classCallCheck(this, ClientButtonView);
-	    }
-
-	    _createClass(ClientButtonView, null, [{
-	        key: 'oncreate',
-	        value: function oncreate(vnode) {
-	            vnode.state.direction = vnode.attrs.direction;
-	        }
-	    }, {
-	        key: 'view',
-	        value: function view(vnode) {
-	            return (0, _mithril2.default)(
-	                'a',
-	                { href: vnode.state.direction == 'prev' && "/client/" + _ClientModel2.default.prevClient.slug + '?d=0' || vnode.state.direction == 'next' && '/client/' + _ClientModel2.default.nextClient.slug + '?d=1', oncreate: _mithril2.default.route.link, 'class': "client-container__toggle client-container__toggle-shadow--size-8 client-container__" + vnode.attrs.direction },
-	                (0, _mithril2.default)(
-	                    'div',
-	                    { 'class': 'client-container__toggle__arrow' },
-	                    (0, _mithril2.default)(
-	                        'svg',
-	                        { xmlns: 'http://www.w3.org/2000/svg', width: '21', height: '25', viewBox: '0 0 21 25', transform: vnode.state.direction == 'next' && 'rotate(180)' },
-	                        (0, _mithril2.default)('path', { d: 'M13.8 25H21L7.2 12.5 21 0H13.8L0 12.5Z', 'stroke-width': '0.3' })
-	                    )
-	                )
-	            );
-	        }
-	    }]);
-
-	    return ClientButtonView;
-	}();
-
-	module.exports = ClientButtonView;
 
 /***/ }
 /******/ ]);

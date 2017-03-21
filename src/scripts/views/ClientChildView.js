@@ -10,18 +10,28 @@ class ClientChildView {
 
     static oncreate(vnode) {
         // Transition in
-        vnode.dom.classList.remove('content-container--transition-out')
-        vnode.dom.classList.add('content-container--transition-in')
+        if(vnode.attrs.navDirection == 'next') {
+            vnode.dom.classList.remove('content-container--transition-out--next')
+            vnode.dom.classList.add('content-container--transition-in--next')
+        }
 
         m.redraw()
     }
 
     static onbeforeupdate(vnode) {
-        // Checks to see if the client has finish transitioning in and is ready to be transitioned out
-        if(this.clientSet && vnode.attrs.nav == 'closed') {
-            // TODO Add transitions from both sides
-            this.container.classList.remove('content-container--transition-in')
-            this.container.classList.add('content-container--transition-out')
+        // Set navDirection to component state
+        this.navDirection = vnode.attrs.navDirection
+
+        // Checks to see if the client has finished transitioning in and is ready to be transitioned out
+        if(this.clientSet) {
+            if(this.navDirection == 'next') {
+                this.container.classList.add('content-container--transition-out--next')
+                this.container.classList.remove('content-container--transition-in--next')
+            }
+            else if(this.navDirection == 'prev') {
+                this.container.classList.add('content-container--transition-out--prev')
+                this.container.classList.remove('content-container--transition-in--prev')
+            }
 
             // Pauses the redraw for .5s to allow the transitions to finish
             setTimeout(m.redraw, 500)
@@ -32,16 +42,23 @@ class ClientChildView {
             // This stops onupdate from being fired allowing the timeout to complete
             return false
         }
-        else if(vnode.attrs.nav == 'opening' || vnode.attrs.nav == 'closing') {
-            return false
-        }
     }
 
     static onupdate(vnode) {
-        // Transition in content
-        // TODO Add transitions from both sides
-        vnode.dom.classList.remove('content-container--transition-out')
-        vnode.dom.classList.add('content-container--transition-in')
+            // Transition in content
+        if(this.navDirection == 'next') {
+            vnode.dom.classList.add('content-container--transition-in--next')
+            vnode.dom.classList.remove('content-container--transition-out--next')
+        }
+        else if(this.navDirection == 'prev') {
+            vnode.dom.classList.add('content-container--transition-in--prev')
+            vnode.dom.classList.remove('content-container--transition-out--prev')
+        }
+
+        setTimeout(() => {
+            vnode.dom.classList.remove('content-container--transition-in--next')
+            vnode.dom.classList.remove('content-container--transition-in--prev')
+        }, 500)
 
         // Get the container dom element
         // it will be used during transition out since onbeforeupdate's vnode does not contain a dom

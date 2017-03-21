@@ -16,9 +16,6 @@ const distDataDir = 'dist/assets/data/'
 const distImagesDir = 'dist/assets/images/'
 
 // Asset sources
-const assetsSources = 'src/assets/**/*'
-const cssSources = 'src/assets/styles/*.css'
-const jsAssetSources = 'src/assets/scripts/index.js'
 const dataSources = 'src/assets/data/**/*'
 const imageSources = 'src/assets/images/**/*'
 

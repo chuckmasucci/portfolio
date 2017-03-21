@@ -182,32 +182,6 @@ body {
             }
         }
 
-        .layout__overlay {
-            position: absolute;
-            width: 100vw;
-            height: 100vh;
-            background-color: #000000;
-            z-index: 10;
-            opacity: 0;
-            display: none;
-
-            &.layout__overlay--open {
-                display: block;
-                animation: layout__overlay--open--transition-in $container-transition;
-                animation-fill-mode: forwards;
-            }
-
-            @keyframes layout__overlay--open--transition-in {
-                from {
-                    opacity: 0;
-                }
-
-                to {
-                    opacity: .7;
-                }
-            }
-        }
-
         #content-container {
             &.content-container--nav-open {
                 transform: translate(-300px,0);

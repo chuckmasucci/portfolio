@@ -3,7 +3,7 @@ import ClientModel from '../models/ClientModel'
 
 const ClientButtonView = {
     oncreate(vnode) {
-        setTimeout(function () {
+        setTimeout(() => {
             vnode.dom.classList.add('client-container__toggle--transition-in')
         }, 500)
     },
@@ -34,5 +34,5 @@ const ClientButtonView = {
         return false
     }
 }
-//<a onclick={ (e) => this.testClick(e, vnode.attrs.setdirection, vnode.attrs.direction) }>
+
 module.exports = ClientButtonView

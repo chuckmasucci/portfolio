@@ -43,7 +43,7 @@ class ClientView {
         // Inform the App model the view is about to be removed and transition out
         vnode.dom.classList.add("content-container--transition-out--next")
 
-        return new Promise(function(resolve) {
+        return new Promise((resolve) => {
             setTimeout(resolve, 500)
         })
     }

@@ -58,19 +58,19 @@
 
 	var _Nav2 = _interopRequireDefault(_Nav);
 
-	var _Home = __webpack_require__(12);
+	var _Home = __webpack_require__(11);
 
 	var _Home2 = _interopRequireDefault(_Home);
 
-	var _Client = __webpack_require__(13);
+	var _Client = __webpack_require__(12);
 
 	var _Client2 = _interopRequireDefault(_Client);
 
-	var _ClientChildView = __webpack_require__(18);
+	var _ClientChildView = __webpack_require__(17);
 
 	var _ClientChildView2 = _interopRequireDefault(_ClientChildView);
 
-	var _ClientButton = __webpack_require__(14);
+	var _ClientButton = __webpack_require__(13);
 
 	var _ClientButton2 = _interopRequireDefault(_ClientButton);
 
@@ -1761,26 +1761,19 @@
 	        value: function onnavopen(vnode) {
 	            vnode.dom.classList.add('layout--nav-open');
 	            vnode.dom.classList.remove('layout--nav-closed');
-
-	            // vnode.dom.querySelector(".layout__overlay").classList.add('layout__overlay--open')
 	        }
 	    }, {
 	        key: 'onnavclose',
 	        value: function onnavclose(vnode) {
 	            vnode.dom.classList.add('layout--nav-closed');
 	            vnode.dom.classList.remove('layout--nav-open');
-
-	            // vnode.dom.querySelector(".layout__overlay").classList.remove('layout__overlay--open')
 	        }
 	    }, {
 	        key: 'view',
 	        value: function view(vnode) {
-	            // Set nav attributes to bubble down to children
-	            // vnode.attrs.nav = vnode.state.nav
 	            return (0, _mithril2.default)(
 	                'main',
 	                { id: 'Layout', 'class': 'layout' },
-	                (0, _mithril2.default)('div', { 'class': 'layout__overlay' }),
 	                vnode.children
 	            );
 	        }
@@ -1788,8 +1781,6 @@
 
 	    return Layout;
 	}();
-
-	// <footer>&copy; 2017 Charles Masucci | Made with <a href="http://mithril.js.org/" target="_blank">Mithril</a></footer>
 
 	module.exports = Layout;
 
@@ -1925,11 +1916,7 @@
 
 	var _ClientModel2 = _interopRequireDefault(_ClientModel);
 
-	var _ClientListView = __webpack_require__(10);
-
-	var _ClientListView2 = _interopRequireDefault(_ClientListView);
-
-	var _NavItem = __webpack_require__(11);
+	var _NavItem = __webpack_require__(10);
 
 	var _NavItem2 = _interopRequireDefault(_NavItem);
 
@@ -2032,56 +2019,6 @@
 /* 10 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
-
-	var _mithril = __webpack_require__(1);
-
-	var _mithril2 = _interopRequireDefault(_mithril);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	var ClientList = {
-	    oninit: function oninit(vnode) {
-	        vnode.state.subNav = false;
-	    },
-	    view: function view(vnode) {
-	        var _this = this;
-
-	        ClientList.vnode = vnode;
-	        return (0, _mithril2.default)(
-	            "ul",
-	            { "class": "nav__list-sub nav__list-sub--closed", onclick: function onclick(e) {
-	                    _this.subNavClick(vnode);
-	                } },
-	            vnode.attrs.clients.length > 0 && vnode.attrs.clients.map(function (client, i) {
-	                return (0, _mithril2.default)(
-	                    "li",
-	                    null,
-	                    (0, _mithril2.default)(
-	                        "a",
-	                        { href: "/client/" + client.slug, oncreate: _mithril2.default.route.link },
-	                        client.title
-	                    )
-	                );
-	            })
-	        );
-	    },
-	    subNavClick: function subNavClick(vnode) {
-	        vnode.state.subNav = !vnode.state.subNav;
-	        if (!vnode.state.subNav) {
-	            vnode.dom.classList.add('nav__list-sub--closed');
-	        } else {
-	            vnode.dom.classList.remove('nav__list-sub--closed');
-	        }
-	    }
-	};
-
-	module.exports = ClientList;
-
-/***/ },
-/* 11 */
-/***/ function(module, exports, __webpack_require__) {
-
 	'use strict';
 
 	var _mithril = __webpack_require__(1);
@@ -2092,12 +2029,14 @@
 
 	var NavItem = {
 	    onupdate: function onupdate(vnode) {
-
 	        if (vnode.attrs.type == 'link') {
+	            // Add link class
 	            vnode.dom.classList.add('nav__list-main__list-item');
 
+	            // Set active and inactive classes
 	            if (_mithril2.default.route.get() == vnode.attrs.route) vnode.dom.classList.add('nav__list-main__list-item-active');else vnode.dom.classList.remove('nav__list-main__list-item-active');
 	        } else if (vnode.attrs.type == 'spacer') {
+	            // Add spacer class
 	            vnode.dom.classList.add('nav__list-main__bullet');
 	        }
 	    },
@@ -2125,7 +2064,7 @@
 	module.exports = NavItem;
 
 /***/ },
-/* 12 */
+/* 11 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2217,7 +2156,7 @@
 	module.exports = HomeView;
 
 /***/ },
-/* 13 */
+/* 12 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2236,15 +2175,15 @@
 
 	var _ClientModel2 = _interopRequireDefault(_ClientModel);
 
-	var _ClientButton = __webpack_require__(14);
+	var _ClientButton = __webpack_require__(13);
 
 	var _ClientButton2 = _interopRequireDefault(_ClientButton);
 
-	var _SwipeOverlay = __webpack_require__(15);
+	var _SwipeOverlay = __webpack_require__(14);
 
 	var _SwipeOverlay2 = _interopRequireDefault(_SwipeOverlay);
 
-	var _stream = __webpack_require__(16);
+	var _stream = __webpack_require__(15);
 
 	var _stream2 = _interopRequireDefault(_stream);
 
@@ -2331,7 +2270,7 @@
 	module.exports = ClientView;
 
 /***/ },
-/* 14 */
+/* 13 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2385,11 +2324,11 @@
 	        return false;
 	    }
 	};
-	//<a onclick={ (e) => this.testClick(e, vnode.attrs.setdirection, vnode.attrs.direction) }>
+
 	module.exports = ClientButtonView;
 
 /***/ },
-/* 15 */
+/* 14 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2419,13 +2358,13 @@
 	module.exports = SwipeOverlay;
 
 /***/ },
-/* 16 */
+/* 15 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(17)
+	module.exports = __webpack_require__(16)
 
 /***/ },
-/* 17 */
+/* 16 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module) {"use strict"
@@ -2548,7 +2487,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5)(module)))
 
 /***/ },
-/* 18 */
+/* 17 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';

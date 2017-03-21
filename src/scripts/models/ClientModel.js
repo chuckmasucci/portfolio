@@ -15,7 +15,7 @@ class ClientsModel {
         return m.request({
             method: "GET",
             url: "/assets/data/projects.json",
-        }).then(function (result) {
+        }).then((result) => {
             ClientsModel.list = result
             if(id === undefined) {
                 ClientsModel.setClientByIndex(0)

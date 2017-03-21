@@ -45,7 +45,7 @@ class ClientChildView {
     }
 
     static onupdate(vnode) {
-            // Transition in content
+        // Transition in content
         if(this.navDirection == 'next') {
             vnode.dom.classList.add('content-container--transition-in--next')
             vnode.dom.classList.remove('content-container--transition-out--next')

@@ -1,7 +1,6 @@
 import m from 'mithril'
 import App from '../models/App'
 import ClientModel from '../models/ClientModel'
-import ClientListView from './ClientListView'
 import NavItem from './NavItem'
 
 class Nav {

@@ -17,7 +17,7 @@ class HomeView {
 
         // This hold's the mithril lifecycle until the transition animation complextes
         // On complete the onremove method is called and this view is destroyed
-        return new Promise(function(resolve) {
+        return new Promise((resolve) => {
             setTimeout(resolve, 500)
         });
     }

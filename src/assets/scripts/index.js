@@ -2140,7 +2140,7 @@
 	                        (0, _mithril2.default)(
 	                            'h3',
 	                            { 'class': 'content-container__home__title__description content-container__home__title--text-shadow--size-3' },
-	                            'TECHNICAL DIRECTOR'
+	                            'TECHNICAL DIRECTOR / DEVELOPER'
 	                        ),
 	                        Object.keys(_ClientModel2.default.currentClient).length > 0 && (0, _mithril2.default)(
 	                            'a',
@@ -2676,6 +2676,11 @@
 	                    (0, _mithril2.default)(
 	                        "div",
 	                        { "class": "contact-container__information" },
+	                        (0, _mithril2.default)(
+	                            "h2",
+	                            { "class": "contact-container__title__name contact-container__title--text-shadow--size-8" },
+	                            "CONTACT"
+	                        ),
 	                        (0, _mithril2.default)(
 	                            "div",
 	                            { "class": "contact-container__information__content-container contact-container__information__content-container--photo" },

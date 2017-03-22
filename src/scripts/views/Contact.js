@@ -22,9 +22,10 @@ class ContactView {
     static view() {
         return(
             <section id="content-container" class="content-container contact-container content-container--transition-in--next">
+
                 <div class="contact-container__holder">
                     <div class="contact-container__information">
-
+                        <h2 class="contact-container__title__name contact-container__title--text-shadow--size-8">CONTACT</h2>
                         <div class="contact-container__information__content-container contact-container__information__content-container--photo">
                             <img class="contact-container__information__photo" src="assets/images/picture-chuck.jpg" alt="Chuck Masucci" />
                         </div>

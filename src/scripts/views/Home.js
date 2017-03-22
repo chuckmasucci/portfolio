@@ -27,7 +27,7 @@ class HomeView {
                 <div id="content-container__home" class="content-container__home">
                     <div class="content-container__home__title">
                         <h2 class="content-container__home__title__name content-container__home__title--text-shadow--size-8">CHUCK MASUCCI</h2>
-                        <h3 class="content-container__home__title__description content-container__home__title--text-shadow--size-3">TECHNICAL DIRECTOR</h3>
+                        <h3 class="content-container__home__title__description content-container__home__title--text-shadow--size-3">TECHNICAL DIRECTOR / DEVELOPER</h3>
                         {Object.keys(ClientModel.currentClient).length > 0 &&
                         <a class="btn btn--green btn--box-shadow" href={"/client/" + ClientModel.currentClient.slug} oncreate={m.route.link}>
                             <span class="btn__copy">VIEW WORK</span>

@@ -10,10 +10,9 @@ class HomeView {
         }, 500);
     }
 
-    static onbeforeremove() {
-        // Declare the container element that will animate before being removed
-        let transitionContainer = document.getElementById("content-container__home")
-        transitionContainer.classList.add("content-container--transition-out--next")
+    static onbeforeremove(vnode) {
+        // Add transition out class to dom container
+        vnode.dom.classList.add("content-container--transition-out--next")
 
         // This hold's the mithril lifecycle until the transition animation complextes
         // On complete the onremove method is called and this view is destroyed

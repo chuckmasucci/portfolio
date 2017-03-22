@@ -74,23 +74,31 @@
 
 	var _ClientButton2 = _interopRequireDefault(_ClientButton);
 
+	var _Contact = __webpack_require__(18);
+
+	var _Contact2 = _interopRequireDefault(_Contact);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	// m.route.prefix("#!")
 
-	_mithril2.default.route(document.body, "/", {
-	    "/": {
+	_mithril2.default.route(document.body, '/', {
+	    '/': {
 	        render: function render(vnode) {
 	            return [(0, _mithril2.default)(_Layout2.default, vnode.attrs, (0, _mithril2.default)(_Home2.default, vnode.attrs)), (0, _mithril2.default)(_Nav2.default, vnode.attrs)];
 	        }
 	    },
-	    "/client/:id": {
+	    '/client/:id': {
 	        render: function render(vnode) {
-	            // return [m(Layout, vnode.attrs, [m(Client, vnode.attrs, [m(ClientButtonView, Object.assign({}, vnode.attrs, {direction: 'prev'})), m(ClientButtonView, Object.assign({}, vnode.attrs, {direction: 'next'})), m(ClientChildView, vnode.attrs)])]), m(Nav, vnode.attrs)]
 	            return [(0, _mithril2.default)(_Layout2.default, vnode.attrs, [(0, _mithril2.default)(_Client2.default, vnode.attrs, (0, _mithril2.default)(_ClientChildView2.default, vnode.attrs))]), (0, _mithril2.default)(_Nav2.default, vnode.attrs)];
 	        }
+	    },
+	    '/contact': {
+	        render: function render(vnode) {
+	            return [(0, _mithril2.default)(_Layout2.default, vnode.attrs, (0, _mithril2.default)(_Contact2.default, vnode.attrs)), (0, _mithril2.default)(_Nav2.default, vnode.attrs)];
+	        }
 	    }
-	}); // index.js
+	});
 
 /***/ },
 /* 1 */
@@ -2102,10 +2110,9 @@
 	        }
 	    }, {
 	        key: 'onbeforeremove',
-	        value: function onbeforeremove() {
-	            // Declare the container element that will animate before being removed
-	            var transitionContainer = document.getElementById("content-container__home");
-	            transitionContainer.classList.add("content-container--transition-out--next");
+	        value: function onbeforeremove(vnode) {
+	            // Add transition out class to dom container
+	            vnode.dom.classList.add("content-container--transition-out--next");
 
 	            // This hold's the mithril lifecycle until the transition animation complextes
 	            // On complete the onremove method is called and this view is destroyed
@@ -2205,6 +2212,18 @@
 	            this.direction = (0, _stream2.default)('next');
 	        }
 	    }, {
+	        key: 'onbeforeupdate',
+	        value: function onbeforeupdate(vnode) {
+	            // When url updates we update the client model with the current project based on the url slug
+	            _ClientModel2.default.setCurrentClientId(vnode.attrs.id);
+
+	            // Update the client with new data based on the new project
+	            _ClientModel2.default.setClientData();
+
+	            // Sets the direction in attrs object so ClientChildView recieves the direction
+	            vnode.attrs.navDirection = this.direction();
+	        }
+	    }, {
 	        key: 'onupdate',
 	        value: function onupdate(vnode) {
 	            var _this = this;
@@ -2222,18 +2241,6 @@
 	            });
 	        }
 	    }, {
-	        key: 'onbeforeupdate',
-	        value: function onbeforeupdate(vnode) {
-	            // When url updates we update the client model with the current project based on the url slug
-	            _ClientModel2.default.setCurrentClientId(vnode.attrs.id);
-
-	            // Update the client with new data based on the new project
-	            _ClientModel2.default.setClientData();
-
-	            // Sets the direction in attrs object so ClientChildView recieves the direction
-	            vnode.attrs.navDirection = this.direction();
-	        }
-	    }, {
 	        key: 'onbeforeremove',
 	        value: function onbeforeremove(vnode) {
 	            // Inform the App model the view is about to be removed and transition out
@@ -2248,7 +2255,7 @@
 	        value: function view(vnode) {
 	            return (0, _mithril2.default)(
 	                'section',
-	                { id: 'content-container', 'class': 'content-container client-container' },
+	                { id: 'content-container', 'class': 'content-container client-container content-container--transition-in--next' },
 	                (0, _mithril2.default)(_SwipeOverlay2.default, { copy: 'SWIPE TO NAVIGATE' }),
 	                (0, _mithril2.default)(_ClientButton2.default, { direction: 'prev', setdirection: this.direction, changeClient: this.changeClient }),
 	                (0, _mithril2.default)(_ClientButton2.default, { direction: 'next', setdirection: this.direction, changeClient: this.changeClient }),
@@ -2615,6 +2622,119 @@
 	}();
 
 	module.exports = ClientChildView;
+
+/***/ },
+/* 18 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _mithril = __webpack_require__(1);
+
+	var _mithril2 = _interopRequireDefault(_mithril);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	var ContactView = function () {
+	    function ContactView() {
+	        _classCallCheck(this, ContactView);
+	    }
+
+	    _createClass(ContactView, null, [{
+	        key: "oncreate",
+	        value: function oncreate(vnode) {
+	            // Wait for transition in animation to complere (.5s) and remove the class
+	            setTimeout(function () {
+	                vnode.dom.classList.remove("content-container--transition-in--next");
+	            }, 500);
+	        }
+	    }, {
+	        key: "onbeforeremove",
+	        value: function onbeforeremove(vnode) {
+	            // Add transition out class to dom container
+	            vnode.dom.classList.add("content-container--transition-out--next");
+
+	            // This hold's the mithril lifecycle until the transition animation complextes
+	            // On complete the onremove method is called and this view is destroyed
+	            return new Promise(function (resolve) {
+	                setTimeout(resolve, 500);
+	            });
+	        }
+	    }, {
+	        key: "view",
+	        value: function view() {
+	            return (0, _mithril2.default)(
+	                "section",
+	                { id: "content-container", "class": "content-container contact-container content-container--transition-in--next" },
+	                (0, _mithril2.default)(
+	                    "div",
+	                    { "class": "contact-container__holder" },
+	                    (0, _mithril2.default)(
+	                        "div",
+	                        { "class": "contact-container__information" },
+	                        (0, _mithril2.default)(
+	                            "div",
+	                            { "class": "contact-container__information__content-container contact-container__information__content-container--photo" },
+	                            (0, _mithril2.default)("img", { "class": "contact-container__information__photo", src: "assets/images/picture-chuck.jpg", alt: "Chuck Masucci" })
+	                        ),
+	                        (0, _mithril2.default)(
+	                            "div",
+	                            { "class": "contact-container__information__content-container contact-container__information__content-container--text" },
+	                            (0, _mithril2.default)(
+	                                "div",
+	                                { "class": "contact-container__information__content-container__content-items" },
+	                                (0, _mithril2.default)(
+	                                    "div",
+	                                    { "class": "contact-container__information__content-container__content-item" },
+	                                    (0, _mithril2.default)(
+	                                        "div",
+	                                        { "class": "contact-container__information__content-container__content-item--title" },
+	                                        "//email"
+	                                    ),
+	                                    (0, _mithril2.default)(
+	                                        "div",
+	                                        { "class": "contact-container__information__content-container__content-item--link" },
+	                                        (0, _mithril2.default)(
+	                                            "a",
+	                                            { href: "mailto:cmasucci@gmail.com" },
+	                                            "cmasucci@gmail.com"
+	                                        )
+	                                    )
+	                                ),
+	                                (0, _mithril2.default)(
+	                                    "div",
+	                                    { "class": "contact-container__information__content-container__content-item" },
+	                                    (0, _mithril2.default)(
+	                                        "div",
+	                                        { "class": "contact-container__information__content-container__content-item--title" },
+	                                        "//resume"
+	                                    ),
+	                                    (0, _mithril2.default)(
+	                                        "div",
+	                                        { "class": "contact-container__information__content-container__content-item--link" },
+	                                        (0, _mithril2.default)(
+	                                            "a",
+	                                            { href: "http://linkedin.com/in/chuckmasucci/", target: "_blank" },
+	                                            "linkedin.com/in/chuckmasucci/"
+	                                        )
+	                                    )
+	                                )
+	                            )
+	                        )
+	                    )
+	                )
+	            );
+	        }
+	    }]);
+
+	    return ContactView;
+	}();
+
+	module.exports = ContactView;
 
 /***/ }
 /******/ ]);

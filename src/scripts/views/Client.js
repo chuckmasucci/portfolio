@@ -13,6 +13,17 @@ class ClientView {
         this.direction = stream('next')
     }
 
+    static onbeforeupdate(vnode) {
+        // When url updates we update the client model with the current project based on the url slug
+        ClientModel.setCurrentClientId(vnode.attrs.id)
+
+        // Update the client with new data based on the new project
+        ClientModel.setClientData()
+
+        // Sets the direction in attrs object so ClientChildView recieves the direction
+        vnode.attrs.navDirection = this.direction()
+    }
+
     static onupdate(vnode) {
         // Initialize Hammer for touch events
         this.clientTouch = new Hammer(vnode.dom);
@@ -28,17 +39,6 @@ class ClientView {
         });
     }
 
-    static onbeforeupdate(vnode) {
-        // When url updates we update the client model with the current project based on the url slug
-        ClientModel.setCurrentClientId(vnode.attrs.id)
-
-        // Update the client with new data based on the new project
-        ClientModel.setClientData()
-
-        // Sets the direction in attrs object so ClientChildView recieves the direction
-        vnode.attrs.navDirection = this.direction()
-    }
-
     static onbeforeremove(vnode) {
         // Inform the App model the view is about to be removed and transition out
         vnode.dom.classList.add("content-container--transition-out--next")
@@ -50,7 +50,7 @@ class ClientView {
 
     static view (vnode) {
         return(
-            <section id="content-container" class="content-container client-container">
+            <section id="content-container" class="content-container client-container content-container--transition-in--next">
                 <SwipeOverlay copy="SWIPE TO NAVIGATE" />
                 <ClientButtonView direction="prev" setdirection={ this.direction } changeClient = { this.changeClient } />
                 <ClientButtonView direction="next" setdirection={ this.direction } changeClient = { this.changeClient } />

@@ -2311,8 +2311,9 @@
 	                { 'class': 'client-container__toggle__arrow' },
 	                (0, _mithril2.default)(
 	                    'svg',
-	                    { xmlns: 'http://www.w3.org/2000/svg', width: '21', height: '25', viewBox: '0 0 21 25', transform: vnode.attrs.direction == 'next' && 'rotate(180)' },
-	                    (0, _mithril2.default)('path', { d: 'M13.8 25H21L7.2 12.5 21 0H13.8L0 12.5Z', 'stroke-width': '0.3' })
+	                    { xmlns: 'http://www.w3.org/2000/svg', width: '21', height: '25', viewBox: '0 0 21 25' },
+	                    vnode.attrs.direction == 'prev' && (0, _mithril2.default)('path', { d: 'M13.8 25H21L7.2 12.5 21 0H13.8L0 12.5Z', 'stroke-width': '0.3' }),
+	                    vnode.attrs.direction == 'next' && (0, _mithril2.default)('path', { d: 'M7.2 0H0L13.8 12.5 0 25H7.2L21 12.5Z', 'stroke-width': '0.3' })
 	                )
 	            )
 	        );
@@ -2698,7 +2699,7 @@
 	                                    (0, _mithril2.default)(
 	                                        "div",
 	                                        { "class": "contact-container__information__content-container__content-item--title" },
-	                                        "//email"
+	                                        "// Email"
 	                                    ),
 	                                    (0, _mithril2.default)(
 	                                        "div",
@@ -2716,7 +2717,7 @@
 	                                    (0, _mithril2.default)(
 	                                        "div",
 	                                        { "class": "contact-container__information__content-container__content-item--title" },
-	                                        "//resume"
+	                                        "// LinkedIn"
 	                                    ),
 	                                    (0, _mithril2.default)(
 	                                        "div",
@@ -2724,7 +2725,25 @@
 	                                        (0, _mithril2.default)(
 	                                            "a",
 	                                            { href: "http://linkedin.com/in/chuckmasucci/", target: "_blank" },
-	                                            "linkedin.com/in/chuckmasucci/"
+	                                            "linkedin.com/in/chuckmasucci"
+	                                        )
+	                                    )
+	                                ),
+	                                (0, _mithril2.default)(
+	                                    "div",
+	                                    { "class": "contact-container__information__content-container__content-item" },
+	                                    (0, _mithril2.default)(
+	                                        "div",
+	                                        { "class": "contact-container__information__content-container__content-item--title" },
+	                                        "// Resume"
+	                                    ),
+	                                    (0, _mithril2.default)(
+	                                        "div",
+	                                        { "class": "contact-container__information__content-container__content-item--link" },
+	                                        (0, _mithril2.default)(
+	                                            "a",
+	                                            { href: "https://www.dropbox.com/s/9ln2fihrpa4fhxi/Resume-Chuck_Masucci.pdf?dl=1", target: "_blank" },
+	                                            "Download PDF"
 	                                        )
 	                                    )
 	                                )

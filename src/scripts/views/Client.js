@@ -50,7 +50,7 @@ class ClientView {
 
     static view (vnode) {
         return(
-            <section id="content-container" class="content-container client-container content-container--transition-in--next">
+            <section id="content-container" class="content-container client-container">
                 <SwipeOverlay copy="SWIPE TO NAVIGATE" />
                 <ClientButtonView direction="prev" setdirection={ this.direction } changeClient = { this.changeClient } />
                 <ClientButtonView direction="next" setdirection={ this.direction } changeClient = { this.changeClient } />

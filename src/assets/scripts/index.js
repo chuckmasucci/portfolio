@@ -100,6 +100,15 @@
 	    }
 	});
 
+	window.addEventListener("scroll", function (event) {
+	    console.log('scroll');
+	    var top = this.scrollY,
+	        left = this.scrollX;
+
+	    console.log("Scroll X: " + left + "px");
+	    console.log(verticalScroll.innerHTML = "Scroll Y: " + top + "px");
+	}, false);
+
 /***/ },
 /* 1 */
 /***/ function(module, exports, __webpack_require__) {
@@ -1777,6 +1786,13 @@
 	            vnode.dom.classList.remove('layout--nav-open');
 	        }
 	    }, {
+	        key: 'onupdate',
+	        value: function onupdate(vnode) {
+	            setTimeout(function () {
+	                vnode.dom.scrollTop = 0;
+	            }, 500);
+	        }
+	    }, {
 	        key: 'view',
 	        value: function view(vnode) {
 	            return (0, _mithril2.default)(
@@ -2255,7 +2271,7 @@
 	        value: function view(vnode) {
 	            return (0, _mithril2.default)(
 	                'section',
-	                { id: 'content-container', 'class': 'content-container client-container content-container--transition-in--next' },
+	                { id: 'content-container', 'class': 'content-container client-container' },
 	                (0, _mithril2.default)(_SwipeOverlay2.default, { copy: 'SWIPE TO NAVIGATE' }),
 	                (0, _mithril2.default)(_ClientButton2.default, { direction: 'prev', setdirection: this.direction, changeClient: this.changeClient }),
 	                (0, _mithril2.default)(_ClientButton2.default, { direction: 'next', setdirection: this.direction, changeClient: this.changeClient }),
@@ -2305,7 +2321,7 @@
 	            'a',
 	            { onclick: function onclick(e) {
 	                    return _this.changeClient(e, vnode.attrs.changeClient, vnode.attrs.setdirection, vnode.attrs.direction);
-	                }, href: vnode.attrs.direction == 'prev' && "/client/" + _ClientModel2.default.prevClient.slug + '?d=0' || vnode.attrs.direction == 'next' && '/client/' + _ClientModel2.default.nextClient.slug + '?d=1', oncreate: _mithril2.default.route.link, 'class': "client-container__toggle client-container__toggle-shadow--size-8 client-container__" + vnode.attrs.direction },
+	                }, href: vnode.attrs.direction == 'prev' && "/client/" + _ClientModel2.default.prevClient.slug || vnode.attrs.direction == 'next' && '/client/' + _ClientModel2.default.nextClient.slug, oncreate: _mithril2.default.route.link, 'class': "client-container__toggle client-container__toggle-shadow--size-8 client-container__" + vnode.attrs.direction },
 	            (0, _mithril2.default)(
 	                'div',
 	                { 'class': 'client-container__toggle__arrow' },
@@ -2569,6 +2585,8 @@
 	    }, {
 	        key: 'onupdate',
 	        value: function onupdate(vnode) {
+	            // vnode.dom.scrollTo(0, 0)
+
 	            // Transition in content
 	            if (this.navDirection == 'next') {
 	                vnode.dom.classList.add('content-container--transition-in--next');
@@ -2607,11 +2625,66 @@
 	                            'div',
 	                            { 'class': 'client-container__clients__content__title client-container__clients__content__title--shadow-size-8' },
 	                            _ClientModel2.default.currentClient.title
+	                        )
+	                    ),
+	                    (0, _mithril2.default)(
+	                        'div',
+	                        { 'class': 'client-container__clients__content__attributes' },
+	                        (0, _mithril2.default)(
+	                            'div',
+	                            { 'class': 'client-container__clients__content__attributes__container client-container__clients__content__attributes__container--box-shadow', style: "background-color:" + _ClientModel2.default.currentClient.color },
+	                            (0, _mithril2.default)(
+	                                'p',
+	                                { 'class': 'client-container__clients__content__attributes__container__desc' },
+	                                '// Agency'
+	                            ),
+	                            (0, _mithril2.default)(
+	                                'p',
+	                                { 'class': 'client-container__clients__content__attributes__container__copy' },
+	                                _ClientModel2.default.currentClient.agency
+	                            )
 	                        ),
 	                        (0, _mithril2.default)(
 	                            'div',
-	                            { 'class': 'client-container__clients__content__role' },
-	                            _ClientModel2.default.currentClient.role
+	                            { 'class': 'client-container__clients__content__attributes__container client-container__clients__content__attributes__container--box-shadow', style: "background-color:" + _ClientModel2.default.currentClient.color },
+	                            (0, _mithril2.default)(
+	                                'p',
+	                                { 'class': 'client-container__clients__content__attributes__container__desc' },
+	                                '// Project(s)'
+	                            ),
+	                            (0, _mithril2.default)(
+	                                'p',
+	                                { 'class': 'client-container__clients__content__attributes__container__copy' },
+	                                _ClientModel2.default.currentClient.project
+	                            )
+	                        ),
+	                        (0, _mithril2.default)(
+	                            'div',
+	                            { 'class': 'client-container__clients__content__attributes__container client-container__clients__content__attributes__container--box-shadow', style: "background-color:" + _ClientModel2.default.currentClient.color },
+	                            (0, _mithril2.default)(
+	                                'p',
+	                                { 'class': 'client-container__clients__content__attributes__container__desc' },
+	                                '// Role'
+	                            ),
+	                            (0, _mithril2.default)(
+	                                'p',
+	                                { 'class': 'client-container__clients__content__attributes__container__copy' },
+	                                _ClientModel2.default.currentClient.role
+	                            )
+	                        ),
+	                        (0, _mithril2.default)(
+	                            'div',
+	                            { 'class': 'client-container__clients__content__attributes__container client-container__clients__content__attributes__container--box-shadow', style: "background-color:" + _ClientModel2.default.currentClient.color },
+	                            (0, _mithril2.default)(
+	                                'p',
+	                                { 'class': 'client-container__clients__content__attributes__container__desc' },
+	                                '// Technologies'
+	                            ),
+	                            (0, _mithril2.default)(
+	                                'p',
+	                                { 'class': 'client-container__clients__content__attributes__container__copy' },
+	                                _ClientModel2.default.currentClient.technologies
+	                            )
 	                        )
 	                    )
 	                )
@@ -2623,6 +2696,8 @@
 	}();
 
 	module.exports = ClientChildView;
+
+	// "technologies": "HTML & CSS (Sass, Compass, Responsive Design)\r\nJavascript (Backbone, Raphael, Require, Three, Google Maps API, TweenMax)\r\nSVG",
 
 /***/ },
 /* 18 */

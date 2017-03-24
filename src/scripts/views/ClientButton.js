@@ -10,7 +10,7 @@ const ClientButtonView = {
 
     view(vnode) {
         return (
-            <a onclick={ (e) => this.changeClient(e, vnode.attrs.changeClient, vnode.attrs.setdirection, vnode.attrs.direction) } href={ (vnode.attrs.direction == 'prev') && "/client/" + ClientModel.prevClient.slug + '?d=0' || (vnode.attrs.direction == 'next') && '/client/' + ClientModel.nextClient.slug  + '?d=1' } oncreate={ m.route.link } class={"client-container__toggle client-container__toggle-shadow--size-8 client-container__"+vnode.attrs.direction}>
+            <a onclick={ (e) => this.changeClient(e, vnode.attrs.changeClient, vnode.attrs.setdirection, vnode.attrs.direction) } href={ (vnode.attrs.direction == 'prev') && "/client/" + ClientModel.prevClient.slug || (vnode.attrs.direction == 'next') && '/client/' + ClientModel.nextClient.slug } oncreate={ m.route.link } class={"client-container__toggle client-container__toggle-shadow--size-8 client-container__"+vnode.attrs.direction}>
                 <div class="client-container__toggle__arrow">
                     <svg xmlns="http://www.w3.org/2000/svg" width="21" height="25" viewBox="0 0 21 25">
                         { (vnode.attrs.direction == 'prev') &&

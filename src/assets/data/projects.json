@@ -2,21 +2,23 @@
     {
       "slug": "supercell",
       "title": "Supercell Shop",
-      "role": "Technical Director",
-      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus maximus ex mi, quis viverra felis aliquam at. Suspendisse potenti. Morbi scelerisque cursus dignissim. Aliquam et lacinia enim. Suspendisse potenti. Proin iaculis eros at nisl egestas fermentum. Vivamus non erat ligula. Duis vitae varius enim, id interdum leo. Sed euismod interdum eros sit amet fermentum. Aenean maximus mollis pellentesque. Nullam viverra volutpat ultrices.\r\n\r\nSuspendisse laoreet mauris a ante feugiat, nec interdum ipsum fringilla. Pellentesque luctus lorem lectus, sed placerat elit luctus vitae. Fusce id risus gravida nulla auctor porta. Etiam non ligula dignissim, semper tortor vel, ultricies purus. Integer risus urna, tincidunt porttitor neque quis, sagittis vehicula magna. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Aliquam sit amet urna tellus. Quisque tincidunt, metus id vestibulum suscipit, purus lorem sodales magna, luctus consectetur nisi mauris nec tortor. Nulla laoreet lacus nec odio mattis, vel pellentesque mauris ultrices. Donec suscipit nisi ut dignissim condimentum. Nam nulla nisi, sodales eget velit vitae, maximus volutpat massa. Integer elit dolor, sodales vel mattis et, facilisis vel velit. Aenean sed imperdiet nisl, nec ornare mauris. Donec malesuada congue suscipit. Sed sit amet tortor viverra, condimentum quam a, dignissim erat.",
-      "technologies": "HTML & CSS (Sass, Compass, Responsive Design)\r\nJavascript (Backbone, Raphael, Require, Three, Google Maps API, TweenMax)\r\nSVG",
+      "agency": "Firstborn",
+      "project": "Supercell merchandise shop",
+      "role": "Technical lead in charge of platform & Merchant of Record (MOR) selection",
+      "technologies": "Shopify platform, HTML & CSS (Sass), jQuery",
       "images":
       {
         "hero": "/assets/images/projects/supercell/hero.png"
       },
-      "color": "#6584a8"
+      "color": "#4f9ccc"
     },
     {
         "slug": "mdew",
         "title": "Mountain Dew",
-        "role": "Technical Director",
-        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus maximus ex mi, quis viverra felis aliquam at. Suspendisse potenti. Morbi scelerisque cursus dignissim. Aliquam et lacinia enim. Suspendisse potenti. Proin iaculis eros at nisl egestas fermentum. Vivamus non erat ligula. Duis vitae varius enim, id interdum leo. Sed euismod interdum eros sit amet fermentum. Aenean maximus mollis pellentesque. Nullam viverra volutpat ultrices.\r\n\r\nSuspendisse laoreet mauris a ante feugiat, nec interdum ipsum fringilla. Pellentesque luctus lorem lectus, sed placerat elit luctus vitae. Fusce id risus gravida nulla auctor porta. Etiam non ligula dignissim, semper tortor vel, ultricies purus. Integer risus urna, tincidunt porttitor neque quis, sagittis vehicula magna. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Aliquam sit amet urna tellus. Quisque tincidunt, metus id vestibulum suscipit, purus lorem sodales magna, luctus consectetur nisi mauris nec tortor. Nulla laoreet lacus nec odio mattis, vel pellentesque mauris ultrices. Donec suscipit nisi ut dignissim condimentum. Nam nulla nisi, sodales eget velit vitae, maximus volutpat massa. Integer elit dolor, sodales vel mattis et, facilisis vel velit. Aenean sed imperdiet nisl, nec ornare mauris. Donec malesuada congue suscipit. Sed sit amet tortor viverra, condimentum quam a, dignissim erat.",
-        "technologies": "HTML & CSS (Sass, Compass, Responsive Design)\r\nJavascript (Backbone, Raphael, Require, Three, Google Maps API, TweenMax)\r\nSVG",
+        "agency": "Firstborn",
+        "project": "All Mountain Dew projects",
+        "role": "AOR / Chief Technical Lead",
+        "technologies": "Full stack dev (HTML, CSS, JavaScript, PHP, Java), Dev Ops, Virtual Reality (Unreal and Custom C++), Mobile development (iOS & Android)",
         "images": {
             "hero": "/assets/images/projects/mdew/hero.png"
         },
@@ -25,9 +27,10 @@
     {
         "slug": "aflac",
         "title": "Aflac",
-        "role": "Technical Director",
-        "description": "Lorem ipsum",
-        "technologies": "Lorem ipsum",
+        "agency": "Firstborn",
+        "project": "Aflac dotcom",
+        "role": "LTR / Chief Technical Lead",
+        "technologies": "HTML & CSS (Sass), Browserify, jQuery, requireJS, WebGL",
         "images": {
             "hero": "/assets/images/projects/aflac/hero.png"
         },
@@ -36,9 +39,10 @@
     {
         "slug": "disney",
         "title": "Disney Springs",
-        "role": "Technical Director",
-        "description": "Lorem ipsum",
-        "technologies": "Lorem ipsum",
+        "agency": "Firstborn",
+        "project": "Disney Springs dotcom",
+        "role": "Technical lead & development management",
+        "technologies": "HTML & CSS (Sass), Wordpress, PHP, Backbone, requireJS, jQuery, GAS, Underscore",
         "images": {
             "hero": "/assets/images/projects/disney/hero.png"
         },
@@ -47,9 +51,10 @@
     {
         "slug": "ampenergy",
         "title": "Amp Energy",
-        "role": "Technical Director",
-        "description": "Lorem ipsum",
-        "technologies": "Lorem ipsum",
+        "agency": "Firstborn",
+        "project": "Amp Energy dotcom",
+        "role": "Technical lead & development management",
+        "technologies": "HTML & CSS (Sass), jQuery, GAS, Sizzel.js, Hammer.js",
         "images": {
             "hero": "/assets/images/projects/ampenergy/hero.png"
         },
@@ -58,30 +63,33 @@
     {
         "slug": "patron",
         "title": "Patron",
-        "role": "Technical Director",
-        "description": "Lorem ipsum",
-        "technologies": "Lorem ipsum",
+        "agency": "Firstborn",
+        "project": "Virtual Reality",
+        "role": "Technical lead & development management",
+        "technologies": "Custom C++ w/ Cinder, binaural audio",
         "images": {
             "hero": "/assets/images/projects/patron/hero.png"
         },
-        "color": "#92c4e9"
+        "color": "#7b7b6b"
     },{
         "slug": "twc",
         "title": "Time Warner Cable",
-        "role": "Technical Director",
-        "description": "Lorem ipsum",
-        "technologies": "Lorem ipsum",
+        "agency": "Firstborn",
+        "project": "Interactive WebGL",
+        "role": "Technical lead & development management",
+        "technologies": "HTML, CSS, JS (WebGL, CoffeeScript)",
         "images": {
             "hero": "/assets/images/projects/twc/hero.png"
         },
-        "color": "#92c4e9"
+        "color": "#e37071"
     },
     {
         "slug": "aquafina",
         "title": "Aquafina",
-        "role": "Technical Director",
-        "description": "Lorem ipsum",
-        "technologies": "Lorem ipsum",
+        "agency": "Firstborn",
+        "project": "Aquafina dotcom",
+        "role": "Technical lead & development management",
+        "technologies": "HTML, CSS, JS (jQuery, GAS, internal custom framework)",
         "images": {
             "hero": "/assets/images/projects/aquafina/hero.png"
         },
@@ -90,20 +98,23 @@
     {
         "slug": "rolex",
         "title": "Rolex",
-        "role": "Technical Director",
-        "description": "Lorem ipsum",
-        "technologies": "Lorem ipsum",
+        "agency": "Firstborn",
+        "project": "Rolex Baselworld 2015 interactive watch explorer",
+        "role": "Technical lead & development management",
+        "technologies": "HTML, CSS, JS (jQuery, GAS, internal custom framework)",
         "images": {
             "hero": "/assets/images/projects/rolex/hero.png"
         },
-        "color": "#92c4e9"
+        "color": "#333333"
     },
     {
         "slug": "keds",
         "title": "Keds Bravehearts",
-        "role": "Technical Director",
-        "description": "Lorem ipsum",
-        "technologies": "Lorem ipsum",
+        "agency": "Firstborn",
+        "project": "Keds Bravehearts Tumblr",
+        "role": "Technical lead & development management",
+        "technologies": "HTML, CSS, JS (jQuery, internal custom framework), Tumblr API, PHP",
+        "role": "Technical oversite & development management",
         "images": {
             "hero": "/assets/images/projects/keds/hero.png"
         },

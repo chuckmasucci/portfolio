@@ -26,3 +26,14 @@ m.route(document.body, '/', {
         }
     }
 });
+
+
+window.addEventListener("scroll", function(event) {
+    console.log('scroll')
+    var top = this.scrollY,
+        left = this.scrollX;
+
+    console.log("Scroll X: " + left + "px")
+    console.log(verticalScroll.innerHTML = "Scroll Y: " + top + "px");
+
+}, false);

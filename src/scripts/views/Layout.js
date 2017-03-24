@@ -25,6 +25,12 @@ class Layout {
         vnode.dom.classList.remove('layout--nav-open')
     }
 
+    static onupdate(vnode) {
+        setTimeout(() => {
+            vnode.dom.scrollTop = 0
+        }, 500)
+    }
+
     static view(vnode) {
         return (
             <main id="Layout" class="layout">

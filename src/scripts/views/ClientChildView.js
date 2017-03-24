@@ -45,6 +45,8 @@ class ClientChildView {
     }
 
     static onupdate(vnode) {
+        // vnode.dom.scrollTo(0, 0)
+
         // Transition in content
         if(this.navDirection == 'next') {
             vnode.dom.classList.add('content-container--transition-in--next')
@@ -76,8 +78,31 @@ class ClientChildView {
                     <span>
                         <img src={ClientModel.currentClient.images.hero} class="client-container__clients__content__hero" />
                         <div class="client-container__clients__content__title client-container__clients__content__title--shadow-size-8">{ClientModel.currentClient.title}</div>
-                        <div class="client-container__clients__content__role">{ClientModel.currentClient.role}</div>
                     </span>
+
+                    <div class="client-container__clients__content__attributes">
+                        <div class="client-container__clients__content__attributes__container client-container__clients__content__attributes__container--box-shadow" style={ "background-color:" + ClientModel.currentClient.color }>
+                            <p class="client-container__clients__content__attributes__container__desc">// Agency</p>
+                            <p class="client-container__clients__content__attributes__container__copy">{ ClientModel.currentClient.agency }</p>
+                        </div>
+
+                        <div class="client-container__clients__content__attributes__container client-container__clients__content__attributes__container--box-shadow" style={ "background-color:" + ClientModel.currentClient.color }>
+                            <p class="client-container__clients__content__attributes__container__desc">// Project(s)</p>
+                            <p class="client-container__clients__content__attributes__container__copy">{ ClientModel.currentClient.project }</p>
+                        </div>
+
+                        <div class="client-container__clients__content__attributes__container client-container__clients__content__attributes__container--box-shadow" style={ "background-color:" + ClientModel.currentClient.color }>
+                            <p class="client-container__clients__content__attributes__container__desc">// Role</p>
+                            <p class="client-container__clients__content__attributes__container__copy">{ ClientModel.currentClient.role }</p>
+                        </div>
+
+                        <div class="client-container__clients__content__attributes__container client-container__clients__content__attributes__container--box-shadow" style={ "background-color:" + ClientModel.currentClient.color }>
+                            <p class="client-container__clients__content__attributes__container__desc">// Technologies</p>
+                            <p class="client-container__clients__content__attributes__container__copy">{ ClientModel.currentClient.technologies }</p>
+                        </div>
+                    </div>
+
+
                 </div>
             }
             </div>
@@ -86,3 +111,6 @@ class ClientChildView {
 }
 
 module.exports = ClientChildView
+
+
+// "technologies": "HTML & CSS (Sass, Compass, Responsive Design)\r\nJavascript (Backbone, Raphael, Require, Three, Google Maps API, TweenMax)\r\nSVG",

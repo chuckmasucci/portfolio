@@ -70,11 +70,7 @@
 
 	var _ClientChildView2 = _interopRequireDefault(_ClientChildView);
 
-	var _ClientButton = __webpack_require__(13);
-
-	var _ClientButton2 = _interopRequireDefault(_ClientButton);
-
-	var _Contact = __webpack_require__(18);
+	var _Contact = __webpack_require__(19);
 
 	var _Contact2 = _interopRequireDefault(_Contact);
 
@@ -99,15 +95,6 @@
 	        }
 	    }
 	});
-
-	window.addEventListener("scroll", function (event) {
-	    console.log('scroll');
-	    var top = this.scrollY,
-	        left = this.scrollX;
-
-	    console.log("Scroll X: " + left + "px");
-	    console.log(verticalScroll.innerHTML = "Scroll Y: " + top + "px");
-	}, false);
 
 /***/ },
 /* 1 */
@@ -2526,6 +2513,10 @@
 
 	var _App2 = _interopRequireDefault(_App);
 
+	var _ClientAttrView = __webpack_require__(18);
+
+	var _ClientAttrView2 = _interopRequireDefault(_ClientAttrView);
+
 	var _ClientModel = __webpack_require__(7);
 
 	var _ClientModel2 = _interopRequireDefault(_ClientModel);
@@ -2585,28 +2576,37 @@
 	    }, {
 	        key: 'onupdate',
 	        value: function onupdate(vnode) {
-	            // vnode.dom.scrollTo(0, 0)
+	            var _this = this;
 
-	            // Transition in content
-	            if (this.navDirection == 'next') {
-	                vnode.dom.classList.add('content-container--transition-in--next');
-	                vnode.dom.classList.remove('content-container--transition-out--next');
-	            } else if (this.navDirection == 'prev') {
-	                vnode.dom.classList.add('content-container--transition-in--prev');
-	                vnode.dom.classList.remove('content-container--transition-out--prev');
-	            }
+	            // Let's load the image dynamically so we can use the img's onload callback to properly animate the image.
+	            // This will stop the new client from animating in before the image is loaded and on the dom
+	            var clientImg = document.getElementById('client-container__clients__content__hero');
+	            clientImg.src = _ClientModel2.default.currentClient.images.hero;
+	            clientImg.onload = function () {
+	                // Show the dom before we transition in
+	                vnode.dom.style.display = 'block';
 
-	            setTimeout(function () {
-	                vnode.dom.classList.remove('content-container--transition-in--next');
-	                vnode.dom.classList.remove('content-container--transition-in--prev');
-	            }, 500);
+	                // Transition in content
+	                if (_this.navDirection == 'next') {
+	                    vnode.dom.classList.add('content-container--transition-in--next');
+	                    vnode.dom.classList.remove('content-container--transition-out--next');
+	                } else if (_this.navDirection == 'prev') {
+	                    vnode.dom.classList.add('content-container--transition-in--prev');
+	                    vnode.dom.classList.remove('content-container--transition-out--prev');
+	                }
 
-	            // Get the container dom element
-	            // it will be used during transition out since onbeforeupdate's vnode does not contain a dom
-	            this.container = vnode.dom;
+	                setTimeout(function () {
+	                    vnode.dom.classList.remove('content-container--transition-in--next');
+	                    vnode.dom.classList.remove('content-container--transition-in--prev');
+	                }, 500);
 
-	            // Set to true to allow the next client to transition in
-	            this.clientSet = true;
+	                // Get the container dom element
+	                // it will be used during transition out since onbeforeupdate's vnode does not contain a dom
+	                _this.container = vnode.dom;
+
+	                // Set to true to allow the next client to transition in
+	                _this.clientSet = true;
+	            };
 	        }
 	    }, {
 	        key: 'view',
@@ -2620,7 +2620,7 @@
 	                    (0, _mithril2.default)(
 	                        'span',
 	                        null,
-	                        (0, _mithril2.default)('img', { src: _ClientModel2.default.currentClient.images.hero, 'class': 'client-container__clients__content__hero' }),
+	                        (0, _mithril2.default)('img', { src: '', id: 'client-container__clients__content__hero', 'class': 'client-container__clients__content__hero' }),
 	                        (0, _mithril2.default)(
 	                            'div',
 	                            { 'class': 'client-container__clients__content__title client-container__clients__content__title--shadow-size-8' },
@@ -2630,62 +2630,10 @@
 	                    (0, _mithril2.default)(
 	                        'div',
 	                        { 'class': 'client-container__clients__content__attributes' },
-	                        (0, _mithril2.default)(
-	                            'div',
-	                            { 'class': 'client-container__clients__content__attributes__container client-container__clients__content__attributes__container--box-shadow', style: "background-color:" + _ClientModel2.default.currentClient.color },
-	                            (0, _mithril2.default)(
-	                                'p',
-	                                { 'class': 'client-container__clients__content__attributes__container__desc' },
-	                                '// Agency'
-	                            ),
-	                            (0, _mithril2.default)(
-	                                'p',
-	                                { 'class': 'client-container__clients__content__attributes__container__copy' },
-	                                _ClientModel2.default.currentClient.agency
-	                            )
-	                        ),
-	                        (0, _mithril2.default)(
-	                            'div',
-	                            { 'class': 'client-container__clients__content__attributes__container client-container__clients__content__attributes__container--box-shadow', style: "background-color:" + _ClientModel2.default.currentClient.color },
-	                            (0, _mithril2.default)(
-	                                'p',
-	                                { 'class': 'client-container__clients__content__attributes__container__desc' },
-	                                '// Project(s)'
-	                            ),
-	                            (0, _mithril2.default)(
-	                                'p',
-	                                { 'class': 'client-container__clients__content__attributes__container__copy' },
-	                                _ClientModel2.default.currentClient.project
-	                            )
-	                        ),
-	                        (0, _mithril2.default)(
-	                            'div',
-	                            { 'class': 'client-container__clients__content__attributes__container client-container__clients__content__attributes__container--box-shadow', style: "background-color:" + _ClientModel2.default.currentClient.color },
-	                            (0, _mithril2.default)(
-	                                'p',
-	                                { 'class': 'client-container__clients__content__attributes__container__desc' },
-	                                '// Role'
-	                            ),
-	                            (0, _mithril2.default)(
-	                                'p',
-	                                { 'class': 'client-container__clients__content__attributes__container__copy' },
-	                                _ClientModel2.default.currentClient.role
-	                            )
-	                        ),
-	                        (0, _mithril2.default)(
-	                            'div',
-	                            { 'class': 'client-container__clients__content__attributes__container client-container__clients__content__attributes__container--box-shadow', style: "background-color:" + _ClientModel2.default.currentClient.color },
-	                            (0, _mithril2.default)(
-	                                'p',
-	                                { 'class': 'client-container__clients__content__attributes__container__desc' },
-	                                '// Technologies'
-	                            ),
-	                            (0, _mithril2.default)(
-	                                'p',
-	                                { 'class': 'client-container__clients__content__attributes__container__copy' },
-	                                _ClientModel2.default.currentClient.technologies
-	                            )
-	                        )
+	                        (0, _mithril2.default)(_ClientAttrView2.default, { description: '// Agency', copy: _ClientModel2.default.currentClient.agency, bgcolor: _ClientModel2.default.currentClient.color }),
+	                        (0, _mithril2.default)(_ClientAttrView2.default, { description: '// Project(s)', copy: _ClientModel2.default.currentClient.project, bgcolor: _ClientModel2.default.currentClient.color }),
+	                        (0, _mithril2.default)(_ClientAttrView2.default, { description: '// Role', copy: _ClientModel2.default.currentClient.role, bgcolor: _ClientModel2.default.currentClient.color }),
+	                        (0, _mithril2.default)(_ClientAttrView2.default, { description: '// Technologies', copy: _ClientModel2.default.currentClient.technologies, bgcolor: _ClientModel2.default.currentClient.color })
 	                    )
 	                )
 	            );
@@ -2701,6 +2649,41 @@
 
 /***/ },
 /* 18 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	var _mithril = __webpack_require__(1);
+
+	var _mithril2 = _interopRequireDefault(_mithril);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var ClientAttr = {
+	    view: function view(_ref) {
+	        var attrs = _ref.attrs;
+
+	        return (0, _mithril2.default)(
+	            "div",
+	            { "class": "client-container__clients__content__attributes__container client-container__clients__content__attributes__container--box-shadow", style: "background-color:" + attrs.bgcolor },
+	            (0, _mithril2.default)(
+	                "p",
+	                { "class": "client-container__clients__content__attributes__container__desc" },
+	                attrs.description
+	            ),
+	            (0, _mithril2.default)(
+	                "p",
+	                { "class": "client-container__clients__content__attributes__container__copy" },
+	                attrs.copy
+	            )
+	        );
+	    }
+	};
+
+	module.exports = ClientAttr;
+
+/***/ },
+/* 19 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";

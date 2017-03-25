@@ -14,10 +14,13 @@ const mainJS = './src/scripts/main.js'
 const distDir = 'dist'
 const distDataDir = 'dist/assets/data/'
 const distImagesDir = 'dist/assets/images/'
+const distJsDir = 'dist/assets/scripts/'
+const distStylesDir = 'dist/assets/styles/'
 
 // Asset sources
 const dataSources = 'src/assets/data/**/*'
 const imageSources = 'src/assets/images/**/*'
+const distJsSources = 'src/assets/scripts/**/*'
 
 // Core sources
 const indexSource = 'src/index.html'
@@ -59,6 +62,9 @@ gulp.task('build-dev', ['sass-dev', 'webpack-dev'], function() {
 
 // Production tasks
 gulp.task('copy-static-files', () => {
+    gulp.src(distJsSources)
+        .pipe(gulp.dest(distJsDir))
+
     gulp.src(indexSource)
         .pipe(gulp.dest(distDir))
 
@@ -75,7 +81,7 @@ gulp.task('sass-prod', () => {
             style: 'compressed'
         }))
         .on('error', gutil.log)
-        .pipe(gulp.dest(stylesDir))
+        .pipe(gulp.dest(distStylesDir))
 });
 
 gulp.task('webpack-prod', () => {

@@ -1,5 +1,6 @@
 import m from 'mithril'
 import App from '../models/App'
+import ClientAttrView from './ClientAttrView'
 import ClientModel from '../models/ClientModel'
 
 class ClientChildView {
@@ -21,6 +22,8 @@ class ClientChildView {
     static onbeforeupdate(vnode) {
         // Set navDirection to component state
         this.navDirection = vnode.attrs.navDirection
+
+
 
         // Checks to see if the client has finished transitioning in and is ready to be transitioned out
         if(this.clientSet) {
@@ -45,29 +48,38 @@ class ClientChildView {
     }
 
     static onupdate(vnode) {
-        // vnode.dom.scrollTo(0, 0)
+        // Let's load the image dynamically so we can use the img's onload callback to properly animate the image.
+        // This will stop the new client from animating in before the image is loaded and on the dom
+        let clientImg = document.getElementById('client-container__clients__content__hero')
+        clientImg.src = ClientModel.currentClient.images.hero
+        clientImg.onload = () => {
+            // Show the dom before we transition in
+            vnode.dom.style.display = 'block'
 
-        // Transition in content
-        if(this.navDirection == 'next') {
-            vnode.dom.classList.add('content-container--transition-in--next')
-            vnode.dom.classList.remove('content-container--transition-out--next')
+            // Transition in content
+            if(this.navDirection == 'next') {
+                vnode.dom.classList.add('content-container--transition-in--next')
+                vnode.dom.classList.remove('content-container--transition-out--next')
+            }
+            else if(this.navDirection == 'prev') {
+                vnode.dom.classList.add('content-container--transition-in--prev')
+                vnode.dom.classList.remove('content-container--transition-out--prev')
+            }
+
+            setTimeout(() => {
+                vnode.dom.classList.remove('content-container--transition-in--next')
+                vnode.dom.classList.remove('content-container--transition-in--prev')
+            }, 500)
+
+            // Get the container dom element
+            // it will be used during transition out since onbeforeupdate's vnode does not contain a dom
+            this.container = vnode.dom
+
+            // Set to true to allow the next client to transition in
+            this.clientSet = true
         }
-        else if(this.navDirection == 'prev') {
-            vnode.dom.classList.add('content-container--transition-in--prev')
-            vnode.dom.classList.remove('content-container--transition-out--prev')
-        }
 
-        setTimeout(() => {
-            vnode.dom.classList.remove('content-container--transition-in--next')
-            vnode.dom.classList.remove('content-container--transition-in--prev')
-        }, 500)
 
-        // Get the container dom element
-        // it will be used during transition out since onbeforeupdate's vnode does not contain a dom
-        this.container = vnode.dom
-
-        // Set to true to allow the next client to transition in
-        this.clientSet = true
     }
 
     static view(vnode) {
@@ -76,33 +88,16 @@ class ClientChildView {
             {('title' in ClientModel.currentClient) &&
                 <div class="client-container__clients__content">
                     <span>
-                        <img src={ClientModel.currentClient.images.hero} class="client-container__clients__content__hero" />
+                        <img src="" id="client-container__clients__content__hero" class="client-container__clients__content__hero" />
                         <div class="client-container__clients__content__title client-container__clients__content__title--shadow-size-8">{ClientModel.currentClient.title}</div>
                     </span>
 
                     <div class="client-container__clients__content__attributes">
-                        <div class="client-container__clients__content__attributes__container client-container__clients__content__attributes__container--box-shadow" style={ "background-color:" + ClientModel.currentClient.color }>
-                            <p class="client-container__clients__content__attributes__container__desc">// Agency</p>
-                            <p class="client-container__clients__content__attributes__container__copy">{ ClientModel.currentClient.agency }</p>
-                        </div>
-
-                        <div class="client-container__clients__content__attributes__container client-container__clients__content__attributes__container--box-shadow" style={ "background-color:" + ClientModel.currentClient.color }>
-                            <p class="client-container__clients__content__attributes__container__desc">// Project(s)</p>
-                            <p class="client-container__clients__content__attributes__container__copy">{ ClientModel.currentClient.project }</p>
-                        </div>
-
-                        <div class="client-container__clients__content__attributes__container client-container__clients__content__attributes__container--box-shadow" style={ "background-color:" + ClientModel.currentClient.color }>
-                            <p class="client-container__clients__content__attributes__container__desc">// Role</p>
-                            <p class="client-container__clients__content__attributes__container__copy">{ ClientModel.currentClient.role }</p>
-                        </div>
-
-                        <div class="client-container__clients__content__attributes__container client-container__clients__content__attributes__container--box-shadow" style={ "background-color:" + ClientModel.currentClient.color }>
-                            <p class="client-container__clients__content__attributes__container__desc">// Technologies</p>
-                            <p class="client-container__clients__content__attributes__container__copy">{ ClientModel.currentClient.technologies }</p>
-                        </div>
+                        <ClientAttrView description="// Agency" copy={ ClientModel.currentClient.agency } bgcolor={ ClientModel.currentClient.color } />
+                        <ClientAttrView description="// Project(s)" copy={ ClientModel.currentClient.project } bgcolor={ ClientModel.currentClient.color } />
+                        <ClientAttrView description="// Role" copy={ ClientModel.currentClient.role } bgcolor={ ClientModel.currentClient.color } />
+                        <ClientAttrView description="// Technologies" copy={ ClientModel.currentClient.technologies } bgcolor={ ClientModel.currentClient.color } />
                     </div>
-
-
                 </div>
             }
             </div>

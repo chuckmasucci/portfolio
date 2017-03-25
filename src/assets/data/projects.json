@@ -101,7 +101,7 @@
         "agency": "Firstborn",
         "project": "Rolex Baselworld 2015 interactive watch explorer",
         "role": "Technical lead & development management",
-        "technologies": "HTML, CSS, JS (jQuery, GAS, internal custom framework)",
+        "technologies": "HTML, CSS, JS (jQuery, GAS, Hammer.js, Kew)",
         "images": {
             "hero": "/assets/images/projects/rolex/hero.png"
         },

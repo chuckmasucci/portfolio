@@ -220,7 +220,8 @@ body {
     body .layout #content-container.client-container .client-container__clients {
       position: absolute;
       width: 100vw;
-      height: 100vh; }
+      height: 100vh;
+      display: none; }
       body .layout #content-container.client-container .client-container__clients .client-container__clients__content {
         margin: 60px auto 20px;
         max-width: 80vw;

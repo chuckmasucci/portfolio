@@ -4,7 +4,6 @@ import Nav from './views/Nav'
 import Home from './views/Home'
 import Client from './views/Client'
 import ClientChildView from './views/ClientChildView'
-import ClientButtonView from './views/ClientButton'
 import Contact from './views/Contact'
 
 // m.route.prefix("#!")
@@ -16,7 +15,7 @@ m.route(document.body, '/', {
         }
     },
     '/client/:id': {
-        render: vnode => {
+        render: vnode => {  
             return [m(Layout, vnode.attrs, [m(Client, vnode.attrs, m(ClientChildView, vnode.attrs))]), m(Nav, vnode.attrs)]
         }
     },
@@ -26,14 +25,3 @@ m.route(document.body, '/', {
         }
     }
 });
-
-
-window.addEventListener("scroll", function(event) {
-    console.log('scroll')
-    var top = this.scrollY,
-        left = this.scrollX;
-
-    console.log("Scroll X: " + left + "px")
-    console.log(verticalScroll.innerHTML = "Scroll Y: " + top + "px");
-
-}, false);

@@ -1971,7 +1971,7 @@
 	                    { 'class': 'nav__list-main' },
 	                    (0, _mithril2.default)(_NavItem2.default, { type: 'link', route: '/', icon: 'fa-home', title: 'Home' }),
 	                    (0, _mithril2.default)(_NavItem2.default, { type: 'spacer', 'spacer-type': 'bullet' }),
-	                    (0, _mithril2.default)(_NavItem2.default, { type: 'link', route: '/client/' + _ClientModel2.default.currentClient.slug, icon: 'fa-home', title: 'Projects' }),
+	                    (0, _mithril2.default)(_NavItem2.default, { type: 'link', route: '/client/' + _ClientModel2.default.currentClient.slug, icon: 'fa-cloud', title: 'Projects' }),
 	                    (0, _mithril2.default)(_NavItem2.default, { type: 'spacer', 'spacer-type': 'bullet' }),
 	                    (0, _mithril2.default)(_NavItem2.default, { type: 'link', route: '/contact/', icon: 'fa-address-card', title: 'Contact' })
 	                )

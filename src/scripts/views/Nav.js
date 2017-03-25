@@ -23,7 +23,7 @@ class Nav {
                 <ul class="nav__list-main">
                     <NavItem type="link" route="/" icon="fa-home" title="Home" />
                     <NavItem type="spacer" spacer-type="bullet" />
-                    <NavItem type="link" route={'/client/' + ClientModel.currentClient.slug} icon="fa-home" title="Projects" />
+                    <NavItem type="link" route={'/client/' + ClientModel.currentClient.slug} icon="fa-cloud" title="Projects" />
                     <NavItem type="spacer" spacer-type="bullet" />
                     <NavItem type="link" route="/contact/" icon="fa-address-card" title="Contact" />
                 </ul>

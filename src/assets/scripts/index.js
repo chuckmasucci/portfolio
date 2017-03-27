@@ -2757,15 +2757,16 @@
 	                                    (0, _mithril2.default)(
 	                                        "div",
 	                                        { "class": "contact-container__information__content-container__content-item--title" },
-	                                        "// Email"
-	                                    ),
-	                                    (0, _mithril2.default)(
-	                                        "div",
-	                                        { "class": "contact-container__information__content-container__content-item--link" },
 	                                        (0, _mithril2.default)(
 	                                            "a",
 	                                            { href: "mailto:cmasucci@gmail.com" },
-	                                            "cmasucci@gmail.com"
+	                                            (0, _mithril2.default)("i", { "class": "fa fa-envelope-o" }),
+	                                            " ",
+	                                            (0, _mithril2.default)(
+	                                                "span",
+	                                                null,
+	                                                "Email"
+	                                            )
 	                                        )
 	                                    )
 	                                ),
@@ -2775,15 +2776,11 @@
 	                                    (0, _mithril2.default)(
 	                                        "div",
 	                                        { "class": "contact-container__information__content-container__content-item--title" },
-	                                        "// LinkedIn"
-	                                    ),
-	                                    (0, _mithril2.default)(
-	                                        "div",
-	                                        { "class": "contact-container__information__content-container__content-item--link" },
 	                                        (0, _mithril2.default)(
 	                                            "a",
 	                                            { href: "http://linkedin.com/in/chuckmasucci/", target: "_blank" },
-	                                            "linkedin.com/in/chuckmasucci"
+	                                            (0, _mithril2.default)("i", { "class": "fa fa-linkedin" }),
+	                                            " LinkedIn"
 	                                        )
 	                                    )
 	                                ),
@@ -2793,15 +2790,25 @@
 	                                    (0, _mithril2.default)(
 	                                        "div",
 	                                        { "class": "contact-container__information__content-container__content-item--title" },
-	                                        "// Resume"
-	                                    ),
-	                                    (0, _mithril2.default)(
-	                                        "div",
-	                                        { "class": "contact-container__information__content-container__content-item--link" },
 	                                        (0, _mithril2.default)(
 	                                            "a",
 	                                            { href: "https://www.dropbox.com/s/9ln2fihrpa4fhxi/Resume-Chuck_Masucci.pdf?dl=1", target: "_blank" },
-	                                            "Download PDF"
+	                                            (0, _mithril2.default)("i", { "class": "fa fa-file-text-o" }),
+	                                            " Resume"
+	                                        )
+	                                    )
+	                                ),
+	                                (0, _mithril2.default)(
+	                                    "div",
+	                                    { "class": "contact-container__information__content-container__content-item" },
+	                                    (0, _mithril2.default)(
+	                                        "div",
+	                                        { "class": "contact-container__information__content-container__content-item--title" },
+	                                        (0, _mithril2.default)(
+	                                            "a",
+	                                            { href: "https://github.com/chuckmasucci/", target: "_blank" },
+	                                            (0, _mithril2.default)("i", { "class": "fa fa-github" }),
+	                                            " GitHub"
 	                                        )
 	                                    )
 	                                )

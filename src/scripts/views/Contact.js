@@ -33,26 +33,30 @@ class ContactView {
                             <div class="contact-container__information__content-container__content-items">
                                 <div class="contact-container__information__content-container__content-item">
                                     <div class="contact-container__information__content-container__content-item--title">
-                                        // Email
-                                    </div>
-                                    <div class="contact-container__information__content-container__content-item--link">
-                                        <a href="mailto:cmasucci@gmail.com">cmasucci@gmail.com</a>
-                                    </div>
-                                </div>
-                                <div class="contact-container__information__content-container__content-item">
-                                    <div class="contact-container__information__content-container__content-item--title">
-                                        // LinkedIn
-                                    </div>
-                                    <div class="contact-container__information__content-container__content-item--link">
-                                        <a href="http://linkedin.com/in/chuckmasucci/" target="_blank">linkedin.com/in/chuckmasucci</a>
+                                        <a href="mailto:cmasucci@gmail.com">
+                                          <i class="fa fa-envelope-o"></i> <span>Email</span>
+                                        </a>
                                     </div>
                                 </div>
                                 <div class="contact-container__information__content-container__content-item">
                                     <div class="contact-container__information__content-container__content-item--title">
-                                        // Resume
+                                        <a href="http://linkedin.com/in/chuckmasucci/" target="_blank">
+                                            <i class="fa fa-linkedin"></i> LinkedIn
+                                        </a>
                                     </div>
-                                    <div class="contact-container__information__content-container__content-item--link">
-                                        <a href="https://www.dropbox.com/s/9ln2fihrpa4fhxi/Resume-Chuck_Masucci.pdf?dl=1" target="_blank">Download PDF</a>
+                                </div>
+                                <div class="contact-container__information__content-container__content-item">
+                                    <div class="contact-container__information__content-container__content-item--title">
+                                        <a href="https://www.dropbox.com/s/9ln2fihrpa4fhxi/Resume-Chuck_Masucci.pdf?dl=1" target="_blank">
+                                            <i class="fa fa-file-text-o"></i> Resume
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="contact-container__information__content-container__content-item">
+                                    <div class="contact-container__information__content-container__content-item--title">
+                                        <a href="https://github.com/chuckmasucci/" target="_blank">
+                                            <i class="fa fa-github"></i> GitHub
+                                        </a>
                                     </div>
                                 </div>
                             </div>

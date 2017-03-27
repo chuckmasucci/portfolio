@@ -392,7 +392,15 @@ body {
                   margin: 0 0 12px; } }
               body .layout #content-container.contact-container .contact-container__holder .contact-container__information .contact-container__information__content-container .contact-container__information__content-container__content-items .contact-container__information__content-container__content-item .contact-container__information__content-container__content-item--title {
                 font-family: 'Bree Serif', serif;
-                font-size: 30px; }
+                font-size: 30px;
+                line-height: 50px; }
+                body .layout #content-container.contact-container .contact-container__holder .contact-container__information .contact-container__information__content-container .contact-container__information__content-container__content-items .contact-container__information__content-container__content-item .contact-container__information__content-container__content-item--title a {
+                  color: #FFFFFF;
+                  text-decoration: none; }
+                  body .layout #content-container.contact-container .contact-container__holder .contact-container__information .contact-container__information__content-container .contact-container__information__content-container__content-items .contact-container__information__content-container__content-item .contact-container__information__content-container__content-item--title a:hover {
+                    color: #00a341; }
+                  body .layout #content-container.contact-container .contact-container__holder .contact-container__information .contact-container__information__content-container .contact-container__information__content-container__content-items .contact-container__information__content-container__content-item .contact-container__information__content-container__content-item--title a .fa {
+                    margin: 0 5px 0 0; }
                 @media screen and (max-width: 725px) {
                   body .layout #content-container.contact-container .contact-container__holder .contact-container__information .contact-container__information__content-container .contact-container__information__content-container__content-items .contact-container__information__content-container__content-item .contact-container__information__content-container__content-item--title {
                     font-size: 25px; } }

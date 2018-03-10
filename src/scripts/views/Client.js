@@ -36,7 +36,7 @@ class ClientView {
                 this.direction('prev')
                 this.changeClient('prev')
             }
-        });
+        })
     }
 
     static onbeforeremove(vnode) {

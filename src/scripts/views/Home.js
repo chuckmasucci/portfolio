@@ -1,5 +1,4 @@
 import m from 'mithril'
-import App from '../models/App'
 import ClientModel from '../models/ClientModel'
 
 class HomeView {
@@ -7,7 +6,7 @@ class HomeView {
         // Wait for transition in animation to complere (.5s) and remove the class
         setTimeout(function () {
             vnode.dom.classList.remove("content-container--transition-in--next")
-        }, 500);
+        }, 500)
     }
 
     static onbeforeremove(vnode) {
@@ -18,10 +17,10 @@ class HomeView {
         // On complete the onremove method is called and this view is destroyed
         return new Promise((resolve) => {
             setTimeout(resolve, 500)
-        });
+        })
     }
 
-    static view(vnode) {
+    static view() {
         return(
             <section id="content-container" class="home content-container content-container--transition-in--next">
                 <div id="content-container__home" class="content-container__home">
